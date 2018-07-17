@@ -10,7 +10,6 @@ Then run the VulkanoEngine.exe inside the Executables folder and watch the conso
 * Press \'F\' to TOGGLE the FPS counter in the Console Window.
 
 ## Project Goals
-TODO
 
 ## How To Build For Windows
 Any system paths specified are just recommendations
@@ -32,7 +31,7 @@ If you don't use the recommended paths/install directories or use another librar
   
 ### Dynamic Libraries
 The PhysX dll's we need next to the executable get copied to the output folder in a 'PostBuild Event'.
-For this to work you need to make [this folder structure](TODO-TODO-TODO-TODO). The files inside are binaries you built in the [Prerequisites](#prerequisites) step, located in "$\PhysX-**<version-nr>**\PhysXSDK\Bin\vc14win**<32or64>**".
+For this to work you need to make [this folder structure](TODO-TODO-TODO-TODO). The files inside are binaries you built in the [Prerequisites](#prerequisites) step, located in "$\PhysX-<version-nr>\PhysXSDK\Bin\vc14win<32or64>".
 
 ### Building
-If all the paths in the above mentioned properties point to the correct folders, you are now ready to press F7 and enjoy your self built VulkanoEngine.
+If all the paths in the [above mentioned project properties](#how-to-build-for-windows) point to the correct folders, you are now ready to press F7 and enjoy your self built VulkanoEngine.
