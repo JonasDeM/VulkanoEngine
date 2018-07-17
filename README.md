@@ -2,7 +2,7 @@
 ## Demo
 I included a demo executable for 64-bit Windows. You only need the folder Executables, easiest way is to just clone this repo.
 Then run the VulkanoEngine.exe inside the Executables folder and watch the console window for instructions.
-###Instructions
+### Instructions
 Use WASD + Hold and move Mouse to navigate in the scene.
 Have an AZERTY keyboard? Press 'P' to toggle to ZQSD controls and back.
 Press 'N'/'M' to go the the next/previous scene.
