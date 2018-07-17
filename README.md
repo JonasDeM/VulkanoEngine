@@ -21,5 +21,5 @@ If you don't use the recommended paths/install directories or use another librar
 * Vulkan SDK (Tested with version 1.0.49.0, directory="C:\VulkanSDK")
 * GLFW binaries (Tested with version 3.2.1, directory="C:\Libraries\glfw")
 * PhysX SDK (Tested with version 3.3, directory="C:\Libraries\PhysX-3.3")
- * Nvidia doesn't offer pre-built .dll's or .libs, so you will need to build them yourself. First Request acces to [NVIDIAGameWorks](https://developer.nvidia.com/what-is-gameworks) then just follow the guidelines on their readme.
- * IMPORTANT: Change Code Generation to Multi-threaded (Debug) **DLL** (for every build configuration, for every project(multi project edit is supported in vs))
+  * Nvidia doesn't offer pre-built .dll's or .libs, so you will need to build them yourself. First Request acces to [NVIDIAGameWorks](https://developer.nvidia.com/what-is-gameworks) then just follow the guidelines on their readme.
+  * IMPORTANT: Change Code Generation to Multi-threaded (Debug) **DLL** (for every build configuration, for every project(multi project edit is supported in vs))
