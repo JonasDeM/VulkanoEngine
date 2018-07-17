@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{b01c600a-d9ff-4a17-bd8f-19802a9aea1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs">
+      <UniqueIdentifier>{05f153f1-c8cf-49da-b28c-586df7cb8d33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\Basic">
+      <UniqueIdentifier>{e0de9209-3519-491b-8f07-15e13f04cc40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs\Basic Shapes">
+      <UniqueIdentifier>{2642c5ca-d23e-4e6a-be84-e08b198b813e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs\MeshObjects">
+      <UniqueIdentifier>{9cb7350f-1f5a-4fd2-9113-5f98da52504a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\Meshes">
+      <UniqueIdentifier>{03761f2d-9226-44b2-bc52-baf0f71bc34a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\PhysX">
+      <UniqueIdentifier>{cd2b02e1-7f23-43f1-b57c-eec5890aaebd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Engine Files\SceneGraph">
+      <UniqueIdentifier>{3eaa95ed-5c08-4069-88f8-067d04b412fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Camera">
+      <UniqueIdentifier>{4424c32f-560a-44d2-a7ef-37b49f7113b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Managers">
+      <UniqueIdentifier>{0a68b7c1-123e-4524-8757-eaf9dd1c3122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Physx">
+      <UniqueIdentifier>{675eb763-3dff-4a83-8493-8359652f750d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Vulkan">
+      <UniqueIdentifier>{9d5c9420-41ed-4a6e-89c8-d6edf929b15f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Vulkan\Pipelines">
+      <UniqueIdentifier>{85bb5e76-ed07-4b82-81f0-7819b0e8e901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\PlatformSpecific">
+      <UniqueIdentifier>{04c51de0-c3ed-45fd-86f1-104af39007c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Loaders">
+      <UniqueIdentifier>{56c4cc16-99d9-4d27-b038-8e7df5c721e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Utilities">
+      <UniqueIdentifier>{0a41c065-d96c-47b0-b856-323db508c813}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameObject.h">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentManager.h">
+      <Filter>Engine Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Engine Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexStructs.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryReader.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysxAllocator.h">
+      <Filter>Engine Files\Physx</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysxErrorCallback.h">
+      <Filter>Engine Files\Physx</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysxManager.h">
+      <Filter>Engine Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysxHelpers.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomSimulationFilterShader.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="PxConvexMeshLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="PxTriangleMeshLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="DeriveableHandle.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VkDevice_Ext.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VkImage_Ext.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VkDepthImage_Ext.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VkImageView_Ext.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VkPhysicalDevice_Ext.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VkTextureImage_Ext.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VkBasicSampler_Ext.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VkInstance_Ext.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VkSwapchainKHR_Ext.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanDebugRenderer.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBase.h">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="VkPipelineManager.h">
+      <Filter>Engine Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="VkDebugPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClInclude>
+    <ClInclude Include="VkPosColTexPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClInclude>
+    <ClInclude Include="VkPosColNormPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClInclude>
+    <ClInclude Include="VkTextureLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h" />
+    <ClInclude Include="VkPosNormTexPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxDemoScene.h">
+      <Filter>Scenes\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="CarouselScene.h">
+      <Filter>Scenes\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="GimbalRigScene.h">
+      <Filter>Scenes\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanContext.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSettings.h">
+      <Filter>Engine Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanDrawer.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VkPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="VkContentLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseCamera.h">
+      <Filter>Engine Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ManualCamera.h">
+      <Filter>Engine Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshDataLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="GameContext.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshData.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="CubePosColorNorm.h">
+      <Filter>Prefabs\Basic Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="CubePosColorTex.h">
+      <Filter>Prefabs\Basic Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="CylinderPosColorNorm.h">
+      <Filter>Prefabs\Basic Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="GimbalRig.h">
+      <Filter>Prefabs\Basic Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="TorusPosColorNorm.h">
+      <Filter>Prefabs\Basic Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="FileUtils.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="HandleUtilities.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanUtils.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshObject.h">
+      <Filter>Prefabs\MeshObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshObjectTex.h">
+      <Filter>Prefabs\MeshObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="BouncingBallScene.h">
+      <Filter>Scenes\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="InputTestScene.h">
+      <Filter>Scenes\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysXMeshTestScene_2.h">
+      <Filter>Scenes\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturedMeshScene.h">
+      <Filter>Scenes\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="VkPosNormTex2SPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshObjectTranspTex.h">
+      <Filter>Prefabs\MeshObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BallPoolScene.h">
+      <Filter>Scenes\PhysX</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimer.cpp">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Engine Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryReader.cpp">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysxErrorCallback.cpp">
+      <Filter>Engine Files\Physx</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysxManager.cpp">
+      <Filter>Engine Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="PxTriangleMeshLoader.cpp">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="PxConvexMeshLoader.cpp">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Surface.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VkBasicSampler_Ext.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VkDepthImage_Ext.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VkDevice_Ext.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VkImage_Ext.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VkImageView_Ext.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VkInstance_Ext.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VkPhysicalDevice_Ext.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VkTextureImage_Ext.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VkSwapchainKHR_Ext.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanDebugRenderer.cpp">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="GameBase.cpp">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="VkPipelineManager.cpp">
+      <Filter>Engine Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="VkDebugPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClCompile>
+    <ClCompile Include="VkPosColTexPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClCompile>
+    <ClCompile Include="VkPosColNormPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClCompile>
+    <ClCompile Include="VkTextureLoader.cpp">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="VkPosNormTexPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxDemoScene.cpp">
+      <Filter>Scenes\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="CarouselScene.cpp">
+      <Filter>Scenes\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="GimbalRigScene.cpp">
+      <Filter>Scenes\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSettings.cpp">
+      <Filter>Engine Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanDrawer.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VkPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentManager.cpp">
+      <Filter>Engine Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCamera.cpp">
+      <Filter>Engine Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="ManualCamera.cpp">
+      <Filter>Engine Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshDataLoader.cpp">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="GameContext.cpp">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshData.cpp">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="CubePosColorNorm.cpp">
+      <Filter>Prefabs\Basic Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="CubePosColorTex.cpp">
+      <Filter>Prefabs\Basic Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="CylinderPosColorNorm.cpp">
+      <Filter>Prefabs\Basic Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="GimbalRig.cpp">
+      <Filter>Prefabs\Basic Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="TorusPosColorNorm.cpp">
+      <Filter>Prefabs\Basic Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="FileUtils.cpp">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanUtils.cpp">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshObject.cpp">
+      <Filter>Prefabs\MeshObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshObjectTex.cpp">
+      <Filter>Prefabs\MeshObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncingBallScene.cpp">
+      <Filter>Scenes\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="InputTestScene.cpp">
+      <Filter>Scenes\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysXMeshTestScene_2.cpp">
+      <Filter>Scenes\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedMeshScene.cpp">
+      <Filter>Scenes\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="VkPosNormTex2SPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshObjectTranspTex.cpp">
+      <Filter>Prefabs\MeshObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="BallPoolScene.cpp">
+      <Filter>Scenes\PhysX</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

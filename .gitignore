@@ -1,0 +1,32 @@
+*.pdf
+*.enc
+*.zip
+*.db
+*.sdf
+*.ipch
+*.iobj
+*.opendb
+
+Hello Triangle/Hello Triangle/x64/Debug/
+Hello Triangle/Hello Triangle/Debug/
+Hello Triangle/x64/Debug
+Hello Triangle/Debug
+
+Learning.rar
+EngineBackupfiles/
+KanjiGame/
+KanjiGame(1)/
+KanjiPixel/
+
+VulkanEngineStart/Master - GP1Framework/x64/Release/
+VulkanEngineStart/Master - GP1Framework/x64/Debug/
+VulkanoEngine/Debug/
+VulkanoEngine/x64/Debug/
+VulkanoEngine/x64/Release/
+VulkanoEngine/Release/
+VulkanoEngine/Working Executables/
+VulkanoEngine/AdditionalLibraries/
+Hello Triangle2/
+Master_-_GP1Framework/
+Hello Triangle/Release/
+VulkanoEngine/Executables/

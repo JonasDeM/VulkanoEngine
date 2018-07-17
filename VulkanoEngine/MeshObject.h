@@ -1,0 +1,43 @@
+#pragma once
+#include "GameObject.h"
+#include <glm\glm.hpp>
+#include "VkPhysicalDevice_Ext.h"
+#include "VkPosColNormPipeline_Ext.h"
+#include "HandleUtilities.h"
+#include "VkImageView_Ext.h"
+
+
+class MeshData;
+
+class MeshObject : public GameObject
+{
+public:
+	MeshObject(wstring assetFile);
+	~MeshObject(void);
+
+	virtual void Initialize(VulkanContext* pVkContext) override;
+	virtual void Update(VulkanContext* pVkContext) override;
+
+private:
+	void CreateUniformBuffer(VulkanContext* pVkContext);
+	void UpdateUniformVariables(VulkanContext* pVkContext);
+	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer) override;
+
+	shared_ptr<MeshData> m_pMeshData;
+	wstring m_AssetFile;
+
+	VkBuffer *m_pVertexBuffer, *m_pIndexBuffer; //normal ptr -> no ownership
+	unique_ptr_del<VkBuffer> m_UniformBuffer;
+	unique_ptr_del<VkDeviceMemory> m_UniformBufferMemory;
+
+	unique_ptr_del<VkDescriptorPool> m_DescriptorPool;
+	VkDescriptorSet m_DescriptorSet; //gets automatically cleaned up with pool
+
+private:
+	// -------------------------
+	// Disabling default copy constructor and default 
+	// assignment operator.
+	// -------------------------
+	MeshObject(const MeshObject& t);
+	MeshObject& operator=(const MeshObject& t);
+};
