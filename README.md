@@ -50,8 +50,9 @@ VulkanoEngine
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├───Bin64_Release  
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├───Bin_Debug  
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;└───Bin_Release  
-The PhysX binaries you built in the [Prerequisites](#prerequisites) step are located in:
-"$\PhysX-\<version nr.>\PhysXSDK\Bin\vc14win<32or64>". You need to copy them to their respective folder in the Additional Libraries.
+The PhysX binaries you built in the [Prerequisites](#prerequisites) step are located in:  
+"$\PhysX-\<version nr.>\PhysXSDK\Bin\vc14win<32or64>".  
+You need to copy them to their respective folder in the Additional Libraries.
 
 ### Building
 If all the paths in the [above mentioned project properties](#how-to-build-for-windows) point to the correct folders, you are now ready to build the project and enjoy your self-built VulkanoEngine.
