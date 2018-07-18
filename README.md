@@ -19,7 +19,7 @@ The goal of this project was to make a maintainable game engine that did 3 core 
 	* Unique  and shared pointers for ownership, weak and raw pointers if no ownership.
 	* At creation immediatly take care of the destruction too, smart pointers do this automatically. But with these objects from used libraries i needed to specify custom deleters. These could be simple release calls, or in the case of Vulkan  lambda expressions that captured the necessary objects to destroy the vulkan object with. To simplify the creation of these smart pointers I made some template helper [functions](VulkanoEngine/HandleUtilities.h).
 3. Be multi-platform.
-	All used code consists of multiplatform libraries and self-written C++;
+	All used code consists of multi-platform libraries and self-written C++;
 
 ## How To Build For Windows
 Any system paths specified are just recommendations.
