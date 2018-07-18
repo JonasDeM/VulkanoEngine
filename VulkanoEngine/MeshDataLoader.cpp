@@ -13,7 +13,7 @@ std::shared_ptr<MeshData> MeshDataLoader::LoadContent(const wstring& assetFile) 
 		return nullptr;
 
 	vector<VertexBase> vertices;
-	vector<unsigned int> indices;
+	vector<uint32_t> indices;
 
 	//READ OVM FILE
 	int versionMajor = binReader->Read<char>();
@@ -67,7 +67,7 @@ std::shared_ptr<MeshData> MeshDataLoader::LoadContent(const wstring& assetFile) 
 		{
 			for (unsigned int i = 0; i < indexCount; ++i)
 			{
-				indices.push_back(binReader->Read<unsigned int>());
+				indices.push_back(binReader->Read<uint32_t>());
 			}
 		}
 		break;

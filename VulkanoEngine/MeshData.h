@@ -11,7 +11,7 @@ class VulkanContext;
 class MeshData
 {
 public:
-	MeshData(const vector<VertexBase>& vertices, const vector<unsigned int>& indices);
+	MeshData(const vector<VertexBase>& vertices, const vector<uint32_t>& indices);
 	~MeshData(void);
 
 	size_t GetVertexCount() const { return m_Vertices.size(); }
@@ -56,7 +56,7 @@ private:
 	VkBuffer* GetVertexBuffer_PosNormTex(const VulkanContext* pVkContext);
 
 	vector<VertexBase> m_Vertices;
-	vector<unsigned int> m_Indices;
+	vector<uint32_t> m_Indices;
 
 private:
 	MeshData(const MeshData& obj);

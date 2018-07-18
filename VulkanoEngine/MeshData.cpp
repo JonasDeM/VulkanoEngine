@@ -5,7 +5,7 @@
 #include "VulkanUtils.h"
 #include "VulkanContext.h"
 
-MeshData::MeshData(const vector<VertexBase>& vertices, const vector<unsigned int>& indices) :
+MeshData::MeshData(const vector<VertexBase>& vertices, const vector<uint32_t>& indices) :
 	m_Vertices(vertices),
 	m_Indices(indices),
 	m_pVertexBuffer_PosNormCol(nullptr),
