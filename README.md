@@ -41,15 +41,15 @@ If you don't use the recommended paths/install directories or use another librar
   * Tip: if you have a [problem](https://devtalk.nvidia.com/default/topic/977012/problems-when-building-physx-3-3-in-visual-studio-2015/) with the variable '\_\_pfnDliNotifyHook2', try making it const everywhere in the PhysX source code (2 occurences).
   
 ### Dynamic Libraries
-The PostBuild Events that copy the required .dll's to the output folders makes use of this folder structure:
-VulkanoEngine
-└───AdditionalLibraries
-&emsp;&emsp;&emsp;&emsp;└───PhysX
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;└───Binaries
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├───Bin64_Debug
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├───Bin64_Release
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├───Bin_Debug
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;└───Bin_Release
+The PostBuild Events that copy the required .dll's to the output folders makes use of this folder structure:  
+VulkanoEngine  
+└───AdditionalLibraries  
+&emsp;&emsp;&emsp;&emsp;└───PhysX  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;└───Binaries  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├───Bin64_Debug  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├───Bin64_Release  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;├───Bin_Debug  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;└───Bin_Release  
 The PhysX binaries you built in the [Prerequisites](#prerequisites) step are located in:
 "$\PhysX-\<version nr.>\PhysXSDK\Bin\vc14win<32or64>". You need to copy them to their respective folder in the Additional Libraries.
 
