@@ -12,7 +12,7 @@ Then run the VulkanoEngine.exe inside the Executables folder and watch the conso
 
 ## Project Goals
 The goal of this project was to make a maintainable game engine that did 3 core things:
-1. Render 3D graphics with the Vulkan API.
+1. Render 3D graphics with the Vulkan API.  
 	Working in a C++ (object oriented) way while using a C-library creates a challenge.
 2. Simplify the memory management by using smart pointers.
 	The 2 principle i used were: 
