@@ -1,8 +1,8 @@
 
 # VulkanoEngine 1.0
+**[Showcase](Showcase)** and **[Source Code](https://github.com/JonasDeM/VulkanoEngine)**.
 ## Demo
-I included a demo executable for 64-bit Windows. You only need the folder Executables, but the easiest way is to just clone the whole repository.
-Then run the VulkanoEngine.exe inside the Executables folder and watch the console window for instructions.
+I included a demo executable for 64-bit Windows. You can find it [here](https://github.com/JonasDeM/VulkanoEngine/releases)
 ### Instructions
 * Use WASD + Hold and move Mouse to navigate in the scene.
 * Have an AZERTY keyboard? Press 'P' to toggle to ZQSD controls and back.
@@ -15,14 +15,15 @@ The goal of this project was to make a maintainable game engine that did 3 core 
 1. Render 3D graphics with the Vulkan API.  
 	Working in a C++ (object oriented) way while using a C-library creates a challenge.
 2. Simplify the memory management by using smart pointers.
-	The 2 principle i used were: 
+	The 2 principles i used were: 
 	* Unique  and shared pointers for ownership, weak and raw pointers if no ownership.
 	* At creation immediatly take care of the destruction too, smart pointers do this automatically. But with these objects from used libraries i needed to specify custom deleters. These could be simple release calls, or in the case of Vulkan  lambda expressions that captured the necessary objects to destroy the vulkan object with. To simplify the creation of these smart pointers I made some template helper [functions](VulkanoEngine/HandleUtilities.h).
 3. Be multi-platform.
 	All used code consists of multi-platform libraries and self-written C++;
 
 ## How To Build For Windows
-Any system paths specified are just recommendations.
+First, clone [this repo](https://github.com/JonasDeM/VulkanoEngine).  
+Any system paths specified are just recommendations.  
 If you don't use the recommended paths/install directories or use another library version, be sure to change the project properties accordingly for every desired build configuration. Properties to change:
 * C/C++: Additional Include Directories
 * Linker: Additional Library Directories
