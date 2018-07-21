@@ -58,3 +58,6 @@ You need to copy them to their respective folder in the Additional Libraries.
 ### Building
 If all the paths in the [above mentioned project properties](#how-to-build-for-windows) point to the correct folders, you are now ready to build the project and enjoy your self-built VulkanoEngine.
 Still have problems and you can't seem to fix them? Don't hesitate to contact me.
+
+## Acknowledgments
+Hut Model by [Niels Breugelmans](https://www.artstation.com/nielsbreugelmans).
