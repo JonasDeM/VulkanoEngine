@@ -22,6 +22,7 @@ void VkSwapchainKHR_Ext::CreateSwapChain(VulkanContext* pVkContext, const VkExte
 	// resolution of images
 	VkExtent2D extent = GetActualSwapExtent(swapChainSupport->capabilities, windowExtent);
 
+
 	//length of the image queue
 	auto imageCount = swapChainSupport->capabilities.minImageCount + 1;
 	if (swapChainSupport->capabilities.maxImageCount > 0 && imageCount > swapChainSupport->capabilities.maxImageCount)
