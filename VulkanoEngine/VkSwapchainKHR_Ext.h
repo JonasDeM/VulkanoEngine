@@ -33,18 +33,13 @@ public:
 	}
 	void Destroy(VkDevice device)
 	{
-		//use unique_ptr_del via create handle
-		for (const auto& buffer : m_SwapChainFramebuffers)
-		{
-			vkDestroyFramebuffer(device, buffer, nullptr);
-		}
 		vkDestroySwapchainKHR(device, *this, nullptr);
 	}
 	
 	int GetAmountImages() const { return (int)m_SwapChainImages.size(); }
 	VkExtent2D GetExtent() const { return m_SwapChainExtent; }
 	VkRenderPass GetRenderPass() const { return *m_RenderPass; }
-	VkFramebuffer GetFrameBuffer(int i) const { return m_SwapChainFramebuffers[i]; }
+	VkFramebuffer GetFrameBuffer(int i) const { return *m_SwapChainFramebuffers[i]; }
 private:
 	//swapchain choices
 	static VkSurfaceFormatKHR ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats)
@@ -112,9 +107,9 @@ private:
 	VkFormat m_SwapChainImageFormat;
 	VkExtent2D m_SwapChainExtent;
 	std::vector<unique_ptr_del<VkImageView_Ext>> m_SwapChainImageViews;
-	std::vector<VkFramebuffer> m_SwapChainFramebuffers;
+	std::vector<unique_ptr_del<VkFramebuffer>> m_SwapChainFramebuffers;
 	unique_ptr_del<VkRenderPass> m_RenderPass;
 
-	unique_ptr_del<VkDepthImage_Ext> m_DepthImage;
-	unique_ptr_del<VkImageView_Ext> m_DepthImageView;
+	std::vector<unique_ptr_del<VkDepthImage_Ext>> m_DepthImage;
+	std::vector<unique_ptr_del<VkImageView_Ext>> m_DepthImageView;
 };

@@ -76,10 +76,17 @@ void VkSwapchainKHR_Ext::CreateSwapChain(VulkanContext* pVkContext, const VkExte
 void VkSwapchainKHR_Ext::CreateDepthResources(VulkanContext* pVkContext)
 {
 	VkDevice device = *pVkContext->GetVkDevice();
-	m_DepthImage = CreateExtendedHandle(new VkDepthImage_Ext(pVkContext, GetExtent()), device);
+
 	auto format = VkDepthImage_Ext::GetDepthFormat(pVkContext->GetVkPhysicalDevice());
-	m_DepthImageView = CreateExtendedHandle(new VkImageView_Ext(device, *m_DepthImage, format, VK_IMAGE_ASPECT_DEPTH_BIT), device);
-	m_DepthImage->TransitionImageLayout(pVkContext, format, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+	int imageCount = (int)m_SwapChainImages.size();
+	m_DepthImage.resize(imageCount);
+	m_DepthImageView.resize(imageCount);
+	for (size_t i = 0; i < imageCount; i++)
+	{
+		m_DepthImage[i] = CreateExtendedHandle(new VkDepthImage_Ext(pVkContext, GetExtent()), device);
+		m_DepthImageView[i] = CreateExtendedHandle(new VkImageView_Ext(device, *m_DepthImage[i], format, VK_IMAGE_ASPECT_DEPTH_BIT), device);
+		m_DepthImage[i]->TransitionImageLayout(pVkContext, format, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+	}
 }
 
 void VkSwapchainKHR_Ext::CreateImageViews(VkDevice device)
@@ -160,20 +167,19 @@ void VkSwapchainKHR_Ext::CreateRenderPass(VulkanContext* pVkContext)
 
 void VkSwapchainKHR_Ext::CreateFrameBuffers(VkDevice device)
 {
-	m_SwapChainFramebuffers.resize(m_SwapChainImageViews.size()
-		, VkFramebuffer());
+	m_SwapChainFramebuffers.resize(m_SwapChainImages.size());
 
 	for (size_t i = 0; i < m_SwapChainImageViews.size(); ++i)
 	{
 		//put the image views as attachemnt to the buffers
 		std::array<VkImageView, 2> attachments = {
 			*m_SwapChainImageViews[i],
-			*m_DepthImageView
+			*m_DepthImageView[i]
 		};
 
 		VkFramebufferCreateInfo createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-		//  You can only use a framebuffer with the render passes that it is compatible with (roughly means same nr and type of attachments )
+		//  You can only use a framebuffer with the render passes that it is compatible with (roughly means same nr and type of attachments)
 		createInfo.renderPass = *m_RenderPass;
 		createInfo.attachmentCount = static_cast<uint32_t>(attachments.size()); //see (create) renderpass
 		createInfo.pAttachments = attachments.data();
@@ -181,7 +187,9 @@ void VkSwapchainKHR_Ext::CreateFrameBuffers(VkDevice device)
 		createInfo.height = m_SwapChainExtent.height;
 		createInfo.layers = 1; //Our swap chain images are single images
 
-		if (vkCreateFramebuffer(device, &createInfo, nullptr, &m_SwapChainFramebuffers[i]) != VK_SUCCESS)
+		
+		m_SwapChainFramebuffers[i] = CreateHandle<VkFramebuffer>(vkDestroyFramebuffer, device);
+		if (vkCreateFramebuffer(device, &createInfo, nullptr, m_SwapChainFramebuffers[i].get()) != VK_SUCCESS)
 		{
 			throw std::runtime_error("failed to create framebuffer!");
 		}

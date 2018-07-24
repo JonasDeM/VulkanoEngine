@@ -90,14 +90,14 @@ void VkPhysicalDevice_Ext::GetQueueFamilyIndices(const VkSurfaceKHR surface) con
 	std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
 	vkGetPhysicalDeviceQueueFamilyProperties(*this, &queueFamilyCount, queueFamilies.data());
 
-	for (unsigned int i = 0; i < queueFamilyCount; ++i)
+	for (uint32_t i = 0; i < queueFamilyCount; ++i)
 	{
 		if (queueFamilies[i].queueCount > 0 && queueFamilies[i].queueFlags & VK_QUEUE_GRAPHICS_BIT)
 		{
 			m_QueueFamilyIndices->graphicsFamily = i;
 		}
 
-		VkBool32 presentSupport = false;
+		VkBool32 presentSupport;
 		vkGetPhysicalDeviceSurfaceSupportKHR(*this, i, surface, &presentSupport);
 		if (queueFamilies[i].queueCount > 0 && presentSupport)
 		{

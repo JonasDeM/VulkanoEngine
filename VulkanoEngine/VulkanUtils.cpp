@@ -66,7 +66,7 @@ namespace VulkanUtils
 		vkQueueSubmit(queue, 1, &submitInfo, VK_NULL_HANDLE);
 		vkQueueWaitIdle(queue);
 
-		vkFreeCommandBuffers(*pVkContext->GetVkDevice(), *pVkContext->GetVkGraphicsCommandPool(), 1, &commandBuffer);
+		vkFreeCommandBuffers(*pVkContext->GetVkDevice(), *pVkContext->GetVkGraphicsCommandPoolTransient(), 1, &commandBuffer);
 	}
 
 

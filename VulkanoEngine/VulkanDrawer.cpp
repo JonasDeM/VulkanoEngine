@@ -86,11 +86,11 @@ std::vector<const char*> VulkanDrawer::ChooseVulkanExtensions() const
 
 	std::vector<const char*> extensions;
 
-	unsigned int glfwExtensionCount = 0;
+	uint32_t glfwExtensionCount = 0;
 	const char** glfwExtensions;
 	glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
-	for (unsigned int i = 0; i < glfwExtensionCount; i++) {
+	for (uint32_t i = 0; i < glfwExtensionCount; i++) {
 		extensions.push_back(glfwExtensions[i]);
 	}
 
@@ -257,7 +257,7 @@ void VulkanDrawer::VkDrawFrame(GameSettings* settings)
 	//Submitting the commands to the desired queue
 	VkSubmitInfo submitInfo = {};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-	submitInfo.commandBufferCount = (unsigned int)graphicsCommands.size();
+	submitInfo.commandBufferCount = (uint32_t)graphicsCommands.size();
 	submitInfo.pCommandBuffers = graphicsCommands.data();
 	submitInfo.waitSemaphoreCount = 1;
 	submitInfo.pWaitSemaphores = waitSemaphores;
@@ -292,9 +292,9 @@ void VulkanDrawer::VkDrawFrame(GameSettings* settings)
 void VulkanDrawer::CreateDrawCommandBuffers(GameSettings* settings)
 {
 	vkDeviceWaitIdle(*m_pVkDevice); //wait for all async processes to complete
-									//frees any previous buffers
+	//frees any previous buffers
 	if (m_DrawCommandBuffers.size() > 0) {
-		vkFreeCommandBuffers(*m_pVkDevice, *m_pVkGraphicsCommandPool, (unsigned int)m_DrawCommandBuffers.size(), m_DrawCommandBuffers.data());
+		vkFreeCommandBuffers(*m_pVkDevice, *m_pVkGraphicsCommandPool, (uint32_t)m_DrawCommandBuffers.size(), m_DrawCommandBuffers.data());
 	}
 
 	//allocate buffers for the (in this case drawing) commands
@@ -302,7 +302,7 @@ void VulkanDrawer::CreateDrawCommandBuffers(GameSettings* settings)
 	VkCommandBufferAllocateInfo allocInfo = {};
 	allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
 	allocInfo.commandPool = *m_pVkGraphicsCommandPool;
-	allocInfo.commandBufferCount = (unsigned int)m_DrawCommandBuffers.size();
+	allocInfo.commandBufferCount = (uint32_t)m_DrawCommandBuffers.size();
 	allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
 
 
@@ -311,7 +311,7 @@ void VulkanDrawer::CreateDrawCommandBuffers(GameSettings* settings)
 	}
 
 	//start command buffer recording
-	for (unsigned int i = 0; i < m_DrawCommandBuffers.size(); ++i)
+	for (uint32_t i = 0; i < m_DrawCommandBuffers.size(); ++i)
 	{
 		VkCommandBufferBeginInfo beginInfo = {};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;

@@ -17,9 +17,9 @@ VkInstance_Ext::VkInstance_Ext(bool enableValidationLayers, const std::vector<co
 	// optional but is good practice, can also improve performance for example if you write engine name = UE4, it COULD handle special behaviour of UE4
 	VkApplicationInfo appInfo = {};
 	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-	appInfo.pApplicationName = "Hello Triangle";
+	appInfo.pApplicationName = "Demo";
 	appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-	appInfo.pEngineName = "No Engine";
+	appInfo.pEngineName = "VulkanoEngine";
 	appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
 	appInfo.apiVersion = VK_API_VERSION_1_0;
 
@@ -50,11 +50,11 @@ VkInstance_Ext::VkInstance_Ext(bool enableValidationLayers, const std::vector<co
 	VkInstanceCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 	createInfo.pApplicationInfo = &appInfo;
-	createInfo.enabledExtensionCount = (unsigned int)reqExtensions.size();
+	createInfo.enabledExtensionCount = (uint32_t)reqExtensions.size();
 	createInfo.ppEnabledExtensionNames = reqExtensions.data();
 	if (enableValidationLayers)
 	{
-		createInfo.enabledLayerCount = (unsigned int)validationLayers.size();
+		createInfo.enabledLayerCount = (uint32_t)validationLayers.size();
 		createInfo.ppEnabledLayerNames = validationLayers.data();
 	}
 	else
@@ -92,11 +92,11 @@ std::vector<const char*> VkInstance_Ext::ChooseVulkanExtensions(bool enableValid
 
 	std::vector<const char*> extensions;
 
-	unsigned int glfwExtensionCount = 0;
+	uint32_t glfwExtensionCount = 0;
 	const char** glfwExtensions;
 	glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
-	for (unsigned int i = 0; i < glfwExtensionCount; i++) {
+	for (uint32_t i = 0; i < glfwExtensionCount; i++) {
 		extensions.push_back(glfwExtensions[i]);
 	}
 
