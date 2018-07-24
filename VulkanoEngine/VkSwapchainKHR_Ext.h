@@ -25,7 +25,6 @@ public:
 
 	VkSwapchainKHR_Ext(VulkanContext* pVkContext, const VkExtent2D& windowExtent, VkSwapchainKHR oldSwapChain)
 	{
-
 		CreateSwapChain(pVkContext, windowExtent, oldSwapChain);
 		CreateImageViews(*pVkContext->GetVkDevice());
 		CreateDepthResources(pVkContext);
@@ -59,7 +58,6 @@ private:
 				return availableFormat;
 			}
 		}
-
 		//we could rank formats and pick the best 
 
 		return availableFormats[0];

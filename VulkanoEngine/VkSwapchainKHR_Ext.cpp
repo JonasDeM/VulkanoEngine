@@ -9,7 +9,6 @@
 #include "VulkanContext.h"
 #include "VkDevice_Ext.h"
 
-
 void VkSwapchainKHR_Ext::CreateSwapChain(VulkanContext* pVkContext, const VkExtent2D& windowExtent, VkSwapchainKHR oldSwapChain)
 {
 	VkSurfaceKHR surface = *pVkContext->GetSurface();
