@@ -32,9 +32,9 @@ VkDevice_Ext::VkDevice_Ext(const VkPhysicalDevice_Ext& physicalDevice, const std
 	VkDeviceCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 	createInfo.pQueueCreateInfos = queueCreateInfos.data();
-	createInfo.queueCreateInfoCount = static_cast<uint32_t>(queueCreateInfos.size());
+	createInfo.queueCreateInfoCount = (uint32_t)(queueCreateInfos.size());
 	createInfo.pEnabledFeatures = &deviceFeatures;
-	createInfo.enabledExtensionCount = (unsigned int)deviceExtensions.size(); //device specific features
+	createInfo.enabledExtensionCount = (uint32_t)deviceExtensions.size(); //device specific features
 	createInfo.ppEnabledExtensionNames = deviceExtensions.data();
 #ifdef DEBUG
 		createInfo.enabledLayerCount = m_ValidationLayers.size();
