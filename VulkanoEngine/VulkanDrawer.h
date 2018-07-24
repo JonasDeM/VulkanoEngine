@@ -7,15 +7,15 @@ public:
 	VulkanDrawer(GLFWwindow* targetWindow);
 
 	//getters
-	const VkInstance_Ext* GetVkInstance() const { return m_pVkInstance.get(); }
-	const VkDevice_Ext* GetVkDevice() const { return m_pVkDevice.get(); }
-	const VkPhysicalDevice_Ext* GetVkPhysicalDevice() const { return m_pVkPhysicalDevice.get(); }
-	const VkSwapchainKHR_Ext* GetVkSwapChain() const { return m_pVkSwapchain.get(); }
-	const VkCommandPool* GetVkCommandPool() const { return m_pVkCommandPool.get(); } //now  i use 1 general commandpool, should probably use different types for different tasks
-	const VkQueue GetVkGraphicsQueue() const { return m_VkGraphicsQueue; }
-	const VkQueue GetPresentQueue() const { return m_VkPresentQueue; }
-	const VkSurface_Ext* GetSurface() const { return m_pVkSurface.get(); }
-	//const VkDescriptorPool* GetDescriptorPool() { return m_pVkDescriptorPool.get(); }
+	const VkInstance_Ext* GetVkInstance() const override { return m_pVkInstance.get(); }
+	const VkDevice_Ext* GetVkDevice() const override { return m_pVkDevice.get(); }
+	const VkPhysicalDevice_Ext* GetVkPhysicalDevice() const override { return m_pVkPhysicalDevice.get(); }
+	const VkSwapchainKHR_Ext* GetVkSwapChain() const override { return m_pVkSwapchain.get(); }
+	const VkCommandPool* GetVkGraphicsCommandPool() const override { return m_pVkGraphicsCommandPool.get(); } //only use 2 now, should probably use even more different types for different tasks
+	const VkCommandPool* GetVkGraphicsCommandPoolTransient() const override { return m_pVkGraphicsCommandPoolTransient.get(); } // For commands with short life-span
+	const VkQueue GetVkGraphicsQueue() const override { return m_VkGraphicsQueue; }
+	const VkQueue GetPresentQueue() const override { return m_VkPresentQueue; }
+	const VkSurface_Ext* GetSurface() const override { return m_pVkSurface.get(); }
 
 	void VkDrawFrame(GameSettings* settings);
 
@@ -30,7 +30,7 @@ private:
 	static VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType, uint64_t obj,
 		size_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData);
 	void SetupDebugCallback();
-	void CreateCommandPool();
+	void CreateCommandPools();
 	void CreateSemaphores();
 	void CreateDescriptorPool();
 	void RecreateVkSwapChain(GameSettings* settings);
@@ -56,7 +56,7 @@ private:
 	unique_ptr_del<VkDebugReportCallbackEXT> m_pVkCallback;
 	VkQueue m_VkGraphicsQueue; //Queue handles get cleaned up implicitly when the VkDevice is destroyed
 	VkQueue m_VkPresentQueue;
-	unique_ptr_del<VkCommandPool> m_pVkCommandPool;
+	unique_ptr_del<VkCommandPool> m_pVkGraphicsCommandPool, m_pVkGraphicsCommandPoolTransient;
 	unique_ptr_del<VkSemaphore> m_pVkImageAvailableSemaphore;
 	unique_ptr_del<VkSemaphore> m_pVkRenderFinishedSemaphore;
 	unique_ptr_del<VkDescriptorPool> m_pVkDescriptorPool;

@@ -51,7 +51,7 @@ VkImage_Ext::VkImage_Ext(VulkanContext* pVkContext, VkExtent2D extent, VkFormat 
 void VkImage_Ext::TransitionImageLayout(VulkanContext* pVkContext, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout)
 {
 	auto device = *pVkContext->GetVkDevice();
-	auto cmdPool = *pVkContext->GetVkCommandPool();
+	auto cmdPool = *pVkContext->GetVkGraphicsCommandPool();
 	VkCommandBuffer commandBuffer = VulkanUtils::BeginSingleTimeCommands(pVkContext);
 
 	VkImageMemoryBarrier barrier = {};

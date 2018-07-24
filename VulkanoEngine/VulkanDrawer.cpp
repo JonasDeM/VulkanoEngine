@@ -22,7 +22,7 @@ VulkanDrawer::VulkanDrawer(GLFWwindow* targetWindow)
 	auto indices = m_pVkPhysicalDevice->GetQueueFamilyIndices();
 	vkGetDeviceQueue(*m_pVkDevice, indices->graphicsFamily, 0, &m_VkGraphicsQueue);
 	vkGetDeviceQueue(*m_pVkDevice, indices->presentFamily, 0, &m_VkPresentQueue);
-	CreateCommandPool();
+	CreateCommandPools();
 	CreateDescriptorPool();
 	int width, height;
 	glfwGetWindowSize(targetWindow, &width, &height);
@@ -151,16 +151,23 @@ void VulkanDrawer::SetupDebugCallback()
 	}
 }
 
-void VulkanDrawer::CreateCommandPool()
+void VulkanDrawer::CreateCommandPools()
 {
+	//GraphicsCommandPool
 	VkCommandPoolCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 	createInfo.queueFamilyIndex = m_pVkPhysicalDevice->GetQueueFamilyIndices()->graphicsFamily; // cause these will be drawing commands
 	createInfo.flags = 0;
 
-	m_pVkCommandPool = CreateHandle<VkCommandPool>(vkDestroyCommandPool, *m_pVkDevice);
-	if (vkCreateCommandPool(*m_pVkDevice, &createInfo, nullptr, m_pVkCommandPool.get()) != VK_SUCCESS) {
-		throw std::runtime_error("failed to create command pool!");
+	m_pVkGraphicsCommandPool = CreateHandle<VkCommandPool>(vkDestroyCommandPool, *m_pVkDevice);
+	if (vkCreateCommandPool(*m_pVkDevice, &createInfo, nullptr, m_pVkGraphicsCommandPool.get()) != VK_SUCCESS) {
+		throw std::runtime_error("failed to create graphics command pool!");
+	}
+
+	createInfo.flags = VK_COMMAND_POOL_CREATE_TRANSIENT_BIT;
+	m_pVkGraphicsCommandPoolTransient = CreateHandle<VkCommandPool>(vkDestroyCommandPool, *m_pVkDevice);
+	if (vkCreateCommandPool(*m_pVkDevice, &createInfo, nullptr, m_pVkGraphicsCommandPoolTransient.get()) != VK_SUCCESS) {
+		throw std::runtime_error("failed to create transient graphics command pool!");
 	}
 }
 
@@ -287,14 +294,14 @@ void VulkanDrawer::CreateDrawCommandBuffers(GameSettings* settings)
 	vkDeviceWaitIdle(*m_pVkDevice); //wait for all async processes to complete
 									//frees any previous buffers
 	if (m_DrawCommandBuffers.size() > 0) {
-		vkFreeCommandBuffers(*m_pVkDevice, *m_pVkCommandPool, (unsigned int)m_DrawCommandBuffers.size(), m_DrawCommandBuffers.data());
+		vkFreeCommandBuffers(*m_pVkDevice, *m_pVkGraphicsCommandPool, (unsigned int)m_DrawCommandBuffers.size(), m_DrawCommandBuffers.data());
 	}
 
 	//allocate buffers for the (in this case drawing) commands
 	m_DrawCommandBuffers.resize(m_pVkSwapchain->GetAmountImages());
 	VkCommandBufferAllocateInfo allocInfo = {};
 	allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-	allocInfo.commandPool = *m_pVkCommandPool;
+	allocInfo.commandPool = *m_pVkGraphicsCommandPool;
 	allocInfo.commandBufferCount = (unsigned int)m_DrawCommandBuffers.size();
 	allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
 

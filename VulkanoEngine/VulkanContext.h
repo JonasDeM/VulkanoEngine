@@ -26,7 +26,8 @@ public:
 	const virtual VkDevice_Ext* GetVkDevice() const = 0;
 	const virtual VkPhysicalDevice_Ext* GetVkPhysicalDevice() const = 0;
 	const virtual VkSwapchainKHR_Ext* GetVkSwapChain() const = 0;
-	const virtual VkCommandPool* GetVkCommandPool() const = 0;
+	const virtual VkCommandPool* GetVkGraphicsCommandPool() const = 0;
+	const virtual VkCommandPool* GetVkGraphicsCommandPoolTransient() const = 0;
 	const virtual VkQueue GetVkGraphicsQueue() const = 0;
 	const virtual VkQueue GetPresentQueue() const = 0;
 	const virtual VkSurface_Ext* GetSurface() const = 0;

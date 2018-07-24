@@ -19,7 +19,6 @@ namespace VulkanUtils
 			throw std::runtime_error("failed to create vertex buffer!");
 		}
 
-
 		VkMemoryRequirements memRequirements;
 		vkGetBufferMemoryRequirements(device, *bufferPtr, &memRequirements);
 
@@ -39,7 +38,7 @@ namespace VulkanUtils
 		VkCommandBufferAllocateInfo allocInfo = {};
 		allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
 		allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-		allocInfo.commandPool = *pVkContext->GetVkCommandPool();
+		allocInfo.commandPool = *pVkContext->GetVkGraphicsCommandPoolTransient();
 		allocInfo.commandBufferCount = 1;
 
 		VkCommandBuffer commandBuffer;
@@ -67,10 +66,10 @@ namespace VulkanUtils
 		vkQueueSubmit(queue, 1, &submitInfo, VK_NULL_HANDLE);
 		vkQueueWaitIdle(queue);
 
-		vkFreeCommandBuffers(*pVkContext->GetVkDevice(), *pVkContext->GetVkCommandPool(), 1, &commandBuffer);
+		vkFreeCommandBuffers(*pVkContext->GetVkDevice(), *pVkContext->GetVkGraphicsCommandPool(), 1, &commandBuffer);
 	}
 
-	// should actually use another command pool, specifically for short lived command buffers -> with the VK_COMMAND_POOL_CREATE_TRANSIENT_BIT
+
 	void CopyBuffer(const VulkanContext* pVkContext, VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
 		VkCommandBuffer commandBuffer = BeginSingleTimeCommands(pVkContext);
 
