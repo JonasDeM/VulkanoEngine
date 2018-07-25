@@ -187,3 +187,9 @@ void SceneManager::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
 		m_pActiveScene->RootRecordVulkanDrawCommands(cmdBuffer);
 }
 
+void SceneManager::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex)
+{
+	if (m_pActiveScene != nullptr)
+		m_pActiveScene->RootRecordVulkanDrawCommands(cmdBuffer, frameBufferIndex);
+}
+

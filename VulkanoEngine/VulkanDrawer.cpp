@@ -239,7 +239,6 @@ void VulkanDrawer::VkDrawFrame(GameSettings* settings)
 	if (HasFlags(VkContextFlags::InvalidDrawCommandBuffers)) {
 		//Debug::Log(Debug::LogLevel::Info, L"Rerecorded VkDrawCmdBuffers");
 		CreateDrawCommandBuffers(settings);
-		//return; 
 	}
 	if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
 		throw std::runtime_error("failed to acquire swap chain image!");
@@ -267,6 +266,9 @@ void VulkanDrawer::VkDrawFrame(GameSettings* settings)
 
 	if (vkQueueSubmit(m_VkGraphicsQueue, 1, &submitInfo, VK_NULL_HANDLE) != VK_SUCCESS)
 		throw std::runtime_error("failed to submit draw command buffer!");
+
+	//So the update functions start writing info to buffers with this index
+	m_FrameIndexToUpdate = (imageIndex + 1) % m_pVkSwapchain->GetAmountImages();
 
 	//3.
 	VkSwapchainKHR swapChains[] = { *m_pVkSwapchain };
@@ -343,6 +345,7 @@ void VulkanDrawer::CreateDrawCommandBuffers(GameSettings* settings)
 																									//bind our graphicspipeline
 		Debug::RecordVulkanDrawCommands(m_DrawCommandBuffers[i]);
 		SceneManager::RecordVulkanDrawCommands(m_DrawCommandBuffers[i]);
+		SceneManager::RecordVulkanDrawCommands(m_DrawCommandBuffers[i], i);
 		//end the render pass
 		vkCmdEndRenderPass(m_DrawCommandBuffers[i]);
 		//end the recording of our commands

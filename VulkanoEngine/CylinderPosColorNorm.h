@@ -23,7 +23,7 @@ private:
 	void CreateIndexBuffer(VulkanContext* pVkContext);
 	void CreateUniformBuffer(VulkanContext* pVkContext);
 	void UpdateUniformVariables(VulkanContext* pVkContext);
-	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer) override;
+	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex) override;
 
 	float m_Radius, m_Height;
 	uint16_t m_RadiusSteps, m_NumVerts = 0;
@@ -34,11 +34,11 @@ private:
 	unique_ptr_del<VkDeviceMemory> m_VertexBufferMemory = nullptr;
 	unique_ptr_del<VkBuffer> m_IndexBuffer = nullptr;
 	unique_ptr_del<VkDeviceMemory> m_IndexBufferMemory = nullptr;
-	unique_ptr_del<VkBuffer> m_UniformBuffer = nullptr;
-	unique_ptr_del<VkDeviceMemory> m_UniformBufferMemory = nullptr;
+	std::vector<unique_ptr_del<VkBuffer>> m_UniformBuffers;
+	std::vector<unique_ptr_del<VkDeviceMemory>> m_UniformBuffersMemory;
 
-	unique_ptr_del<VkDescriptorPool> m_DescriptorPool = nullptr;
-	VkDescriptorSet m_DescriptorSet = VK_NULL_HANDLE; //gets automatically cleaned up with pool
+	unique_ptr_del<VkDescriptorPool> m_DescriptorPool;
+	std::vector<VkDescriptorSet> m_DescriptorSets; //gets automatically cleaned up with pool
 
 	// -------------------------
 	// Disabling default copy constructor and default 

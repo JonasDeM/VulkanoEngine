@@ -109,6 +109,6 @@ private:
 	std::vector<unique_ptr_del<VkFramebuffer>> m_SwapChainFramebuffers;
 	unique_ptr_del<VkRenderPass> m_RenderPass;
 
-	std::vector<unique_ptr_del<VkDepthImage_Ext>> m_DepthImage;
-	std::vector<unique_ptr_del<VkImageView_Ext>> m_DepthImageView;
+	std::vector<unique_ptr_del<VkDepthImage_Ext>> m_DepthImages;
+	std::vector<unique_ptr_del<VkImageView_Ext>> m_DepthImageViews;
 };

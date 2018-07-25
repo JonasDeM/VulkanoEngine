@@ -2,6 +2,7 @@
 #include "BoxDemoScene.h"
 #include "Debug.h"
 #include "CubePosColorTex.h"
+#include "CubePosColorNorm.h"
 #include "ManualCamera.h"
 
 

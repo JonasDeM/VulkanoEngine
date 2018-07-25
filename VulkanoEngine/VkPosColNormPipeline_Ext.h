@@ -19,9 +19,10 @@ public:
 	}
 
 
-	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device) override;
+	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device) override { return nullptr; };
+	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) override;
 	void CreateDescriptorSetLayout(VkDevice device) override;
-	VkDescriptorSet CreateAndWriteDescriptorSet(VkDevice device, VkDescriptorPool descPool, VkBuffer uniformBuffer);
+	std::vector<VkDescriptorSet> CreateAndWriteDescriptorSets(VkDevice device, VkDescriptorPool descPool, const vector<unique_ptr_del<VkBuffer>>& uniformBuffers);
 
 	struct UniformBufferObject {
 		glm::mat4 world;

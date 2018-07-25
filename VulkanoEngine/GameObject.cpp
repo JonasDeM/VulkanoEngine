@@ -258,6 +258,19 @@ void GameObject::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
 	}
 }
 
+void GameObject::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex)
+{
+	if (!m_CanDraw)
+		return;
+
+	RecordVulkanDrawCommands(cmdBuffer, frameBufferIndex);
+
+	for (auto& pObject : m_vecChildren)
+	{
+		pObject->RootRecordVulkanDrawCommands(cmdBuffer, frameBufferIndex);
+	}
+}
+
 void GameObject::CalculateWorldMatrix(const mat4 &parentWorld, bool updateChildren)
 {
 	if (m_RigidActorAdded)

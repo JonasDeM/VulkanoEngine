@@ -9,7 +9,7 @@ class VulkanContext;
 namespace VulkanUtils
 {
 	void CreateBuffer(const VulkanContext* pVkContext, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer* bufferPtr, VkDeviceMemory* bufferMemoryPtr);
-
+	
 	VkCommandBuffer BeginSingleTimeCommands(const VulkanContext* pVkContext);
 
 	void EndSingleTimeCommands(const VulkanContext* pVkContext, VkCommandBuffer commandBuffer);

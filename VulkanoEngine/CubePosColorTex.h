@@ -35,8 +35,8 @@
 		unique_ptr_del<VkDeviceMemory> m_VertexBufferMemory;
 		unique_ptr_del<VkBuffer> m_IndexBuffer;
 		unique_ptr_del<VkDeviceMemory> m_IndexBufferMemory;
-		unique_ptr_del<VkBuffer> m_UniformBuffer;
-		unique_ptr_del<VkDeviceMemory> m_UniformBufferMemory;
+		unique_ptr_del<VkBuffer> m_UniformBuffers;
+		unique_ptr_del<VkDeviceMemory> m_UniformBuffersMemory;
 		unique_ptr_del<VkBasicSampler_Ext> m_TextureSampler;
 		std::shared_ptr<VkTextureImage_Ext> m_TextureImage;
 		unique_ptr_del<VkImageView_Ext> m_TextureImageView;

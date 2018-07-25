@@ -17,6 +17,7 @@ public:
 	const VkQueue GetPresentQueue() const override { return m_VkPresentQueue; }
 	const VkSurface_Ext* GetSurface() const override { return m_pVkSurface.get(); }
 
+	int GetCurrentDrawingBufferIndex() const override { return m_FrameIndexToUpdate; }
 	void VkDrawFrame(GameSettings* settings);
 
 private:
@@ -60,6 +61,8 @@ private:
 	unique_ptr_del<VkSemaphore> m_pVkImageAvailableSemaphore;
 	unique_ptr_del<VkSemaphore> m_pVkRenderFinishedSemaphore;
 	unique_ptr_del<VkDescriptorPool> m_pVkDescriptorPool;
+
+	int m_FrameIndexToUpdate = 0;
 };
 
 

@@ -32,6 +32,8 @@ public:
 	const virtual VkQueue GetPresentQueue() const = 0;
 	const virtual VkSurface_Ext* GetSurface() const = 0;
 
+	virtual int GetCurrentDrawingBufferIndex() const = 0;
+
 	//disabling copy
 	VulkanContext(const VulkanContext&) = delete;
 	void operator=(VulkanContext const &x) = delete;

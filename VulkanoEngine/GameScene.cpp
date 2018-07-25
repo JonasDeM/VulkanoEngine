@@ -165,8 +165,16 @@ void GameScene::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
 	{
 		pObject->RootRecordVulkanDrawCommands(cmdBuffer);
 	}
+}
 
+void GameScene::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex)
+{
+	RecordVulkanDrawCommands(cmdBuffer, frameBufferIndex);
 
+	for (auto& pObject : m_vecGameObjects)
+	{
+		pObject->RootRecordVulkanDrawCommands(cmdBuffer, frameBufferIndex);
+	}
 }
 
 void GameScene::RootWindowStateChanged(int state, bool active)

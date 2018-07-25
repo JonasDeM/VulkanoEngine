@@ -42,9 +42,8 @@ void VulkanDebugRenderer::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, un
 void VulkanDebugRenderer::UpdateUniformVariables(const VulkanContext* pVkContext, const GameScene* pCurrentScene)
 {
 	//with camera from context
-	GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetDebugPipeline())::UniformBufferObject ubo; // this way you can get the UniformBufferObject declared in that hraphics pipeline
+	GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetDebugPipeline())::UniformBufferObject ubo; // this way you can get the UniformBufferObject declared in that graphics pipeline
 
-																	 //correct aligment and structure for opengl 
 	ubo.wvp = mat4() * pCurrentScene->GetCamera()->GetViewProjection();
 
 	void* data;

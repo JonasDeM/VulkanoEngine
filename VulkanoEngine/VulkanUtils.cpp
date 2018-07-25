@@ -6,6 +6,7 @@
 
 namespace VulkanUtils
 {
+	//creates a single buffer
 	void CreateBuffer(const VulkanContext* pVkContext, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer* bufferPtr, VkDeviceMemory* bufferMemoryPtr)
 	{
 		VkBufferCreateInfo bufferInfo = {};

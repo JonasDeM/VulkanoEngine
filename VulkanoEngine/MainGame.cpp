@@ -5,7 +5,7 @@
 #include "ManualCamera.h"
 
 #define DISPLAY_ENGINE
-//#define REST_OF_SCENES
+#define REST_OF_SCENES
 #ifdef DISPLAY_ENGINE
 #include "TexturedMeshScene.h"
 #include "BouncingBallScene.h"
@@ -43,15 +43,15 @@ void MainGame::Update()
 void MainGame::Initialize()
 {
 #ifdef DISPLAY_ENGINE
+	SceneManager::AddGameScene(new BoxDemoScene(m_pGameSettings.get()));
 	SceneManager::AddGameScene(new BallPoolScene(m_pGameSettings.get()));
 	SceneManager::AddGameScene(new TexturedMeshScene(m_pGameSettings.get()));
-	SceneManager::AddGameScene(new BoxDemoScene(m_pGameSettings.get()));
 	SceneManager::AddGameScene(new BouncingBallScene(m_pGameSettings.get()));
 	SceneManager::AddGameScene(new PhysXMeshTestScene_2(m_pGameSettings.get()));
 #endif
 #ifdef REST_OF_SCENES
-	SceneManager::AddGameScene(new GimbalRigScene(m_pGameSettings.get()));
 	SceneManager::AddGameScene(new CarouselScene(m_pGameSettings.get()));
+	SceneManager::AddGameScene(new GimbalRigScene(m_pGameSettings.get()));
 	SceneManager::AddGameScene(new InputTestScene(m_pGameSettings.get()));
 #endif
 	std::cout << "-----------------------------------------------" << '\n' ;

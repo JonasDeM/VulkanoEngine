@@ -38,8 +38,10 @@ void CubePosColorTex::Initialize(VulkanContext* pVkContext)
 	CreateVertexBuffer(pVkContext);
 	CreateIndexBuffer(pVkContext);
 	CreateTextureResources(pVkContext);
+
 	m_DescriptorPool = pipeline->CreateDescriptorPool(*pVkContext->GetVkDevice());
-	m_DescriptorSet = pipeline->CreateAndWriteDescriptorSet(*pVkContext->GetVkDevice(), *m_DescriptorPool, *m_UniformBuffer, *m_TextureImageView, *m_TextureSampler);
+	m_DescriptorSet = pipeline->CreateAndWriteDescriptorSet(*pVkContext->GetVkDevice(), *m_DescriptorPool, *m_UniformBuffers, *m_TextureImageView, *m_TextureSampler);
+
 }
 
 void CubePosColorTex::Update(VulkanContext* pVkContext)
@@ -47,20 +49,18 @@ void CubePosColorTex::Update(VulkanContext* pVkContext)
 	UpdateUniformVariables(pVkContext);
 }
 
-
 void CubePosColorTex::UpdateUniformVariables(VulkanContext* pVkContext)
 {
 	GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetPosColTexPipeline())::UniformBufferObject ubo; // this way you can get the UniformBufferObject declared in that graphics pipeline
 
 	ubo.world = m_WorldMatrix;
 	ubo.wvp = GetScene()->GetCamera()->GetViewProjection() * ubo.world; 
-
+	
 	void* data;
-	vkMapMemory(*pVkContext->GetVkDevice(), *m_UniformBufferMemory, 0, sizeof(ubo), 0, &data);
+	vkMapMemory(*pVkContext->GetVkDevice(), *m_UniformBuffersMemory, 0, sizeof(ubo), 0, &data);
 	memcpy(data, &ubo, sizeof(ubo));
-	vkUnmapMemory(*pVkContext->GetVkDevice(), *m_UniformBufferMemory);
+	vkUnmapMemory(*pVkContext->GetVkDevice(), *m_UniformBuffersMemory);
 }
-
 
 void CubePosColorTex::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
 {
@@ -274,7 +274,9 @@ void CubePosColorTex::CreateVertexBuffer(VulkanContext* pVkContext)
 void CubePosColorTex::CreateUniformBuffer(VulkanContext* pVkContext)
 {
 	VkDeviceSize bufferSize = sizeof(GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetPosColTexPipeline())::UniformBufferObject);
-	m_UniformBuffer = CreateHandle<VkBuffer>(vkDestroyBuffer, *pVkContext->GetVkDevice());
-	m_UniformBufferMemory = CreateHandle<VkDeviceMemory>(vkFreeMemory, *pVkContext->GetVkDevice());
-	VulkanUtils::CreateBuffer(pVkContext, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, m_UniformBuffer.get(), m_UniformBufferMemory.get());
+
+	m_UniformBuffers = CreateHandle<VkBuffer>(vkDestroyBuffer, *pVkContext->GetVkDevice());
+	m_UniformBuffersMemory = CreateHandle<VkDeviceMemory>(vkFreeMemory, *pVkContext->GetVkDevice());
+	VulkanUtils::CreateBuffer(pVkContext, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, m_UniformBuffers.get(), m_UniformBuffersMemory.get());
+
 }

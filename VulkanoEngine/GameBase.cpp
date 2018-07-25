@@ -65,7 +65,6 @@ void GameBase::RunGame()
 		Update();
 		SceneManager::Update();
 		m_pVulkanDrawer->VkDrawFrame(m_pGameSettings.get());
-
 	}
 	vkDeviceWaitIdle(*m_pVulkanDrawer->GetVkDevice()); //wait for all async processes to complete
 

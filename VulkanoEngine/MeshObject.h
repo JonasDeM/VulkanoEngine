@@ -21,17 +21,17 @@ public:
 private:
 	void CreateUniformBuffer(VulkanContext* pVkContext);
 	void UpdateUniformVariables(VulkanContext* pVkContext);
-	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer) override;
+	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex) override;
 
 	shared_ptr<MeshData> m_pMeshData;
 	wstring m_AssetFile;
 
 	VkBuffer *m_pVertexBuffer, *m_pIndexBuffer; //normal ptr -> no ownership
-	unique_ptr_del<VkBuffer> m_UniformBuffer;
-	unique_ptr_del<VkDeviceMemory> m_UniformBufferMemory;
+	std::vector<unique_ptr_del<VkBuffer>> m_UniformBuffers;
+	std::vector<unique_ptr_del<VkDeviceMemory>> m_UniformBuffersMemory;
 
 	unique_ptr_del<VkDescriptorPool> m_DescriptorPool;
-	VkDescriptorSet m_DescriptorSet; //gets automatically cleaned up with pool
+	std::vector<VkDescriptorSet> m_DescriptorSets; //gets automatically cleaned up with pool
 
 private:
 	// -------------------------

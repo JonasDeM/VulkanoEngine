@@ -22,7 +22,7 @@ private:
 	void CreateIndexBuffer(VulkanContext* pVkContext);
 	void CreateUniformBuffer(VulkanContext* pVkContext);
 	void UpdateUniformVariables(VulkanContext* pVkContext);
-	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer) override;
+	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex) override;
 
 	float m_Width, m_Height, m_Depth;
 	static const int NUMVERTICES = 24;
@@ -32,11 +32,11 @@ private:
 	unique_ptr_del<VkDeviceMemory> m_VertexBufferMemory;
 	unique_ptr_del<VkBuffer> m_IndexBuffer;
 	unique_ptr_del<VkDeviceMemory> m_IndexBufferMemory;
-	unique_ptr_del<VkBuffer> m_UniformBuffer;
-	unique_ptr_del<VkDeviceMemory> m_UniformBufferMemory;
+	std::vector<unique_ptr_del<VkBuffer>> m_UniformBuffers;
+	std::vector<unique_ptr_del<VkDeviceMemory>> m_UniformBuffersMemory;
 
 	unique_ptr_del<VkDescriptorPool> m_DescriptorPool;
-	VkDescriptorSet m_DescriptorSet; //gets automatically cleaned up with pool
+	std::vector<VkDescriptorSet> m_DescriptorSets; //gets automatically cleaned up with pool
 
 	bool m_UseCustomColor = false;
 	vec4 m_CustomColor;
