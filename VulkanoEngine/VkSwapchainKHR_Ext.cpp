@@ -9,7 +9,7 @@
 #include "VulkanContext.h"
 #include "VkDevice_Ext.h"
 
-void VkSwapchainKHR_Ext::CreateSwapChain(VulkanContext* pVkContext, const VkExtent2D& windowExtent, VkSwapchainKHR oldSwapChain)
+void VkSwapchainKHR_Ext::CreateSwapChain(VulkanContext* pVkContext, const VkExtent2D& windowExtent, VkSwapchainKHR oldSwapChain, int desiredFrameBuffers)
 {
 	VkSurfaceKHR surface = *pVkContext->GetSurface();
 	auto swapChainSupport = pVkContext->GetVkPhysicalDevice()->GetSwapChainSupportDetails(true, surface);
@@ -21,11 +21,12 @@ void VkSwapchainKHR_Ext::CreateSwapChain(VulkanContext* pVkContext, const VkExte
 	// resolution of images
 	VkExtent2D extent = GetActualSwapExtent(swapChainSupport->capabilities, windowExtent);
 
-
 	//length of the image queue
-	auto imageCount = swapChainSupport->capabilities.minImageCount + 1;
+	uint32_t imageCount = (uint32_t)desiredFrameBuffers;
 	if (swapChainSupport->capabilities.maxImageCount > 0 && imageCount > swapChainSupport->capabilities.maxImageCount)
 		imageCount = swapChainSupport->capabilities.maxImageCount;
+	if (imageCount < swapChainSupport->capabilities.minImageCount)
+		imageCount = swapChainSupport->capabilities.minImageCount;
 
 	//queue families used
 	uint32_t queueFamilyIndicesArray[] = { static_cast<uint32_t>(queueFamilyIndices->graphicsFamily)

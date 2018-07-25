@@ -23,9 +23,9 @@ class VkSwapchainKHR_Ext : public DeriveableHandle<VkSwapchainKHR>
 {
 public:
 
-	VkSwapchainKHR_Ext(VulkanContext* pVkContext, const VkExtent2D& windowExtent, VkSwapchainKHR oldSwapChain)
+	VkSwapchainKHR_Ext(VulkanContext* pVkContext, const VkExtent2D& windowExtent, VkSwapchainKHR oldSwapChain, int desiredFrameBuffers = 2)
 	{
-		CreateSwapChain(pVkContext, windowExtent, oldSwapChain);
+		CreateSwapChain(pVkContext, windowExtent, oldSwapChain, desiredFrameBuffers);
 		CreateImageViews(*pVkContext->GetVkDevice());
 		CreateDepthResources(pVkContext);
 		CreateRenderPass(pVkContext);
@@ -95,7 +95,7 @@ private:
 
 	//what swapchain features the gpu supports..
 
-	void CreateSwapChain(VulkanContext* pVkContext, const VkExtent2D& windowExtent, VkSwapchainKHR oldSwapChain);
+	void CreateSwapChain(VulkanContext* pVkContext, const VkExtent2D& windowExtent, VkSwapchainKHR oldSwapChain, int desiredFrameBuffers);
 	void CreateImageViews(VkDevice device);
 	void CreateRenderPass(VulkanContext* pVkContext);
 	void CreateFrameBuffers(VkDevice device);
