@@ -11,7 +11,6 @@ public:
 
 	virtual void CreateDescriptorSetLayout(VkDevice device) = 0;
 
-
 	virtual unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device) = 0;
 	virtual unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) { return nullptr; };
 

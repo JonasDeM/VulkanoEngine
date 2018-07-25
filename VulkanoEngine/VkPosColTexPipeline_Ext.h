@@ -18,10 +18,10 @@ public:
 		vkDestroyPipeline(device, *this, nullptr);
 	}
 
-
-	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device) override;
+	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device) override { return nullptr; };
+	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) override;
 	void CreateDescriptorSetLayout(VkDevice device) override;
-	VkDescriptorSet CreateAndWriteDescriptorSet(VkDevice device, VkDescriptorPool descPool, VkBuffer uniformBuffer, VkImageView texImageView, VkSampler texSampler);
+	std::vector<VkDescriptorSet> CreateAndWriteDescriptorSets(VkDevice device, VkDescriptorPool descPool, const vector<unique_ptr_del<VkBuffer>>& uniformBuffers, VkImageView texImageView, VkSampler texSampler);
 
 	struct UniformBufferObject {
 		glm::mat4 world;

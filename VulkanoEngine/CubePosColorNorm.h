@@ -22,7 +22,7 @@ private:
 	void CreateIndexBuffer(VulkanContext* pVkContext);
 	void CreateUniformBuffer(VulkanContext* pVkContext);
 	void UpdateUniformVariables(VulkanContext* pVkContext);
-	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex) override;
+	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex) override;
 
 	float m_Width, m_Height, m_Depth;
 	static const int NUMVERTICES = 24;

@@ -18,7 +18,6 @@ public:
 		vkDestroyPipeline(device, *this, nullptr);
 	}
 
-
 	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device) override { return nullptr; };
 	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) override;
 	void CreateDescriptorSetLayout(VkDevice device) override;

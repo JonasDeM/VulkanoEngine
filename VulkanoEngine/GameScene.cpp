@@ -167,7 +167,7 @@ void GameScene::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
 	}
 }
 
-void GameScene::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex)
+void GameScene::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex)
 {
 	RecordVulkanDrawCommands(cmdBuffer, frameBufferIndex);
 

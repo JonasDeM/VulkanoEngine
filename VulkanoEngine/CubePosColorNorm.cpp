@@ -58,7 +58,7 @@ void CubePosColorNorm::UpdateUniformVariables(VulkanContext* pVkContext)
 }
 
 
-void CubePosColorNorm::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex)
+void CubePosColorNorm::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex)
 {
 	auto pipeline = VkPipelineManager::GetInstance()->GetPosColNormPipeline();
 

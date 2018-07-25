@@ -258,7 +258,7 @@ void GameObject::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
 	}
 }
 
-void GameObject::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex)
+void GameObject::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex)
 {
 	if (!m_CanDraw)
 		return;

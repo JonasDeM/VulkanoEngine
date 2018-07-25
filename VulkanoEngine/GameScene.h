@@ -41,7 +41,7 @@ protected:
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 	virtual void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer) {};
-	virtual void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex) {};
+	virtual void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex) {};
 	virtual void SceneActivated(){}
 	virtual void SceneDeactivated(){}
 
@@ -65,7 +65,7 @@ private:
 	void RootInitialize(VulkanContext* vkContext);
 	void RootUpdate();
 	void RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer);
-	void RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex);
+	void RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex);
 	void RootSceneActivated();
 	void RootSceneDeactivated();
 	void RootWindowStateChanged(int state, bool active);
