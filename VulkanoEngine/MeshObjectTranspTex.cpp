@@ -28,8 +28,9 @@ void MeshObjectTranspTex::Initialize(VulkanContext* pVkContext)
 	m_pVertexBuffer = m_pMeshData->GetVertexBuffer<VertexPosNormTex>(pVkContext);
 	m_pIndexBuffer = m_pMeshData->GetIndexBuffer(pVkContext);
 	CreateTextureResources(pVkContext);
-	m_DescriptorPool = pipeline->CreateDescriptorPool(*pVkContext->GetVkDevice());
-	m_DescriptorSet = pipeline->CreateAndWriteDescriptorSet(*pVkContext->GetVkDevice(), *m_DescriptorPool, *m_UniformBuffer, *m_TextureImageView, *m_TextureSampler);
+	int amountFrameBuffers = pVkContext->GetVkSwapChain()->GetAmountImages();
+	m_DescriptorPool = pipeline->CreateDescriptorPool(*pVkContext->GetVkDevice(), amountFrameBuffers);
+	m_DescriptorSets = pipeline->CreateAndWriteDescriptorSets(*pVkContext->GetVkDevice(), *m_DescriptorPool, m_UniformBuffers, *m_TextureImageView, *m_TextureSampler);
 }
 
 void MeshObjectTranspTex::Update(VulkanContext* pVkContext)
@@ -45,14 +46,16 @@ void MeshObjectTranspTex::UpdateUniformVariables(VulkanContext* pVkContext)
 	ubo.world = m_WorldMatrix;
 	ubo.wvp = GetScene()->GetCamera()->GetViewProjection() * ubo.world;
 
+	int i = pVkContext->GetCurrentDrawingBufferIndex();
+
 	void* data;
-	vkMapMemory(*pVkContext->GetVkDevice(), *m_UniformBufferMemory, 0, sizeof(ubo), 0, &data);
+	vkMapMemory(*pVkContext->GetVkDevice(), *m_UniformBuffersMemory[i], 0, sizeof(ubo), 0, &data);
 	memcpy(data, &ubo, sizeof(ubo));
-	vkUnmapMemory(*pVkContext->GetVkDevice(), *m_UniformBufferMemory);
+	vkUnmapMemory(*pVkContext->GetVkDevice(), *m_UniformBuffersMemory[i]);
 }
 
 
-void MeshObjectTranspTex::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
+void MeshObjectTranspTex::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex)
 {
 	auto pipeline = VkPipelineManager::GetInstance()->GetPosNormTex2SPipeline();
 	vkCmdBindPipeline(cmdBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, *pipeline);
@@ -61,7 +64,7 @@ void MeshObjectTranspTex::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
 	VkDeviceSize offsets[] = { 0 };
 	vkCmdBindVertexBuffers(cmdBuffer, 0, 1, vertexBuffers, offsets);
 	vkCmdBindIndexBuffer(cmdBuffer, *m_pIndexBuffer, 0, VK_INDEX_TYPE_UINT32);
-	vkCmdBindDescriptorSets(cmdBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->GetPipelineLayout(), 0, 1, &m_DescriptorSet, 0, nullptr);
+	vkCmdBindDescriptorSets(cmdBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->GetPipelineLayout(), 0, 1, &m_DescriptorSets[frameBufferIndex], 0, nullptr);
 	//draw
 	vkCmdDrawIndexed(cmdBuffer, static_cast<uint32_t>(m_pMeshData->GetIndexCount()), 1, 0, 0, 0);
 }
@@ -78,7 +81,12 @@ void MeshObjectTranspTex::CreateTextureResources(VulkanContext* pVkContext)
 void MeshObjectTranspTex::CreateUniformBuffer(VulkanContext* pVkContext)
 {
 	VkDeviceSize bufferSize = sizeof(GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetPosNormTex2SPipeline())::UniformBufferObject);
-	m_UniformBuffer = CreateHandle<VkBuffer>(vkDestroyBuffer, *pVkContext->GetVkDevice());
-	m_UniformBufferMemory = CreateHandle<VkDeviceMemory>(vkFreeMemory, *pVkContext->GetVkDevice());
-	VulkanUtils::CreateBuffer(pVkContext, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, m_UniformBuffer.get(), m_UniformBufferMemory.get());
+	m_UniformBuffers.resize(pVkContext->GetVkSwapChain()->GetAmountImages());
+	m_UniformBuffersMemory.resize(m_UniformBuffers.size());
+	for (size_t i = 0; i < m_UniformBuffers.size(); i++)
+	{
+		m_UniformBuffers[i] = CreateHandle<VkBuffer>(vkDestroyBuffer, *pVkContext->GetVkDevice());
+		m_UniformBuffersMemory[i] = CreateHandle<VkDeviceMemory>(vkFreeMemory, *pVkContext->GetVkDevice());
+		VulkanUtils::CreateBuffer(pVkContext, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, m_UniformBuffers[i].get(), m_UniformBuffersMemory[i].get());
+	}
 }

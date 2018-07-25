@@ -29,15 +29,18 @@ void MainGame::OnPreparingGame()
 
 void MainGame::Update()
 {
-	auto pScene = SceneManager::GetActiveGameScene();
-	if (pScene && m_PrintFPS && pScene->GetTimer()->GetTotalSeconds() >= m_PrevFPSCheck)
+	auto pActiveScene = SceneManager::GetActiveGameScene();
+	if (m_pPrevScene != pActiveScene)
+		m_PrevFPSCheck = 0;
+
+	if (pActiveScene && m_PrintFPS && pActiveScene->GetTimer()->GetTotalSeconds() >= m_PrevFPSCheck)
 	{
-		m_PrevFPSCheck = (float)pScene->GetTimer()->GetTotalSeconds()+1.0f;
+		m_PrevFPSCheck = (float)pActiveScene->GetTimer()->GetTotalSeconds()+1.0f;
 		wstringstream ss;
 		ss << L"FPS: " << SceneManager::GetActiveGameScene()->GetTimer()->GetFPS() << "\n";
 		Debug::LogInfo(ss.str());
 	}
-
+	m_pPrevScene = pActiveScene;
 }
 
 void MainGame::Initialize()

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameBase.h"
+#include "GameScene.h"
 
 class MainGame: public GameBase
 {
@@ -18,6 +19,7 @@ protected:
 	static void OnKeyPress(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 	float m_PrevFPSCheck = 0.0f;
+	GameScene* m_pPrevScene = nullptr;
 	static bool m_PrintFPS; //static because of glfw callback
 
 private:

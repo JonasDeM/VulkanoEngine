@@ -81,7 +81,7 @@ void VkSwapchainKHR_Ext::CreateDepthResources(VulkanContext* pVkContext)
 	int imageCount = (int)m_SwapChainImages.size();
 	m_DepthImages.resize(imageCount);
 	m_DepthImageViews.resize(imageCount);
-	for (size_t i = 0; i < imageCount; i++)
+	for (int i = 0; i < imageCount; i++)
 	{
 		m_DepthImages[i] = CreateExtendedHandle(new VkDepthImage_Ext(pVkContext, GetExtent()), device);
 		m_DepthImageViews[i] = CreateExtendedHandle(new VkImageView_Ext(device, *m_DepthImages[i], format, VK_IMAGE_ASPECT_DEPTH_BIT), device);

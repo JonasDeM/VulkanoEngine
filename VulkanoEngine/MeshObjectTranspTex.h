@@ -25,21 +25,21 @@ private:
 	void CreateUniformBuffer(VulkanContext* pVkContext);
 	void CreateTextureResources(VulkanContext* pVkContext);
 	void UpdateUniformVariables(VulkanContext* pVkContext);
-	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer) override;
+	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex) override;
 
 	shared_ptr<MeshData> m_pMeshData;
 	wstring m_AssetFile;
 	wstring  m_TextureFile;
 
 	VkBuffer *m_pVertexBuffer, *m_pIndexBuffer; //normal ptr -> no ownership
-	unique_ptr_del<VkBuffer> m_UniformBuffer;
-	unique_ptr_del<VkDeviceMemory> m_UniformBufferMemory;
+	std::vector<unique_ptr_del<VkBuffer>> m_UniformBuffers;
+	std::vector<unique_ptr_del<VkDeviceMemory>> m_UniformBuffersMemory;
 	unique_ptr_del<VkBasicSampler_Ext> m_TextureSampler;
-	shared_ptr<VkTextureImage_Ext> m_TextureImage;
+	std::shared_ptr<VkTextureImage_Ext> m_TextureImage;
 	unique_ptr_del<VkImageView_Ext> m_TextureImageView;
 
 	unique_ptr_del<VkDescriptorPool> m_DescriptorPool;
-	VkDescriptorSet m_DescriptorSet; //gets automatically cleaned up with pool
+	std::vector<VkDescriptorSet> m_DescriptorSets; //gets automatically cleaned up with pool
 
 	bool m_UseCustomColor = false;
 	vec4 m_CustomColor;
