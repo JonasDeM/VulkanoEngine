@@ -23,7 +23,7 @@ class VkSwapchainKHR_Ext : public DeriveableHandle<VkSwapchainKHR>
 {
 public:
 
-	VkSwapchainKHR_Ext(VulkanContext* pVkContext, const VkExtent2D& windowExtent, VkSwapchainKHR oldSwapChain, int desiredFrameBuffers = 2)
+	VkSwapchainKHR_Ext(VulkanContext* pVkContext, const VkExtent2D& windowExtent, VkSwapchainKHR oldSwapChain, int desiredFrameBuffers = 3)
 	{
 		CreateSwapChain(pVkContext, windowExtent, oldSwapChain, desiredFrameBuffers);
 		CreateImageViews(*pVkContext->GetVkDevice());
