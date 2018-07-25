@@ -48,8 +48,11 @@ protected:
 	mat4 m_WorldMatrix;
 	vec3 m_Position, m_Scale;
 	quat m_Rotation;
+
+	//Is not updated every frame
 	vec3 m_WorldPosition, m_WorldScale;
 	quat m_WorldRotation;
+
 	PxRigidActor* m_pRigidActor;
 
 private:

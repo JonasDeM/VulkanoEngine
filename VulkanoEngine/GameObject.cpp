@@ -81,6 +81,9 @@ void GameObject::AttachRigidActor(PxRigidActor* pRigidActor)
 		//Attach RigidBody
 		if (m_pRigidActor)
 		{
+			//Retrieve World Transform Information
+			glm::decompose(m_WorldMatrix, m_WorldScale, m_WorldRotation, m_WorldPosition, vec3(), vec4());
+
 			PxTransform transform;
 			transform.p = PxVec3(m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 			transform.q = PxQuat(m_WorldRotation.x, m_WorldRotation.y, m_WorldRotation.z, m_WorldRotation.w);
@@ -315,10 +318,6 @@ void GameObject::CalculateWorldMatrix(const mat4 &parentWorld, bool updateChildr
 	m_WorldMatrix = glm::translate(m_WorldMatrix, m_Position);
 	m_WorldMatrix *= glm::toMat4(m_Rotation);
 	m_WorldMatrix = glm::scale(m_WorldMatrix, m_Scale);
-
-
-	//Retrieve World Transform Information
-	glm::decompose(m_WorldMatrix, m_WorldScale, m_WorldRotation, m_WorldPosition, vec3(), vec4());
 
 	if (!updateChildren)
 		return;
