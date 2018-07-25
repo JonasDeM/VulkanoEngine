@@ -215,19 +215,19 @@ VkPosNormTexPipeline_Ext::VkPosNormTexPipeline_Ext(VulkanContext* pVkContext)
 	vkDestroyShaderModule(device, fragShaderModule, nullptr);
 }
 
-unique_ptr_del<VkDescriptorPool> VkPosNormTexPipeline_Ext::CreateDescriptorPool(VkDevice device)
+unique_ptr_del<VkDescriptorPool> VkPosNormTexPipeline_Ext::CreateDescriptorPool(VkDevice device, const int uboCount)
 {
 	std::array<VkDescriptorPoolSize, 2> poolSizes = {};
 	poolSizes[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-	poolSizes[0].descriptorCount = 1;
+	poolSizes[0].descriptorCount = uboCount;
 	poolSizes[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-	poolSizes[1].descriptorCount = 1;
+	poolSizes[1].descriptorCount = uboCount;
 
 	VkDescriptorPoolCreateInfo poolInfo = {};
 	poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
 	poolInfo.poolSizeCount = static_cast<uint32_t>(poolSizes.size());
 	poolInfo.pPoolSizes = poolSizes.data();
-	poolInfo.maxSets = 1;
+	poolInfo.maxSets = uboCount;
 
 	auto pVkDescriptorPool = CreateHandle<VkDescriptorPool>(vkDestroyDescriptorPool, device);
 	if (vkCreateDescriptorPool(device, &poolInfo, nullptr, pVkDescriptorPool.get()) != VK_SUCCESS) {
@@ -235,55 +235,6 @@ unique_ptr_del<VkDescriptorPool> VkPosNormTexPipeline_Ext::CreateDescriptorPool(
 	}
 	return std::move(pVkDescriptorPool);
 }
-
-VkDescriptorSet VkPosNormTexPipeline_Ext::CreateAndWriteDescriptorSet(VkDevice device, VkDescriptorPool descPool, VkBuffer uniformBuffer, VkImageView texImageView, VkSampler texSampler)
-{
-	VkDescriptorSet descSet;
-
-	VkDescriptorSetLayout layouts[] = { *m_DescriptorSetLayout };
-	VkDescriptorSetAllocateInfo allocInfo = {};
-	allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-	allocInfo.descriptorPool = descPool;
-	allocInfo.descriptorSetCount = 1;
-	allocInfo.pSetLayouts = layouts;
-
-	if (vkAllocateDescriptorSets(device, &allocInfo, &descSet) != VK_SUCCESS) {
-		throw std::runtime_error("failed to allocate descriptor set!");
-	}
-
-	VkDescriptorBufferInfo bufferInfo = {};
-	bufferInfo.buffer = uniformBuffer;
-	bufferInfo.offset = 0;
-	bufferInfo.range = sizeof(UniformBufferObject);
-
-	VkDescriptorImageInfo imageInfo = {};
-	imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-	imageInfo.imageView = texImageView;
-	imageInfo.sampler = texSampler;
-
-	std::array<VkWriteDescriptorSet, 2> descriptorWrites = {};
-
-	descriptorWrites[0].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-	descriptorWrites[0].dstSet = descSet;
-	descriptorWrites[0].dstBinding = 0;
-	descriptorWrites[0].dstArrayElement = 0;
-	descriptorWrites[0].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-	descriptorWrites[0].descriptorCount = 1;
-	descriptorWrites[0].pBufferInfo = &bufferInfo;
-
-	descriptorWrites[1].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-	descriptorWrites[1].dstSet = descSet;
-	descriptorWrites[1].dstBinding = 1;
-	descriptorWrites[1].dstArrayElement = 0;
-	descriptorWrites[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-	descriptorWrites[1].descriptorCount = 1;
-	descriptorWrites[1].pImageInfo = &imageInfo;
-
-	vkUpdateDescriptorSets(device, static_cast<uint32_t>(descriptorWrites.size()), descriptorWrites.data(), 0, nullptr);
-
-	return descSet;
-}
-
 
 void VkPosNormTexPipeline_Ext::CreateDescriptorSetLayout(VkDevice device)
 {
@@ -315,5 +266,56 @@ void VkPosNormTexPipeline_Ext::CreateDescriptorSetLayout(VkDevice device)
 	if (vkCreateDescriptorSetLayout(device, &layoutInfo, nullptr, m_DescriptorSetLayout.get()) != VK_SUCCESS) {
 		throw std::runtime_error("failed to create descriptor set layout!");
 	}
+}
+
+std::vector<VkDescriptorSet> VkPosNormTexPipeline_Ext::CreateAndWriteDescriptorSets(VkDevice device, VkDescriptorPool descPool, const vector<unique_ptr_del<VkBuffer>>& uniformBuffers, VkImageView texImageView, VkSampler texSampler)
+{
+	vector<VkDescriptorSet> descSets(uniformBuffers.size());
+
+	std::vector<VkDescriptorSetLayout> layouts(uniformBuffers.size(), *m_DescriptorSetLayout);
+	VkDescriptorSetAllocateInfo allocInfo = {};
+	allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+	allocInfo.descriptorPool = descPool;
+	allocInfo.descriptorSetCount = (uint32_t)layouts.size();
+	allocInfo.pSetLayouts = layouts.data();
+
+	if (vkAllocateDescriptorSets(device, &allocInfo, descSets.data()) != VK_SUCCESS) {
+		throw std::runtime_error("failed to allocate descriptor set!");
+	}
+
+	VkDescriptorImageInfo imageInfo = {};
+	imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+	imageInfo.imageView = texImageView;
+	imageInfo.sampler = texSampler;
+
+	std::vector<VkWriteDescriptorSet> descriptorWrites(uniformBuffers.size() * 2);
+	for (size_t i = 0; i < uniformBuffers.size(); i++)
+	{
+		VkDescriptorBufferInfo bufferInfo = {};
+		bufferInfo.buffer = *uniformBuffers[i];
+		bufferInfo.offset = 0;
+		bufferInfo.range = sizeof(UniformBufferObject);
+
+		auto dwIndex = i * 2;
+		descriptorWrites[dwIndex].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+		descriptorWrites[dwIndex].dstSet = descSets[i];
+		descriptorWrites[dwIndex].dstBinding = 0;
+		descriptorWrites[dwIndex].dstArrayElement = 0;
+		descriptorWrites[dwIndex].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+		descriptorWrites[dwIndex].descriptorCount = 1;
+		descriptorWrites[dwIndex].pBufferInfo = &bufferInfo;
+
+		dwIndex++;
+		descriptorWrites[dwIndex].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+		descriptorWrites[dwIndex].dstSet = descSets[i];
+		descriptorWrites[dwIndex].dstBinding = 1;
+		descriptorWrites[dwIndex].dstArrayElement = 0;
+		descriptorWrites[dwIndex].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		descriptorWrites[dwIndex].descriptorCount = 1;
+		descriptorWrites[dwIndex].pImageInfo = &imageInfo;
+	}
+	vkUpdateDescriptorSets(device, static_cast<uint32_t>(descriptorWrites.size()), descriptorWrites.data(), 0, nullptr);
+
+	return descSets;
 }
 

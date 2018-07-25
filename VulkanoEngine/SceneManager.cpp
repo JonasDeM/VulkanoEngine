@@ -180,13 +180,6 @@ void SceneManager::Update()
 	}
 }
 
-
-void SceneManager::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
-{
-	if (m_pActiveScene != nullptr)
-		m_pActiveScene->RootRecordVulkanDrawCommands(cmdBuffer);
-}
-
 void SceneManager::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex)
 {
 	if (m_pActiveScene != nullptr)

@@ -216,7 +216,7 @@ VkDebugPipeline_Ext::VkDebugPipeline_Ext(VulkanContext* pVkContext)
 }
 
 
-unique_ptr_del<VkDescriptorPool> VkDebugPipeline_Ext::CreateDescriptorPool(VkDevice device)
+unique_ptr_del<VkDescriptorPool> VkDebugPipeline_Ext::CreateDescriptorPool(VkDevice device, const int uboCount)
 {
 	std::array<VkDescriptorPoolSize, 1> poolSizes = {};
 	poolSizes[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;

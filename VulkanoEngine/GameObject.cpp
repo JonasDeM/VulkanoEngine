@@ -244,20 +244,6 @@ void GameObject::RootUpdate(VulkanContext* pVkContext)
 	}
 }
 
-
-void GameObject::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
-{
-	if (!m_CanDraw)
-		return;
-
-	RecordVulkanDrawCommands(cmdBuffer);
-
-	for (auto& pObject : m_vecChildren)
-	{
-		pObject->RootRecordVulkanDrawCommands(cmdBuffer);
-	}
-}
-
 void GameObject::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex)
 {
 	if (!m_CanDraw)

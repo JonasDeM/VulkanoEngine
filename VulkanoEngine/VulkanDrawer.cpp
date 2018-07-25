@@ -344,7 +344,6 @@ void VulkanDrawer::CreateDrawCommandBuffers(GameSettings* settings)
 		vkCmdBeginRenderPass(m_DrawCommandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE); //embedded in the primary command buffer
 																									//bind our graphicspipeline
 		Debug::RecordVulkanDrawCommands(m_DrawCommandBuffers[i]);
-		SceneManager::RecordVulkanDrawCommands(m_DrawCommandBuffers[i]);
 		SceneManager::RecordVulkanDrawCommands(m_DrawCommandBuffers[i], i);
 		//end the render pass
 		vkCmdEndRenderPass(m_DrawCommandBuffers[i]);

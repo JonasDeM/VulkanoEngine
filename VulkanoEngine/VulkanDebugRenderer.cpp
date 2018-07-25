@@ -16,9 +16,8 @@ VulkanDebugRenderer::VulkanDebugRenderer(VulkanContext* pVkContext, const vector
 	auto debugGraphicsPipeline = VkPipelineManager::GetInstance()->GetDebugPipeline();
 	CreateUniformBuffer(pVkContext);
 	CreateVertexBuffer(pVkContext, fixedLineList, bufferSize, fixedBufferSize);
-	m_DescriptorPool = debugGraphicsPipeline->CreateDescriptorPool(*pVkContext->GetVkDevice());
+	m_DescriptorPool = debugGraphicsPipeline->CreateDescriptorPool(*pVkContext->GetVkDevice(), 1);
 	m_DescriptorSet = debugGraphicsPipeline->CreateAndWriteDescriptorSet(*pVkContext->GetVkDevice(), *m_DescriptorPool, *m_UniformBuffer);
-
 }
 
 VulkanDebugRenderer::~VulkanDebugRenderer()

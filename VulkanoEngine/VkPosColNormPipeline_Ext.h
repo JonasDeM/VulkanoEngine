@@ -18,9 +18,7 @@ public:
 		vkDestroyPipeline(device, *this, nullptr);
 	}
 
-	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device) override { return nullptr; };
 	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) override;
-	void CreateDescriptorSetLayout(VkDevice device) override;
 	std::vector<VkDescriptorSet> CreateAndWriteDescriptorSets(VkDevice device, VkDescriptorPool descPool, const vector<unique_ptr_del<VkBuffer>>& uniformBuffers);
 
 	struct UniformBufferObject {
@@ -28,4 +26,6 @@ public:
 		glm::mat4 wvp;
 	};
 
+protected:
+	void CreateDescriptorSetLayout(VkDevice device) override;
 };

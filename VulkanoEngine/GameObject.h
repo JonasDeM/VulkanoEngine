@@ -37,7 +37,6 @@ public:
 	void CanDraw(bool canDraw) { m_CanDraw = canDraw; }
 
 	virtual void Initialize(VulkanContext* pVkContext) = 0;
-	virtual void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer) {};
 	virtual void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex) {};
 	virtual void Update(VulkanContext* pVkContext) = 0;
 
@@ -59,7 +58,6 @@ private:
 
 	void RootInitialize(VulkanContext* pVkContext);
 	void RootUpdate(VulkanContext* pVkContext);
-	void RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer);
 	void RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex);
 	void CalculateWorldMatrix(const mat4 &parentWorld, bool updateChildren = true);
 

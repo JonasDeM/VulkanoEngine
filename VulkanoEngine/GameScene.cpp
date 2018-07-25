@@ -157,16 +157,6 @@ void GameScene::RootUpdate()
 	}
 }
 
-void GameScene::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
-{
-	RecordVulkanDrawCommands(cmdBuffer);
-
-	for (auto& pObject : m_vecGameObjects)
-	{
-		pObject->RootRecordVulkanDrawCommands(cmdBuffer);
-	}
-}
-
 void GameScene::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex)
 {
 	RecordVulkanDrawCommands(cmdBuffer, frameBufferIndex);

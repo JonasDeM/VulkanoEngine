@@ -32,7 +32,6 @@ private:
 
 	static void Initialize(VulkanContext* vkContext);
 	static void Update();
-	static void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer);
 	static void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex);
 	static void Destroy();
 	static void WindowStateChanged(int state, bool active);

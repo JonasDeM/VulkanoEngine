@@ -9,14 +9,11 @@ public:
 	VkPipeline_Ext() {};
 	virtual void Destroy(VkDevice device) const = 0;
 
-	virtual void CreateDescriptorSetLayout(VkDevice device) = 0;
-
-	virtual unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device) = 0;
-	virtual unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) { return nullptr; };
-
+	virtual unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) = 0;
 	VkPipelineLayout GetPipelineLayout() { return *m_PipelineLayout; }
 
 protected:
+	virtual void CreateDescriptorSetLayout(VkDevice device) = 0;
 	static void CreateShaderModule(const std::vector<char>& code, VkShaderModule& shaderModule, VkDevice device);
 
 	unique_ptr_del<VkDescriptorSetLayout> m_DescriptorSetLayout;
