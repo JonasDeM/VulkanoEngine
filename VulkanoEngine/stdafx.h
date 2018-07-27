@@ -61,5 +61,6 @@ using namespace physx;
 #include <algorithm>	
 #include <map>	
 #include <vector>
+#include <array>
 #include <memory>
 using namespace std;
