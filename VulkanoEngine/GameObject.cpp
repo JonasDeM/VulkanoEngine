@@ -219,6 +219,9 @@ void GameObject::RootInitialize(VulkanContext* pVkContext)
 	//Attach RigidBody
 	if (m_pRigidActor)
 	{
+		//Retrieve World Transform Information
+		glm::decompose(m_WorldMatrix, m_WorldScale, m_WorldRotation, m_WorldPosition, vec3(), vec4());
+
 		PxTransform transform;
 		transform.p = PxVec3(m_WorldPosition.x, m_WorldPosition.y, m_WorldPosition.z);
 		transform.q = PxQuat(m_WorldRotation.x, m_WorldRotation.y, m_WorldRotation.z, m_WorldRotation.w);

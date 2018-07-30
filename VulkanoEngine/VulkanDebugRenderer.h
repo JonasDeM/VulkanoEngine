@@ -14,7 +14,7 @@ public:
 	VulkanDebugRenderer(VulkanContext* vulkanContext, const vector<VertexPosCol>& fixedLineList, unsigned int bufferSize, unsigned int fixedBufferSize) ;
 	~VulkanDebugRenderer();
 
-	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, unsigned int vertexCount);
+	void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, unsigned int vertexCount, const int frameBufferIndex);
 
 	void UpdateUniformVariables(const VulkanContext* pVkContext, const GameScene* pCurrentScene);
 	void UpdateVertexData(const VulkanContext* pVkContext, const vector<VertexPosCol>& lineList, unsigned int fixedBufferSize);
@@ -22,13 +22,13 @@ public:
 	void CreateUniformBuffer(const VulkanContext* pVkContext);
 
 private:
-	unique_ptr_del<VkBuffer> m_VertexBuffer;
-	unique_ptr_del<VkDeviceMemory> m_VertexBufferMemory;
-	unique_ptr_del<VkBuffer> m_UniformBuffer;
-	unique_ptr_del<VkDeviceMemory> m_UniformBufferMemory;
+	std::vector<unique_ptr_del<VkBuffer>> m_VertexBuffers;
+	std::vector<unique_ptr_del<VkDeviceMemory>> m_VertexBuffersMemory;
+	std::vector<unique_ptr_del<VkBuffer>> m_UniformBuffers;
+	std::vector<unique_ptr_del<VkDeviceMemory>> m_UniformBuffersMemory;
 
 	unique_ptr_del<VkDescriptorPool> m_DescriptorPool;
-	VkDescriptorSet m_DescriptorSet; //gets automatically cleaned up with pool
+	std::vector<VkDescriptorSet> m_DescriptorSets; //gets automatically cleaned up with pool
 
 };
 

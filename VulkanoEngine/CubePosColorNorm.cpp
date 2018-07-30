@@ -4,7 +4,7 @@
 #include "ContentManager.h"
 #include "VulkanUtils.h"
 #include "HandleUtilities.h"
-#include "VkPipelineManager.h"
+#include "PipelineManager.h"
 #include "VulkanContext.h"
 #include "GameScene.h"
 
@@ -28,7 +28,7 @@ CubePosColorNorm::~CubePosColorNorm(void)
 
 void CubePosColorNorm::Initialize(VulkanContext* pVkContext)
 {
-	auto pipeline = VkPipelineManager::GetInstance()->GetPosColNormPipeline();
+	auto pipeline = PipelineManager::GetPipeline<VkBasicGeometryPipeline_Ext>();
 	CreateUniformBuffer(pVkContext);
 	CreateVertexBuffer(pVkContext);
 	CreateIndexBuffer(pVkContext);
@@ -44,7 +44,7 @@ void CubePosColorNorm::Update(VulkanContext* pVkContext)
 
 void CubePosColorNorm::UpdateUniformVariables(VulkanContext* pVkContext)
 {
-	GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetPosColNormPipeline())::UniformBufferObject ubo; // this way you can get the UniformBufferObject declared in that hraphics pipeline
+	GET_CLASS_FROM_PTR(PipelineManager::GetPipeline<VkBasicGeometryPipeline_Ext>())::UniformBufferObject ubo; // this way you can get the UniformBufferObject declared in that graphics pipeline
 
 	ubo.world = m_WorldMatrix;
 	ubo.wvp = GetScene()->GetCamera()->GetViewProjection() * ubo.world;
@@ -60,7 +60,7 @@ void CubePosColorNorm::UpdateUniformVariables(VulkanContext* pVkContext)
 
 void CubePosColorNorm::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex)
 {
-	auto pipeline = VkPipelineManager::GetInstance()->GetPosColNormPipeline();
+	auto pipeline = PipelineManager::GetPipeline<VkBasicGeometryPipeline_Ext>();
 
 	vkCmdBindPipeline(cmdBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, *pipeline);
 
@@ -239,7 +239,7 @@ void CubePosColorNorm::CreateVertexBuffer(VulkanContext* pVkContext)
 //per scene object
 void CubePosColorNorm::CreateUniformBuffer(VulkanContext* pVkContext)
 {
-	VkDeviceSize bufferSize = sizeof(GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetPosColNormPipeline())::UniformBufferObject);
+	VkDeviceSize bufferSize = sizeof(GET_CLASS_FROM_PTR(PipelineManager::GetPipeline<VkBasicGeometryPipeline_Ext>())::UniformBufferObject);
 
 	m_UniformBuffers.resize(pVkContext->GetVkSwapChain()->GetAmountImages());
 	m_UniformBuffersMemory.resize(m_UniformBuffers.size());

@@ -53,6 +53,12 @@
     <Filter Include="Engine Files\Utilities">
       <UniqueIdentifier>{0a41c065-d96c-47b0-b856-323db508c813}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Vulkan\Pipelines\BasicGeometry">
+      <UniqueIdentifier>{340a50ae-e495-4191-b726-ad173eeaa54a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Vulkan\Pipelines\TexturedGeometry">
+      <UniqueIdentifier>{289f2cfb-2b71-460c-b0d9-0f7864d64f7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -66,9 +72,6 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Engine Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="ContentLoader.h">
-      <Filter>Engine Files\Loaders</Filter>
     </ClInclude>
     <ClInclude Include="ContentManager.h">
       <Filter>Engine Files\Managers</Filter>
@@ -148,25 +151,10 @@
     <ClInclude Include="GameBase.h">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
-    <ClInclude Include="VkPipelineManager.h">
-      <Filter>Engine Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="VkDebugPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
-    </ClInclude>
-    <ClInclude Include="VkPosColTexPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
-    </ClInclude>
-    <ClInclude Include="VkPosColNormPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
-    </ClInclude>
     <ClInclude Include="VkTextureLoader.h">
       <Filter>Engine Files\Loaders</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h" />
-    <ClInclude Include="VkPosNormTexPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
-    </ClInclude>
     <ClInclude Include="BoxDemoScene.h">
       <Filter>Scenes\Basic</Filter>
     </ClInclude>
@@ -192,9 +180,6 @@
       <Filter>Engine Files\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="BaseLoader.h">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="VkContentLoader.h">
       <Filter>Engine Files\Loaders</Filter>
     </ClInclude>
     <ClInclude Include="BaseCamera.h">
@@ -230,9 +215,6 @@
     <ClInclude Include="FileUtils.h">
       <Filter>Engine Files\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="HandleUtilities.h">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="VulkanUtils.h">
       <Filter>Engine Files\Utilities</Filter>
     </ClInclude>
@@ -257,14 +239,47 @@
     <ClInclude Include="TexturedMeshScene.h">
       <Filter>Scenes\Meshes</Filter>
     </ClInclude>
-    <ClInclude Include="VkPosNormTex2SPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
-    </ClInclude>
     <ClInclude Include="MeshObjectTranspTex.h">
       <Filter>Prefabs\MeshObjects</Filter>
     </ClInclude>
     <ClInclude Include="BallPoolScene.h">
       <Filter>Scenes\PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="HandleUtilities.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="VkShaderModuleLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="LowMemoryContentLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="VkDebugPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines\BasicGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="VkTexPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="VkPosNormTex2SPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="VkPosNormTexPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="VkPosColTexPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="VkBasicGeometryPipeline_Ext.h">
+      <Filter>Engine Files\Vulkan\Pipelines\BasicGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="HoldingContentLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="PipelineManager.h">
+      <Filter>Engine Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -281,9 +296,6 @@
       <Filter>Engine Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Debug.cpp">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
       <Filter>Engine Files\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="BinaryReader.cpp">
@@ -337,26 +349,11 @@
     <ClCompile Include="GameBase.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
-    <ClCompile Include="VkPipelineManager.cpp">
-      <Filter>Engine Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="VkDebugPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
-    </ClCompile>
-    <ClCompile Include="VkPosColTexPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
-    </ClCompile>
-    <ClCompile Include="VkPosColNormPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
-    </ClCompile>
     <ClCompile Include="VkTextureLoader.cpp">
       <Filter>Engine Files\Loaders</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
-    <ClCompile Include="VkPosNormTexPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
-    </ClCompile>
     <ClCompile Include="BoxDemoScene.cpp">
       <Filter>Scenes\Basic</Filter>
     </ClCompile>
@@ -432,14 +429,41 @@
     <ClCompile Include="TexturedMeshScene.cpp">
       <Filter>Scenes\Meshes</Filter>
     </ClCompile>
-    <ClCompile Include="VkPosNormTex2SPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
-    </ClCompile>
     <ClCompile Include="MeshObjectTranspTex.cpp">
       <Filter>Prefabs\MeshObjects</Filter>
     </ClCompile>
     <ClCompile Include="BallPoolScene.cpp">
       <Filter>Scenes\PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexStructs.cpp">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="VkShaderModuleLoader.cpp">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="VkDebugPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines\BasicGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="VkPosNormTex2SPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="VkPosNormTexPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="VkTexPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="VkPosColTexPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="VkBasicGeometryPipeline_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Pipelines\BasicGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="PipelineManager.cpp">
+      <Filter>Engine Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

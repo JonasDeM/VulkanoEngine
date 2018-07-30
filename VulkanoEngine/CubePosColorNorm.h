@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include <glm\glm.hpp>
 #include "VkPhysicalDevice_Ext.h"
-#include "VkPosColNormPipeline_Ext.h"
+#include "VkBasicGeometryPipeline_Ext.h"
 #include "HandleUtilities.h"
 #include "VkImageView_Ext.h"
 

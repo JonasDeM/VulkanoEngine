@@ -5,7 +5,7 @@
 class VkBasicSampler_Ext;
 class VkTextureImage_Ext;
 class VkImageView_Ext;
-class VkPosColNormPipeline_Ext;
+class VkBasicGeometryPipeline_Ext;
 
 
 class TorusPosColorNorm : public GameObject

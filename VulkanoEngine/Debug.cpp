@@ -42,15 +42,11 @@ void Debug::CleanUp()
 	m_pConvertBuffer = nullptr;
 }
 
-
-void Debug::InitRenderBase(unsigned int bufferSize)
+void Debug::Initialize(VulkanContext *vulkanContext, unsigned int bufferSize)
 {
 	m_BufferSize = bufferSize;
 	CreateFixedLineList();
-}
 
-void Debug::InitVulkanRenderer(VulkanContext *vulkanContext)
-{
 	m_VulkanDebugRenderer = std::make_unique<VulkanDebugRenderer>(vulkanContext, m_FixedLineList, m_BufferSize, m_FixedBufferSize);
 }
 
@@ -245,9 +241,9 @@ void Debug::UpdateRenderData(VulkanContext* pVulkanContext, const GameScene* pCu
 	m_LineList.clear();
 }
 
-void Debug::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer)
+void Debug::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex)
 {
 	if (m_RendererEnabled)
-		m_VulkanDebugRenderer->RecordVulkanDrawCommands(cmdBuffer, m_DrawVertexCount);
+		m_VulkanDebugRenderer->RecordVulkanDrawCommands(cmdBuffer, m_DrawVertexCount, frameBufferIndex);
 }
 #pragma endregion Renderer Methods

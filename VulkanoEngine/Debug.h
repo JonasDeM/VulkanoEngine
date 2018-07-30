@@ -11,8 +11,7 @@ class Debug
 {
 public:
 
-	static void InitRenderBase(unsigned int bufferSize = 100);
-	static void InitVulkanRenderer(VulkanContext * vulkanContext);
+	static void Initialize(VulkanContext * vulkanContext, unsigned int bufferSize = 100);
 	static void ToggleDebugRenderer();
 	static void CleanUp();
 
@@ -35,7 +34,7 @@ public:
 
 	//RENDERING
 	static void UpdateRenderData(VulkanContext* pVulkanContext, const GameScene* pCurrentScene);
-	static void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer);
+	static void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex);
 
 	static void DrawLine(vec3 start, vec3 end, vec4 color = vec4(1,0,0,1));
 	static void DrawLine(vec3 start, vec4 colorStart, vec3 end, vec4 colorEnd);

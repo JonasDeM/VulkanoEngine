@@ -6,7 +6,7 @@
 #include "VkBasicSampler_Ext.h"
 #include "VkImageView_Ext.h"
 #include "VkTextureImage_Ext.h"
-#include "VkPipelineManager.h"
+#include "PipelineManager.h"
 #include "MeshData.h"
 #include "VkTextureLoader.h"
 #include "MeshObjectTex.h"
@@ -21,9 +21,9 @@ MeshObjectTex::MeshObjectTex(wstring assetFile, wstring textureFile) :
 
 void MeshObjectTex::Initialize(VulkanContext* pVkContext)
 {
-	auto pipeline = VkPipelineManager::GetInstance()->GetPosNormTexPipeline();
+	auto pipeline =	PipelineManager::GetPipeline<VkPosNormTexPipeline_Ext>();
 	CreateUniformBuffers(pVkContext);
-	m_pMeshData = ContentManager::GetInstance()->Load<MeshData>(m_AssetFile);
+	m_pMeshData = ContentManager::Load<MeshData>(m_AssetFile);
 	m_pVertexBuffer = m_pMeshData->GetVertexBuffer<VertexPosNormTex>(pVkContext);
 	m_pIndexBuffer = m_pMeshData->GetIndexBuffer(pVkContext);
 	CreateTextureResources(pVkContext);
@@ -39,7 +39,7 @@ void MeshObjectTex::Update(VulkanContext* pVkContext)
 
 void MeshObjectTex::UpdateUniformVariables(VulkanContext* pVkContext)
 {
-	GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetPosNormTexPipeline())::UniformBufferObject ubo; // this way you can get the UniformBufferObject declared in that hraphics pipeline
+	GET_CLASS_FROM_PTR(PipelineManager::GetPipeline<VkPosNormTexPipeline_Ext>())::UniformBufferObject ubo; // this way you can get the UniformBufferObject declared in that hraphics pipeline
 
 	ubo.world = m_WorldMatrix;
 	ubo.wvp = GetScene()->GetCamera()->GetViewProjection() * ubo.world;
@@ -53,7 +53,7 @@ void MeshObjectTex::UpdateUniformVariables(VulkanContext* pVkContext)
 
 void MeshObjectTex::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex)
 {
-	auto pipeline = VkPipelineManager::GetInstance()->GetPosNormTexPipeline();
+	auto pipeline = PipelineManager::GetPipeline<VkPosNormTexPipeline_Ext>();
 	vkCmdBindPipeline(cmdBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, *pipeline);
 
 	VkBuffer vertexBuffers[] = { *m_pVertexBuffer };
@@ -68,14 +68,14 @@ void MeshObjectTex::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const in
 void MeshObjectTex::CreateTextureResources(VulkanContext* pVkContext)
 {
 	m_TextureSampler = CreateExtendedHandle(new VkBasicSampler_Ext(*pVkContext->GetVkDevice()), *pVkContext->GetVkDevice());
-	m_TextureImage = ContentManager::GetInstance()->LoadVk<VkTextureImage_Ext>(m_TextureFile.c_str(), pVkContext);
+	m_TextureImage = ContentManager::Load<VkTextureImage_Ext>(m_TextureFile.c_str());
 	m_TextureImageView = CreateExtendedHandle(new VkImageView_Ext(*pVkContext->GetVkDevice(), *m_TextureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT), *pVkContext->GetVkDevice());
 }
 
 //per scene object
 void MeshObjectTex::CreateUniformBuffers(VulkanContext* pVkContext)
 {
-	VkDeviceSize bufferSize = sizeof(GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetPosNormTexPipeline())::UniformBufferObject);
+	VkDeviceSize bufferSize = sizeof(GET_CLASS_FROM_PTR(PipelineManager::GetPipeline<VkPosNormTexPipeline_Ext>())::UniformBufferObject);
 	m_UniformBuffers.resize(pVkContext->GetVkSwapChain()->GetAmountImages());
 	m_UniformBuffersMemory.resize(m_UniformBuffers.size());
 	for (size_t i = 0; i < m_UniformBuffers.size(); i++)

@@ -4,7 +4,7 @@
 #include "ContentManager.h"
 #include "VulkanUtils.h"
 #include "HandleUtilities.h"
-#include "VkPipelineManager.h"
+#include "PipelineManager.h"
 #include "MeshData.h"
 #include "VulkanContext.h"
 #include "GameScene.h"
@@ -21,9 +21,9 @@ MeshObject::~MeshObject(void)
 
 void MeshObject::Initialize(VulkanContext* pVkContext)
 {
-	auto pipeline = VkPipelineManager::GetInstance()->GetPosColNormPipeline();
+	auto pipeline =	PipelineManager::GetPipeline<VkBasicGeometryPipeline_Ext>();
 	CreateUniformBuffer(pVkContext);
-	m_pMeshData = ContentManager::GetInstance()->Load<MeshData>(m_AssetFile);
+	m_pMeshData = ContentManager::Load<MeshData>(m_AssetFile);
 	m_pVertexBuffer = m_pMeshData->GetVertexBuffer<VertexPosColNorm>(pVkContext);
 	m_pIndexBuffer = m_pMeshData->GetIndexBuffer(pVkContext);
 	int amountFrameBuffers = pVkContext->GetVkSwapChain()->GetAmountImages();
@@ -39,7 +39,7 @@ void MeshObject::Update(VulkanContext* pVkContext)
 
 void MeshObject::UpdateUniformVariables(VulkanContext* pVkContext)
 {
-	GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetPosColNormPipeline())::UniformBufferObject ubo; // this way you can get the UniformBufferObject declared in that hraphics pipeline
+	GET_CLASS_FROM_PTR(PipelineManager::GetPipeline<VkBasicGeometryPipeline_Ext>())::UniformBufferObject ubo; // this way you can get the UniformBufferObject declared in that hraphics pipeline
 
 	ubo.world = m_WorldMatrix;
 	ubo.wvp = GetScene()->GetCamera()->GetViewProjection() * ubo.world;
@@ -55,7 +55,7 @@ void MeshObject::UpdateUniformVariables(VulkanContext* pVkContext)
 
 void MeshObject::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBufferIndex)
 {
-	auto pipeline = VkPipelineManager::GetInstance()->GetPosColNormPipeline();
+	auto pipeline = PipelineManager::GetPipeline<VkBasicGeometryPipeline_Ext>();
 
 	vkCmdBindPipeline(cmdBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, *pipeline);
 
@@ -71,7 +71,7 @@ void MeshObject::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, int frameBu
 //per scene object
 void MeshObject::CreateUniformBuffer(VulkanContext* pVkContext)
 {
-	VkDeviceSize bufferSize = sizeof(GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetPosColNormPipeline())::UniformBufferObject);
+	VkDeviceSize bufferSize = sizeof(GET_CLASS_FROM_PTR(PipelineManager::GetPipeline<VkBasicGeometryPipeline_Ext>())::UniformBufferObject);
 	m_UniformBuffers.resize(pVkContext->GetVkSwapChain()->GetAmountImages());
 	m_UniformBuffersMemory.resize(m_UniformBuffers.size());
 	for (size_t i = 0; i < m_UniformBuffers.size(); i++)

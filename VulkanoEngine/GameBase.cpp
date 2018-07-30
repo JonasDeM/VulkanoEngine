@@ -7,7 +7,7 @@
 #include "Debug.h"
 #include "PhysxManager.h"
 #include "VkDebugPipeline_Ext.h"
-#include "VkPipelineManager.h"
+#include "PipelineManager.h"
 #include "VkTextureLoader.h"
 #include "VulkanDrawer.h"
 
@@ -19,9 +19,9 @@ GameBase::GameBase(void){
 GameBase::~GameBase(void)
 {
 	//CLEAN-UP STATIC OR SINGLETON MANAGERS
-	SceneManager::Destroy();
-	ContentManager::DestroyInstance();
-	VkPipelineManager::DestroyInstance();
+	SceneManager::CleanUp();
+	ContentManager::CleanUp();
+	PipelineManager::CleanUp();
 	PhysxManager::DestroyInstance();
 	Debug::CleanUp();
 }
@@ -41,12 +41,10 @@ void GameBase::RunGame()
 	m_pGameSettings->AttachVkContextObserver(m_pVulkanDrawer.get());
 
 	//4. Initialize Managers
-	VkPipelineManager::GetInstance()->Initialize(m_pVulkanDrawer.get());
-	ContentManager::GetInstance();
-	Debug::InitRenderBase();
-	Debug::InitVulkanRenderer(m_pVulkanDrawer.get()); //Only possible after DeviceCreation & ContentManager Init
+	PipelineManager::Initialize(m_pVulkanDrawer.get());
+	ContentManager::Initialize(m_pVulkanDrawer.get());
+	Debug::Initialize(m_pVulkanDrawer.get()); //Only possible after DeviceCreation & ContentManager Init
 	PhysxManager::GetInstance();
-
 
 	//5. Initialize the GameBase
 	Initialize();

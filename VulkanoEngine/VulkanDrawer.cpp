@@ -8,7 +8,7 @@
 #include "Surface.h"
 #include "Debug.h"
 #include "SceneManager.h"
-#include "VkPipelineManager.h"
+#include "PipelineManager.h"
 #include "GameSettings.h"
 #include "Debug.h"
 
@@ -215,8 +215,8 @@ void VulkanDrawer::RecreateVkSwapChain(GameSettings* settings)
 	vkDeviceWaitIdle(*m_pVkDevice);
 	m_pVkSwapchain = CreateExtendedHandle(new VkSwapchainKHR_Ext(this, settings->GetWindowExtent(), *m_pVkSwapchain), *m_pVkDevice);
 
-	VkPipelineManager::DestroyInstance();
-	VkPipelineManager::GetInstance()->Initialize(this);
+	PipelineManager::CleanUp();
+	PipelineManager::Initialize(this);
 	CreateDrawCommandBuffers(settings);
 }
 
@@ -343,7 +343,7 @@ void VulkanDrawer::CreateDrawCommandBuffers(GameSettings* settings)
 		//begin renderpass
 		vkCmdBeginRenderPass(m_DrawCommandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE); //embedded in the primary command buffer
 																									//bind our graphicspipeline
-		Debug::RecordVulkanDrawCommands(m_DrawCommandBuffers[i]);
+		Debug::RecordVulkanDrawCommands(m_DrawCommandBuffers[i], i);
 		SceneManager::RecordVulkanDrawCommands(m_DrawCommandBuffers[i], i);
 		//end the render pass
 		vkCmdEndRenderPass(m_DrawCommandBuffers[i]);

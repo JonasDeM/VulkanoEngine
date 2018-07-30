@@ -30,8 +30,8 @@ void PhysXMeshTestScene_2::Initialize()
 	auto groundShape = groundPlaneActor->createShape(PxPlaneGeometry(),*defaultMaterial,PxTransform(PxQuat(glm::half_pi<float>(),PxVec3(0,0,1))));
 	m_pPhysxScene->addActor(*groundPlaneActor);
 
-	m_pTriangleMesh = ContentManager::GetInstance()->Load<PxTriangleMesh>(L"Meshes/Chair.ovpt");
-	m_pConvexMesh = ContentManager::GetInstance()->Load<PxConvexMesh>(L"Meshes/Chair.ovpc");
+	m_pTriangleMesh = ContentManager::Load<PxTriangleMesh>(L"Meshes/Chair.ovpt");
+	m_pConvexMesh = ContentManager::Load<PxConvexMesh>(L"Meshes/Chair.ovpc");
 
 	//Triangle mesh
 	auto chairTriangle = new MeshObjectTex(L"Meshes/Chair.ovm", L"Textures/Chair_Dark.tga");

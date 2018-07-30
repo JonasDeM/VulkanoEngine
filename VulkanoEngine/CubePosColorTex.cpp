@@ -7,7 +7,7 @@
 #include "VkBasicSampler_Ext.h"
 #include "VkImageView_Ext.h"
 #include "VkTextureImage_Ext.h"
-#include "VkPipelineManager.h"
+#include "PipelineManager.h"
 #include "VulkanContext.h"
 #include "GameScene.h"
 #include "VkTextureImage_Ext.h"
@@ -33,7 +33,7 @@ CubePosColorTex::~CubePosColorTex(void)
 
 void CubePosColorTex::Initialize(VulkanContext* pVkContext)
 {
-	auto pipeline = VkPipelineManager::GetInstance()->GetPosColTexPipeline();
+	auto pipeline = PipelineManager::GetPipeline<VkPosColTexPipeline_Ext>();
 	CreateUniformBuffer(pVkContext);
 	CreateVertexBuffer(pVkContext);
 	CreateIndexBuffer(pVkContext);
@@ -50,7 +50,7 @@ void CubePosColorTex::Update(VulkanContext* pVkContext)
 
 void CubePosColorTex::UpdateUniformVariables(VulkanContext* pVkContext)
 {
-	GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetPosColTexPipeline())::UniformBufferObject ubo; // this way you can get the UniformBufferObject declared in that graphics pipeline
+	GET_CLASS_FROM_PTR(PipelineManager::GetPipeline<VkPosColTexPipeline_Ext>())::UniformBufferObject ubo; // this way you can get the UniformBufferObject declared in that graphics pipeline
 
 	ubo.world = m_WorldMatrix;
 	ubo.wvp = GetScene()->GetCamera()->GetViewProjection() * ubo.world; 
@@ -65,7 +65,7 @@ void CubePosColorTex::UpdateUniformVariables(VulkanContext* pVkContext)
 
 void CubePosColorTex::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex)
 {
-	auto pipeline = VkPipelineManager::GetInstance()->GetPosColTexPipeline();
+	auto pipeline = PipelineManager::GetPipeline<VkPosColTexPipeline_Ext>();
 
 	vkCmdBindPipeline(cmdBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, *pipeline);
 
@@ -121,7 +121,7 @@ void CubePosColorTex::CreateIndexBuffer(VulkanContext* pVkContext)
 void CubePosColorTex::CreateTextureResources(VulkanContext* pVkContext)
 {
 	m_TextureSampler = CreateExtendedHandle(new VkBasicSampler_Ext(*pVkContext->GetVkDevice()), *pVkContext->GetVkDevice());
-	m_TextureImage = ContentManager::GetInstance()->LoadVk<VkTextureImage_Ext>(m_TextureFile, pVkContext);
+	m_TextureImage = ContentManager::Load<VkTextureImage_Ext>(m_TextureFile);
 	m_TextureImageView = CreateExtendedHandle(new VkImageView_Ext(*pVkContext->GetVkDevice(), *m_TextureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT), *pVkContext->GetVkDevice());
 }
 
@@ -274,7 +274,7 @@ void CubePosColorTex::CreateVertexBuffer(VulkanContext* pVkContext)
 //per scene object
 void CubePosColorTex::CreateUniformBuffer(VulkanContext* pVkContext)
 {
-	VkDeviceSize bufferSize = sizeof(GET_CLASS_FROM_PTR(VkPipelineManager::GetInstance()->GetPosColTexPipeline())::UniformBufferObject);
+	VkDeviceSize bufferSize = sizeof(GET_CLASS_FROM_PTR(PipelineManager::GetPipeline<VkPosColTexPipeline_Ext>())::UniformBufferObject);
 	m_UniformBuffers.resize(pVkContext->GetVkSwapChain()->GetAmountImages());
 	m_UniformBuffersMemory.resize(m_UniformBuffers.size());
 	for (size_t i = 0; i < m_UniformBuffers.size(); i++)

@@ -180,6 +180,7 @@
     <ClInclude Include="BinaryReader.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="ContentLoader.h" />
+    <ClInclude Include="LowMemoryContentLoader.h" />
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="CustomSimulationFilterShader.h" />
     <ClInclude Include="Debug.h" />
@@ -194,12 +195,12 @@
     <ClInclude Include="BaseLoader.h" />
     <ClInclude Include="InputTestScene.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="HoldingContentLoader.h" />
     <ClInclude Include="MeshObjectTranspTex.h" />
     <ClInclude Include="TexturedMeshScene.h" />
     <ClInclude Include="GameContext.h" />
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="PhysXMeshTestScene_2.h" />
-    <ClInclude Include="VkContentLoader.h" />
     <ClInclude Include="CubePosColorNorm.h" />
     <ClInclude Include="CubePosColorTex.h" />
     <ClInclude Include="CylinderPosColorNorm.h" />
@@ -210,12 +211,14 @@
     <ClInclude Include="MeshDataLoader.h" />
     <ClInclude Include="MeshObject.h" />
     <ClInclude Include="MeshObjectTex.h" />
-    <ClInclude Include="VkPipelineManager.h" />
+    <ClInclude Include="PipelineManager.h" />
     <ClInclude Include="VkPipeline_Ext.h" />
-    <ClInclude Include="VkPosColNormPipeline_Ext.h" />
+    <ClInclude Include="VkBasicGeometryPipeline_Ext.h" />
     <ClInclude Include="VkPosColTexPipeline_Ext.h" />
     <ClInclude Include="HandleUtilities.h" />
     <ClInclude Include="VkPosNormTex2SPipeline_Ext.h" />
+    <ClInclude Include="VkShaderModuleLoader.h" />
+    <ClInclude Include="VkTexPipeline_Ext.h" />
     <ClInclude Include="VulkanContext.h" />
     <ClInclude Include="VulkanDrawer.h" />
     <ClInclude Include="VulkanUtils.h" />
@@ -263,6 +266,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MeshObjectTranspTex.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="TexturedMeshScene.cpp" />
     <ClCompile Include="FileUtils.cpp" />
     <ClCompile Include="GameContext.cpp" />
@@ -275,27 +284,23 @@
     <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="MeshDataLoader.cpp" />
     <ClCompile Include="PhysXMeshTestScene_2.cpp" />
+    <ClCompile Include="VertexStructs.cpp" />
     <ClCompile Include="VkDebugPipeline_Ext.cpp" />
     <ClCompile Include="MeshObject.cpp" />
     <ClCompile Include="MeshObjectTex.cpp" />
-    <ClCompile Include="VkPipelineManager.cpp" />
+    <ClCompile Include="PipelineManager.cpp" />
     <ClCompile Include="VkPipeline_Ext.cpp" />
-    <ClCompile Include="VkPosColNormPipeline_Ext.cpp" />
+    <ClCompile Include="VkBasicGeometryPipeline_Ext.cpp" />
     <ClCompile Include="VkPosColTexPipeline_Ext.cpp" />
     <ClCompile Include="PhysxErrorCallback.cpp" />
     <ClCompile Include="PhysxManager.cpp" />
     <ClCompile Include="PxConvexMeshLoader.cpp" />
     <ClCompile Include="PxTriangleMeshLoader.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="VkPosNormTex2SPipeline_Ext.cpp" />
     <ClCompile Include="VkPosNormTexPipeline_Ext.cpp" />
+    <ClCompile Include="VkShaderModuleLoader.cpp" />
     <ClCompile Include="VkSwapchainKHR_Ext.cpp" />
     <ClCompile Include="VkBasicSampler_Ext.cpp" />
     <ClCompile Include="VkDepthImage_Ext.cpp" />
@@ -304,6 +309,7 @@
     <ClCompile Include="VkImage_Ext.cpp" />
     <ClCompile Include="VkInstance_Ext.cpp" />
     <ClCompile Include="VkPhysicalDevice_Ext.cpp" />
+    <ClCompile Include="VkTexPipeline_Ext.cpp" />
     <ClCompile Include="VkTextureImage_Ext.cpp" />
     <ClCompile Include="VkTextureLoader.cpp" />
     <ClCompile Include="TorusPosColorNorm.cpp" />
