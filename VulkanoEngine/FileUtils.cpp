@@ -5,6 +5,25 @@
 #include <codecvt>
 
 namespace FileUtils {
+	string ToString(wstring wstr)
+	{
+		//setup converter
+		using convert_type = std::codecvt_utf8<wchar_t>;
+		std::wstring_convert<convert_type, wchar_t> converter;
+
+		//use converter (.to_bytes: wstr->str, .from_bytes: str->wstr)
+		return converter.to_bytes(wstr);
+	}
+
+	wstring ToWString(string str)
+	{
+		//setup converter
+		using convert_type = std::codecvt_utf8<wchar_t>;
+		std::wstring_convert<convert_type, wchar_t> converter;
+
+		//use converter (.to_bytes: wstr->str, .from_bytes: str->wstr)
+		return converter.from_bytes(str);
+	}
 
 	std::vector<char> ReadFile(const char* filePath)
 	{
@@ -22,24 +41,8 @@ namespace FileUtils {
 		return buffer;
 	}
 
-	string ToString(wstring wstr)
+	std::vector<char> ReadFile(wstring filePath)
 	{
-		//setup converter
-		using convert_type = std::codecvt_utf8<wchar_t>;
-		std::wstring_convert<convert_type, wchar_t> converter;
-
-		//use converter (.to_bytes: wstr->str, .from_bytes: str->wstr)
-		return converter.to_bytes(wstr);
-		
-	}
-
-	wstring ToWString(string str)
-	{
-		//setup converter
-		using convert_type = std::codecvt_utf8<wchar_t>;
-		std::wstring_convert<convert_type, wchar_t> converter;
-
-		//use converter (.to_bytes: wstr->str, .from_bytes: str->wstr)
-		return converter.from_bytes(str);
+		return ReadFile(ToString(filePath).c_str());
 	}
 }
