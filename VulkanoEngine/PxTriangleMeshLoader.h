@@ -1,22 +1,13 @@
 #pragma once
-#include "ContentLoader.h"
+#include "LowMemoryContentLoader.h"
 #include <memory>
 
-class PxTriangleMeshLoader : public ContentLoader<PxTriangleMesh>
+class PxTriangleMeshLoader final: public LowMemoryContentLoader<PxTriangleMesh>
 {
 public:
-	PxTriangleMeshLoader() {};
+	PxTriangleMeshLoader() = default;
 
 protected:
-
 	virtual std::shared_ptr<PxTriangleMesh> LoadContent(const wstring& assetFile) const override;
-
-private:
-// -------------------------
-// Disabling default copy constructor and default 
-// assignment operator.
-// -------------------------
-PxTriangleMeshLoader(const PxTriangleMeshLoader& yRef);									
-PxTriangleMeshLoader& operator=(const PxTriangleMeshLoader& yRef);
 };
 

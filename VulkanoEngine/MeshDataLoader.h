@@ -1,11 +1,13 @@
 #pragma once
-#include "ContentLoader.h"
+#include "LowMemoryContentLoader.h"
 #include "MeshData.h"
 
-class MeshDataLoader : public ContentLoader<MeshData>
+class MeshDataLoader final: public LowMemoryContentLoader<MeshData>
 {
 public:
-	MeshDataLoader() {};
+	MeshDataLoader() = default;
+
+protected:
 	std::shared_ptr<MeshData> LoadContent(const wstring& fileName) const override;
 
 private:

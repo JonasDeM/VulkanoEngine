@@ -1,12 +1,16 @@
 #pragma once
-#include "VkContentLoader.h"
+#include "LowMemoryContentLoader.h"
 #include "VkTextureImage_Ext.h"
 #include <memory>
 #include <string>
 
-class VkTextureLoader : public VkContentLoader<VkTextureImage_Ext>
+class VulkanContext;
+
+class VkTextureLoader final: public LowMemoryContentLoader<VkTextureImage_Ext>
 {
 public:
-	VkTextureLoader() {};
-	std::shared_ptr<VkTextureImage_Ext> LoadContent(const wstring& fileName, VulkanContext* vkContext) const override;
+	VkTextureLoader(VulkanContext* vkContext) : m_pVulkanContext(vkContext) {};
+	std::shared_ptr<VkTextureImage_Ext> LoadContent(const wstring& fileName) const override;
+private:
+	VulkanContext * m_pVulkanContext;
 };

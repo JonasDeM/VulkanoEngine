@@ -4,8 +4,8 @@
 #include "VulkanContext.h"
 #include "HandleUtilities.h"
 
-std::shared_ptr<VkTextureImage_Ext> VkTextureLoader::LoadContent(const wstring& fileName, VulkanContext* vkContext) const
+std::shared_ptr<VkTextureImage_Ext> VkTextureLoader::LoadContent(const wstring& fileName) const
 {
-	auto pTex = CreateSharedExtendedHandle<VkTextureImage_Ext>(new VkTextureImage_Ext(vkContext, fileName),	*vkContext->GetVkDevice());
+	auto pTex = CreateSharedExtendedHandle<VkTextureImage_Ext>(new VkTextureImage_Ext(m_pVulkanContext, fileName),	*m_pVulkanContext->GetVkDevice());
 	return pTex;
 }

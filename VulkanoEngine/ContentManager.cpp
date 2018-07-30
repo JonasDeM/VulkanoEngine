@@ -7,20 +7,23 @@
 #include "BaseLoader.h"
 #include <memory>
 
-ContentManager::ContentManager()
+
+unordered_map<std::type_index, std::unique_ptr<BaseLoader>> ContentManager::m_Loaders;
+
+void ContentManager::Initialize(VulkanContext * pVkContext)
 {
 	AddLoader(new MeshDataLoader());
-	AddVkLoader(new VkTextureLoader());
+	AddLoader(new VkTextureLoader(pVkContext));
 	AddLoader(new PxConvexMeshLoader());
 	AddLoader(new PxTriangleMeshLoader());
 }
 
-void ContentManager::AddLoader(BaseLoader* loader)
+void ContentManager::CleanUp()
 {
-	m_Loaders.insert_or_assign(loader->GetType().hash_code(), std::unique_ptr<BaseLoader>(loader));
+	m_Loaders.clear();
 }
 
-void ContentManager::AddVkLoader(VkBaseLoader* loader)
+void ContentManager::AddLoader(BaseLoader* loader)
 {
-	m_VkLoaders.insert_or_assign(loader->GetType().hash_code(), std::unique_ptr<VkBaseLoader>(loader));
+	m_Loaders.insert_or_assign(loader->GetType(), std::unique_ptr<BaseLoader>(loader));
 }

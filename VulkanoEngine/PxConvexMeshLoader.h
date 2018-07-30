@@ -1,22 +1,13 @@
 #pragma once
-#include "ContentLoader.h"
+#include "LowMemoryContentLoader.h"
 #include <memory>
 
-class PxConvexMeshLoader : public ContentLoader<PxConvexMesh>
+class PxConvexMeshLoader final: public LowMemoryContentLoader<PxConvexMesh>
 {
 public:
-	PxConvexMeshLoader() {};
+	PxConvexMeshLoader() = default;
 
 protected:
-
 	virtual std::shared_ptr<PxConvexMesh> LoadContent(const wstring& assetFile) const override;
-
-private:
-// -------------------------
-// Disabling default copy constructor and default 
-// assignment operator.
-// -------------------------
-PxConvexMeshLoader(const PxConvexMeshLoader& yRef);									
-PxConvexMeshLoader& operator=(const PxConvexMeshLoader& yRef);
 };
 
