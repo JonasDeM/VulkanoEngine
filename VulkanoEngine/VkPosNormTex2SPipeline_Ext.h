@@ -2,28 +2,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "DeriveableHandle.h"
 #include "HandleUtilities.h"
-#include "VkPipeline_Ext.h"
+#include "VkPosNormTexPipeline_Ext.h"
 class VulkanContext;
 
 //contains the pipeline and pipelinelayout 
-class VkPosNormTex2SPipeline_Ext : public VkPipeline_Ext
+class VkPosNormTex2SPipeline_Ext : public VkPosNormTexPipeline_Ext
 {
-public:
-	VkPosNormTex2SPipeline_Ext(VulkanContext* pVkContext);
-
-	void Destroy(VkDevice device) const override
-	{
-		vkDestroyPipeline(device, *this, nullptr);
-	}
-
-	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) override;
-	std::vector<VkDescriptorSet> CreateAndWriteDescriptorSets(VkDevice device, VkDescriptorPool descPool, const vector<unique_ptr_del<VkBuffer>>& uniformBuffers, VkImageView texImageView, VkSampler texSampler);
-
-	struct UniformBufferObject {
-		glm::mat4 world;
-		glm::mat4 wvp;
-	};
-
 protected:
-	void CreateDescriptorSetLayout(VkDevice device) override;
+	virtual VkPipelineRasterizationStateCreateInfo CreateRasterizationStateCreateInfo() const override;
 };
