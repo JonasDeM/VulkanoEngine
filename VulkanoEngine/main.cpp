@@ -1,5 +1,4 @@
 #include "stdafx.h"
-
 #include "MainGame.h"
 #include <limits>
 

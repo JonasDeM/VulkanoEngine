@@ -23,7 +23,7 @@ vector<VertexPosCol> Debug::m_FixedLineList = vector<VertexPosCol>();
 unsigned int Debug::m_FixedBufferSize = 0;
 bool Debug::m_RendererEnabled = true;
 wchar_t* Debug::m_pConvertBuffer = new wchar_t[m_ConvertBufferSize];
-
+std::chrono::high_resolution_clock::time_point Debug::m_LastProfileCheck;
 
 Debug::Debug(void)
 {
@@ -40,6 +40,24 @@ void Debug::CleanUp()
 
 	delete[] m_pConvertBuffer;
 	m_pConvertBuffer = nullptr;
+}
+
+void Debug::StartProfileTimer()
+{
+	m_LastProfileCheck = std::chrono::high_resolution_clock::now();
+}
+
+void Debug::PrintProfileInterval(const wstring& info)
+{
+	auto t = std::chrono::high_resolution_clock::now();
+
+	auto durationNanoSec = t - m_LastProfileCheck;
+	double durationMiliSec = durationNanoSec.count()/1000000.0;
+	auto durationSec = std::chrono::duration_cast<std::chrono::duration<double>>(t - m_LastProfileCheck);
+
+	LogProfile(L"s:" + to_wstring(durationSec.count())+ L"\t ms:" + to_wstring(durationMiliSec) + L"\t ns:" + to_wstring(durationNanoSec.count()) + L"\t  -" + info);
+
+	m_LastProfileCheck = std::chrono::high_resolution_clock::now();
 }
 
 void Debug::Initialize(VulkanContext *vulkanContext, unsigned int bufferSize)
@@ -111,9 +129,10 @@ void Debug::Log(LogLevel level, const wstring& msg)
 	case LogLevel::Vulkan:
 		wcout << L"[VULKAN] >>";
 		break;
-	case LogLevel::HResult:
 	case LogLevel::Error:
 		wcout << L"[ERROR]   >>";
+	case LogLevel::Profile:
+		wcout << L"[PROFILE]   >>";
 		break;
 	}
 	wcout << msg << endl;
@@ -131,9 +150,10 @@ void Debug::Log(LogLevel level, const string& msg)
 	case LogLevel::Vulkan:
 		cout << "[VULKAN] >>";
 		break;
-	case LogLevel::HResult:
 	case LogLevel::Error:
 		cout << "[ERROR]   >>";
+	case LogLevel::Profile:
+		cout << "[PROFILE]   >>";
 		break;
 	}
 	cout << msg << endl;

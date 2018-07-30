@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseCamera.h"
 
+// Camera that gets controlled by WASD (ZQSD support too) and the mouse
 class ManualCamera : public BaseCamera
 {
 public:

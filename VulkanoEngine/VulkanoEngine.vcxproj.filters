@@ -59,6 +59,9 @@
     <Filter Include="Engine Files\Vulkan\Pipelines\TexturedGeometry">
       <UniqueIdentifier>{289f2cfb-2b71-460c-b0d9-0f7864d64f7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Loaders\Implementations">
+      <UniqueIdentifier>{12fe90d2-a26d-455a-9585-b9a42f3284b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -106,12 +109,6 @@
     <ClInclude Include="CustomSimulationFilterShader.h">
       <Filter>Engine Files\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="PxConvexMeshLoader.h">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="PxTriangleMeshLoader.h">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClInclude>
     <ClInclude Include="DeriveableHandle.h">
       <Filter>Engine Files\Vulkan</Filter>
     </ClInclude>
@@ -151,9 +148,6 @@
     <ClInclude Include="GameBase.h">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
-    <ClInclude Include="VkTextureLoader.h">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClInclude>
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="BoxDemoScene.h">
       <Filter>Scenes\Basic</Filter>
@@ -179,17 +173,11 @@
     <ClInclude Include="Colors.h">
       <Filter>Engine Files\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="BaseLoader.h">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClInclude>
     <ClInclude Include="BaseCamera.h">
       <Filter>Engine Files\Camera</Filter>
     </ClInclude>
     <ClInclude Include="ManualCamera.h">
       <Filter>Engine Files\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshDataLoader.h">
-      <Filter>Engine Files\Loaders</Filter>
     </ClInclude>
     <ClInclude Include="GameContext.h">
       <Filter>Engine Files\Utilities</Filter>
@@ -248,15 +236,6 @@
     <ClInclude Include="HandleUtilities.h">
       <Filter>Engine Files\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="VkShaderModuleLoader.h">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="LowMemoryContentLoader.h">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="ContentLoader.h">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClInclude>
     <ClInclude Include="VkDebugPipeline_Ext.h">
       <Filter>Engine Files\Vulkan\Pipelines\BasicGeometry</Filter>
     </ClInclude>
@@ -275,11 +254,35 @@
     <ClInclude Include="VkBasicGeometryPipeline_Ext.h">
       <Filter>Engine Files\Vulkan\Pipelines\BasicGeometry</Filter>
     </ClInclude>
-    <ClInclude Include="HoldingContentLoader.h">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClInclude>
     <ClInclude Include="PipelineManager.h">
       <Filter>Engine Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshDataLoader.h">
+      <Filter>Engine Files\Loaders\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="PxConvexMeshLoader.h">
+      <Filter>Engine Files\Loaders\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="PxTriangleMeshLoader.h">
+      <Filter>Engine Files\Loaders\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="VkShaderModuleLoader.h">
+      <Filter>Engine Files\Loaders\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="VkTextureLoader.h">
+      <Filter>Engine Files\Loaders\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="LowMemoryContentLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="HoldingContentLoader.h">
+      <Filter>Engine Files\Loaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -306,12 +309,6 @@
     </ClCompile>
     <ClCompile Include="PhysxManager.cpp">
       <Filter>Engine Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="PxTriangleMeshLoader.cpp">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClCompile>
-    <ClCompile Include="PxConvexMeshLoader.cpp">
-      <Filter>Engine Files\Loaders</Filter>
     </ClCompile>
     <ClCompile Include="Surface.cpp">
       <Filter>Engine Files\Vulkan</Filter>
@@ -349,9 +346,6 @@
     <ClCompile Include="GameBase.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
-    <ClCompile Include="VkTextureLoader.cpp">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="BoxDemoScene.cpp">
@@ -380,9 +374,6 @@
     </ClCompile>
     <ClCompile Include="ManualCamera.cpp">
       <Filter>Engine Files\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshDataLoader.cpp">
-      <Filter>Engine Files\Loaders</Filter>
     </ClCompile>
     <ClCompile Include="GameContext.cpp">
       <Filter>Engine Files\Utilities</Filter>
@@ -441,9 +432,6 @@
     <ClCompile Include="VertexStructs.cpp">
       <Filter>Engine Files\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="VkShaderModuleLoader.cpp">
-      <Filter>Engine Files\Loaders</Filter>
-    </ClCompile>
     <ClCompile Include="VkDebugPipeline_Ext.cpp">
       <Filter>Engine Files\Vulkan\Pipelines\BasicGeometry</Filter>
     </ClCompile>
@@ -464,6 +452,21 @@
     </ClCompile>
     <ClCompile Include="PipelineManager.cpp">
       <Filter>Engine Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshDataLoader.cpp">
+      <Filter>Engine Files\Loaders\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="PxConvexMeshLoader.cpp">
+      <Filter>Engine Files\Loaders\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="PxTriangleMeshLoader.cpp">
+      <Filter>Engine Files\Loaders\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="VkShaderModuleLoader.cpp">
+      <Filter>Engine Files\Loaders\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="VkTextureLoader.cpp">
+      <Filter>Engine Files\Loaders\Implementations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

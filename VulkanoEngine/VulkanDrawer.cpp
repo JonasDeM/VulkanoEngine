@@ -227,11 +227,20 @@ void VulkanDrawer::VkDrawFrame(GameSettings* settings)
 	//3.Return the image to the swap chain for presentation
 
 	//these actions will be executed asynchronously, we want to do them in fixed order >> semaphores
-
+	if (m_PresentImageFuture.valid())
+	{
+		auto result = m_PresentImageFuture.get();
+		if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
+			RecreateVkSwapChain(settings);
+		else if (result != VK_SUCCESS)
+			throw std::runtime_error("failed to present swap chain image!");
+	}
+	Debug::PrintProfileInterval(L"vkQueuePresentKHR");
 	//1.
 	uint32_t imageIndex;
 	auto result = vkAcquireNextImageKHR(*m_pVkDevice, *m_pVkSwapchain, std::numeric_limits<uint64_t>::max() //disables timeout
 		, *m_pVkImageAvailableSemaphore, VK_NULL_HANDLE, &imageIndex);
+	Debug::PrintProfileInterval(L"vkAcquireNextImageKHR");
 	if (result == VK_ERROR_OUT_OF_DATE_KHR) {
 		RecreateVkSwapChain(settings);
 		return;
@@ -267,27 +276,28 @@ void VulkanDrawer::VkDrawFrame(GameSettings* settings)
 	if (vkQueueSubmit(m_VkGraphicsQueue, 1, &submitInfo, VK_NULL_HANDLE) != VK_SUCCESS)
 		throw std::runtime_error("failed to submit draw command buffer!");
 
+	Debug::PrintProfileInterval(L"vkQueueSubmit Graphics");
 	//So the update functions start writing info to buffers with this index
 	m_FrameIndexToUpdate = (imageIndex + 1) % m_pVkSwapchain->GetAmountImages();
 
+
 	//3.
-	VkSwapchainKHR swapChains[] = { *m_pVkSwapchain };
-	VkPresentInfoKHR presentInfo = {};
-	presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-	presentInfo.waitSemaphoreCount = 1;
-	presentInfo.pWaitSemaphores = signalSemaphores;
-	presentInfo.swapchainCount = 1;
-	presentInfo.pSwapchains = swapChains;
-	presentInfo.pImageIndices = &imageIndex;
-	presentInfo.pResults = nullptr; // to get the return values of multiple swapchainpresentation
-
-	result = vkQueuePresentKHR(m_VkPresentQueue, &presentInfo);
-
-	if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
-		RecreateVkSwapChain(settings);
-	else if (result != VK_SUCCESS)
-		throw std::runtime_error("failed to present swap chain image!");
-
+	//result = vkQueuePresentKHR(m_VkPresentQueue, &presentInfo);
+	//not optimal
+	auto asyncPresent = [](VkQueue q, VkSwapchainKHR swapchain, VkSemaphore sem, uint32_t imageIndex) {
+		VkPresentInfoKHR presentInfo = {};
+		presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+		presentInfo.waitSemaphoreCount = 1;
+		presentInfo.pWaitSemaphores = &sem;
+		presentInfo.swapchainCount = 1;
+		presentInfo.pSwapchains = &swapchain;
+		presentInfo.pImageIndices = &imageIndex;
+		presentInfo.pResults = nullptr; // to get the return values of multiple swapchainpresentation
+		VkResult res;
+		res = vkQueuePresentKHR(q, &presentInfo);
+		return res;
+	}; 
+	m_PresentImageFuture = std::async(asyncPresent, m_VkPresentQueue, (VkSwapchainKHR)(*m_pVkSwapchain), *m_pVkRenderFinishedSemaphore, imageIndex);
 }
 
 //per scene change

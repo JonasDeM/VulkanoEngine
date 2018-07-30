@@ -1,5 +1,6 @@
 #pragma once
 #include "VulkanContext.h"
+#include <future>
 
 class VulkanDrawer : public VulkanContext
 {
@@ -63,6 +64,9 @@ private:
 	unique_ptr_del<VkDescriptorPool> m_pVkDescriptorPool;
 
 	int m_FrameIndexToUpdate = 0;
+
+	//Async
+	std::future<VkResult> m_PresentImageFuture;
 };
 
 

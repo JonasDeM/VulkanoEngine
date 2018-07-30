@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <chrono>
 class GameContext;
 class VulkanContext;
 struct VertexPosCol;
@@ -15,19 +16,25 @@ public:
 	static void ToggleDebugRenderer();
 	static void CleanUp();
 
+	//TIMING
+	static void StartProfileTimer();
+	// Prints time between last time this function has been called and now
+	static void PrintProfileInterval(const wstring& info);
+
 	//LOGGING
 	enum class LogLevel
 	{
 		Info,
 		Warning,
 		Error,
-		HResult,
+		Profile,
 		Vulkan
 	};
 
 	static void LogInfo(const wstring& msg) { Log(LogLevel::Info, msg); }
 	static void LogWarning(const wstring& msg) { Log(LogLevel::Warning, msg); }
 	static void LogError(const wstring& msg) { Log(LogLevel::Error, msg); }
+	static void LogProfile(const wstring& msg) { Log(LogLevel::Profile, msg); }
 	static void Log(LogLevel level, const wstring& msg);
 	static void Log(LogLevel level, const string& msg);
 	static void LogFormat(LogLevel level, const wchar_t* format, ...);
@@ -64,6 +71,7 @@ private:
 	static vector<VertexPosCol> m_FixedLineList;
 	static bool m_RendererEnabled;
 
-
+	//TIMING
+	static std::chrono::high_resolution_clock::time_point m_LastProfileCheck;
 };
 

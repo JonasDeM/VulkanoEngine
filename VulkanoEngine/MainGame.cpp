@@ -46,9 +46,9 @@ void MainGame::Update()
 void MainGame::Initialize()
 {
 #ifdef DISPLAY_ENGINE
+	SceneManager::AddGameScene(new TexturedMeshScene(m_pGameSettings.get()));
 	SceneManager::AddGameScene(new BoxDemoScene(m_pGameSettings.get()));
 	SceneManager::AddGameScene(new BallPoolScene(m_pGameSettings.get()));
-	SceneManager::AddGameScene(new TexturedMeshScene(m_pGameSettings.get()));
 	SceneManager::AddGameScene(new BouncingBallScene(m_pGameSettings.get()));
 	SceneManager::AddGameScene(new PhysXMeshTestScene_2(m_pGameSettings.get()));
 #endif
