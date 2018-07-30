@@ -9,8 +9,8 @@ using namespace std;
 class SceneManager final
 {
 public:
-	SceneManager(void);
-	~SceneManager(void);
+	//Explicitly deleting construction of an object of this class
+	SceneManager() = delete;
 
 	static void AddGameScene(GameScene* scene); //Takes ownership
 	static void RemoveGameScene(unsigned int sceneIndex);
@@ -33,7 +33,7 @@ private:
 	static void Initialize(VulkanContext* vkContext);
 	static void Update();
 	static void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex);
-	static void Destroy();
+	static void CleanUp();
 	static void WindowStateChanged(int state, bool active);
 
 	static vector<std::unique_ptr<GameScene>> m_vecScenes;

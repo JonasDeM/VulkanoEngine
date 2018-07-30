@@ -15,16 +15,8 @@ VulkanContext* SceneManager::m_pVulkanContext = nullptr;
 int SceneManager::m_NewActiveSceneWindowNr = 0;
 std::array<GLFWwindow*, SceneManager::MAX_REGISTERED_WINDOWS> SceneManager::m_RegisteredWindows = std::array<GLFWwindow*, MAX_REGISTERED_WINDOWS>{};
 
-SceneManager::SceneManager(void)
-{
-}
 
-
-SceneManager::~SceneManager(void)
-{
-}
-
-void SceneManager::Destroy()
+void SceneManager::CleanUp()
 {
 	m_vecScenes.clear();
 }
@@ -101,7 +93,7 @@ const int SceneManager::RegisterWindow(GLFWwindow* window, int windowNr)
 			++nr;
 		}
 		if (nr == MAX_REGISTERED_WINDOWS)
-			throw new runtime_error("No available numbers remaining. If you want to overwrite, specify a number.");
+			throw new runtime_error("No available slots remaining. If you want to overwrite, specify a number.");
 		m_RegisteredWindows[nr] = window;
 		return nr;
 	}
