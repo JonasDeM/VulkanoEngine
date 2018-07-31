@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "TexturedMeshScene.h"
 #include "MeshObject.h"
@@ -22,7 +23,7 @@ void TexturedMeshScene::Initialize()
 #if defined(DEBUG) | defined(_DEBUG)
 	const int sqrtAmount = 7; // showing 7*7*4=196 GameObjects in debug
 #else
-	const int sqrtAmount = 18; // showing 20*20*4=1600 GameObjects in release
+	const int sqrtAmount = 20; // showing 20*20*4=1600 GameObjects in release
 #endif
 
 	const float space = 20.f;
@@ -33,18 +34,19 @@ void TexturedMeshScene::Initialize()
 		for (int z = 0; z < sqrtAmount; z++)
 		{
 			int randRot = (rand() % 50) - 50;
+			const bool isStatic = false;
 
-			auto pedestal2 = new MeshObjectTex(L"Meshes/pedestal.ovm", L"Textures/Pedestal.png");
-			auto hut2 = new MeshObjectTex(L"Meshes/hut.ovm", L"Textures/Hut.png");
+			auto pedestal2 = new MeshObjectTex(L"Meshes/pedestal.ovm", L"Textures/Pedestal.png", isStatic);
+			auto hut2 = new MeshObjectTex(L"Meshes/hut.ovm", L"Textures/Hut.png", isStatic);
 			pedestal2->AddChild(hut2);
-			auto floor2 = new MeshObjectTex(L"Meshes/floor.ovm", L"Textures/Floor.png");
+			auto floor2 = new MeshObjectTex(L"Meshes/floor.ovm", L"Textures/Floor.png", isStatic);
 			pedestal2->AddChild(floor2);
 			pedestal2->Scale(0.01f, 0.01f, 0.01f);
 			pedestal2->RotateEuler(0, (float)randRot, 0);
 			AddGameObject(pedestal2);
 			pedestal2->Translate(x * space - (space*(float)sqrtAmount /2.0f), 0, z * space - (space*(float)sqrtAmount /2.0f));
 
-			auto leaves2 = new MeshObjectTranspTex(L"Meshes/leaves.ovm", L"Textures/LeavesT.png");
+			auto leaves2 = new MeshObjectTranspTex(L"Meshes/leaves.ovm", L"Textures/LeavesT.png", isStatic);
 			leaves2->Scale(0.01f, 0.01f, 0.01f);
 			leaves2->Translate(x * space - (space*(float)sqrtAmount / 2.0f), 0, z*space - (space*(float)sqrtAmount / 2.0f));
 			leaves2->RotateEuler(0, (float)randRot,0);

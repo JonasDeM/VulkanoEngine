@@ -468,5 +468,8 @@
     <ClCompile Include="VkTextureLoader.cpp">
       <Filter>Engine Files\Loaders\Implementations</Filter>
     </ClCompile>
+    <ClCompile Include="GeometryObject.h">
+      <Filter>Prefabs\MeshObjects</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

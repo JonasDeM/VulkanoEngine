@@ -1,9 +1,11 @@
+#pragma once
 #include "stdafx.h"
 #include "BoxDemoScene.h"
 #include "Debug.h"
 #include "CubePosColorTex.h"
 #include "CubePosColorNorm.h"
 #include "ManualCamera.h"
+#include "GeometryObject.h"
 
 
 BoxDemoScene::BoxDemoScene(GameSettings* pGameSettings):
@@ -34,6 +36,10 @@ void BoxDemoScene::Initialize()
 	m_pVkCube0->Scale(1.5, 1.5, 1.5);
 
 	m_pVkCube0->RotateEuler(0, 0, 90.0f);
+
+	auto ptr = new GeometryObject<VkBasicGeometryPipeline_Ext>(L"Meshes/Sphere.ovm");
+	ptr->Translate(20, 0, 0);
+	AddGameObject(ptr);
 }
 
 void BoxDemoScene::Update()

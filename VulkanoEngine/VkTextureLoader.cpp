@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "VkTextureLoader.h"
 #include "VkDevice_Ext.h"

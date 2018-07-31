@@ -1,4 +1,4 @@
-
+#pragma once
 #include "stdafx.h"
 
 #include "VkBasicSampler_Ext.h"

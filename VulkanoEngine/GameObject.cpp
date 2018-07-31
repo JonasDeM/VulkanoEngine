@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "GameObject.h"
 #include "GameContext.h"
@@ -11,7 +12,7 @@
 #include "glm/gtx/matrix_decompose.hpp"
 
 
-GameObject::GameObject(void) :
+GameObject::GameObject(bool isStatic) :
 	m_pScene(nullptr),
 	m_pParent(nullptr),
 	m_IsInitialized(false),
@@ -28,7 +29,8 @@ GameObject::GameObject(void) :
 	m_RotationChanged(false),
 	m_ScaleChanged(false),
 	m_RigidActorAdded(false),
-	m_CanDraw(true)
+	m_CanDraw(true),
+	m_IsStatic(isStatic)
 {}
 
 
@@ -42,7 +44,9 @@ GameScene* GameObject::GetScene() const
 		return m_pScene;
 
 	if (m_pParent != nullptr)
+	{
 		return m_pParent->GetScene();
+	}
 
 	return nullptr;
 }
@@ -60,7 +64,7 @@ void GameObject::AddChild(GameObject* pObject)
 		if (m_IsInitialized)
 			m_pScene->RootInitializeSceneObject(pObject);
 			
-		SceneManager::UpdateChanges();
+		SceneManager::FlagDrawChanges();
 	}
 }
 
@@ -71,6 +75,12 @@ void GameObject::AttachRigidActor(PxRigidActor* pRigidActor)
 	{
 		m_pRigidActor->release();
 		Debug::LogWarning(L"GameObject::AttachRigidActor(...) > Overwritting current Actor!");
+	}
+	if (pRigidActor->isRigidStatic())
+	{
+		Debug::LogError(L"GameObject::AttachRigidActor(...) > Attaching a non-static rigidactor to a static gameobject!");
+		m_pRigidActor->release();
+		return;
 	}
 
 	m_pRigidActor = pRigidActor;
@@ -103,6 +113,8 @@ void GameObject::AttachRigidActor(PxRigidActor* pRigidActor)
 
 PxRigidActor* GameObject::DetachRigidActor()
 {
+	if (m_pRigidActor == nullptr)
+		Debug::LogWarning(L"There was no rigidactor attached.");
 	auto actor = m_pRigidActor;
 	m_pRigidActor->userData = nullptr;
 	m_pRigidActor = nullptr;
@@ -119,7 +131,7 @@ void GameObject::RemoveChild(GameObject* pObject)
 		pObject->m_pScene = nullptr;
 		pObject->m_pParent = nullptr;
 
-		SceneManager::UpdateChanges();
+		SceneManager::FlagDrawChanges();
 	}
 }
 
@@ -130,6 +142,11 @@ void GameObject::Translate(float x, float y, float z)
 		if (m_pRigidActor->isRigidStatic())
 		{
 			Debug::LogWarning(L"GameObject::Translate(...) > Can't translate a STATIC RigidActor!");
+			return;
+		}
+		if (m_IsStatic && m_IsInitialized)
+		{
+			Debug::LogWarning(L"GameObject::Translate(...) > Can't translate a STATIC Gameobject after its initialized!");
 			return;
 		}
 
@@ -150,6 +167,11 @@ void GameObject::Rotate(float x, float y, float z)
 			Debug::LogWarning(L"GameObject::Rotate(...) > Can't rotate a STATIC RigidActor!");
 			return;
 		}
+		if (m_IsStatic && m_IsInitialized)
+		{
+			Debug::LogWarning(L"GameObject::Translate(...) > Can't rotate a STATIC Gameobject after its initialized!");
+			return;
+		}
 
 		m_RotationChanged = true;
 	}
@@ -163,6 +185,11 @@ void GameObject::RotateEuler(float x, float y, float z)
 		if (m_pRigidActor->isRigidStatic())
 		{
 			Debug::LogWarning(L"GameObject::Rotate(...) > Can't rotate a STATIC RigidActor!");
+			return;
+		}
+		if (m_IsStatic && m_IsInitialized)
+		{
+			Debug::LogWarning(L"GameObject::Translate(...) > Can't rotate a STATIC Gameobject after its initialized!");
 			return;
 		}
 
@@ -179,6 +206,11 @@ void GameObject::Scale(float x, float y, float z)
 		if (m_pRigidActor->isRigidStatic())
 		{
 			Debug::LogWarning(L"GameObject::Scale(...) > Can't scale a STATIC RigidActor!");
+			return;
+		}
+		if (m_IsStatic && m_IsInitialized)
+		{
+			Debug::LogWarning(L"GameObject::Translate(...) > Can't scale a STATIC Gameobject after its initialized!");
 			return;
 		}
 
@@ -205,15 +237,15 @@ void GameObject::RootInitialize(VulkanContext* pVkContext)
 
 	Initialize(pVkContext);
 
+	//Set Initial Pose.
+	if (m_pParent == nullptr)
+		CalculateWorldMatrix(mat4());
+	else
+		CalculateWorldMatrix(m_pParent->GetWorldMatrix());
+
 	for (auto& pObject : m_vecChildren)
 	{
 		pObject->RootInitialize(pVkContext);
-	}
-
-	//Set Initial Pose. (Only update a Root-GameObject (Children are updated by parent) => m_Parent == nullptr)
-	if (!m_pParent)
-	{
-		CalculateWorldMatrix(mat4());
 	}
 
 	//Attach RigidBody
@@ -243,6 +275,10 @@ void GameObject::RootInitialize(VulkanContext* pVkContext)
 void GameObject::RootUpdate(VulkanContext* pVkContext)
 {
 	Update(pVkContext);
+	if (m_pParent == nullptr)
+		UpdateWorldMatrix(mat4());
+	else
+		UpdateWorldMatrix(m_pParent->GetWorldMatrix());
 
 	for (auto& pObject : m_vecChildren)
 	{
@@ -263,7 +299,7 @@ void GameObject::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const i
 	}
 }
 
-void GameObject::CalculateWorldMatrix(const mat4 &parentWorld, bool updateChildren)
+void GameObject::CalculateWorldMatrix(const mat4 &parentWorld)
 {
 	if (m_RigidActorAdded)
 	{
@@ -321,12 +357,12 @@ void GameObject::CalculateWorldMatrix(const mat4 &parentWorld, bool updateChildr
 	m_WorldMatrix = glm::translate(m_WorldMatrix, m_Position);
 	m_WorldMatrix *= glm::toMat4(m_Rotation);
 	m_WorldMatrix = glm::scale(m_WorldMatrix, m_Scale);
+}
 
-	if (!updateChildren)
+void GameObject::UpdateWorldMatrix(const mat4 &parentWorld)
+{
+	if (m_IsStatic)
 		return;
 
-	for (auto& pObject : m_vecChildren)
-	{
-		pObject->CalculateWorldMatrix(m_WorldMatrix, updateChildren);
-	}
+	CalculateWorldMatrix(parentWorld);
 }

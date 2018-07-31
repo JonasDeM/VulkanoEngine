@@ -20,7 +20,7 @@ public:
 	static void NextScene();
 	static void PreviousScene();
 	static bool IsInputEnabled() { return m_InputEnabled; }
-	static void UpdateChanges() { m_pVulkanContext->SetFlags(VkContextFlags::InvalidDrawCommandBuffers); };
+	static void FlagDrawChanges() { m_pVulkanContext->SetFlags(VkContextFlags::InvalidDrawCommandBuffers); };
 
 	static const int MAX_REGISTERED_WINDOWS = 10;
 	static const int RegisterWindow(GLFWwindow* window, int windowNr = -1); // -1 means to take the next available nr, returns windowNr
@@ -35,6 +35,7 @@ private:
 	static void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex);
 	static void CleanUp();
 	static void WindowStateChanged(int state, bool active);
+	static void UpdateIfNewActiveScene();
 
 	static vector<std::unique_ptr<GameScene>> m_vecScenes;
 	static bool m_IsInitialized;

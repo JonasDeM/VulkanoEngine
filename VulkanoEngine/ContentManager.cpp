@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "ContentManager.h"
 #include "MeshDataLoader.h"

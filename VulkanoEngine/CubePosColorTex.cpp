@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "CubePosColorTex.h"
 #include "VertexStructs.h"
@@ -55,7 +56,7 @@ void CubePosColorTex::UpdateUniformVariables(VulkanContext* pVkContext)
 	ubo.world = m_WorldMatrix;
 	ubo.wvp = GetScene()->GetCamera()->GetViewProjection() * ubo.world; 
 	
-	int i = pVkContext->GetCurrentDrawingBufferIndex();
+	int i = pVkContext->GetCurrentFrameIndex();
 
 	void* data;
 	vkMapMemory(*pVkContext->GetVkDevice(), *m_UniformBuffersMemory[i], 0, sizeof(ubo), 0, &data);

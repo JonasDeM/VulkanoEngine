@@ -39,7 +39,7 @@ private:
 	bool m_IsStopped;
 
 	int m_FPS;
-	float m_FpsTimer;
+	double m_FpsTimer;
 	int m_FpsCount;
 	bool m_ForceElapsedUpperBound;
 	double m_ElapsedUpperBound;

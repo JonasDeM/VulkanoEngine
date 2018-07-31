@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "GimbalRig.h"
 #include "CylinderPosColorNorm.h"

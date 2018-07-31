@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "PhysxManager.h"
 #include "PhysxAllocator.h"

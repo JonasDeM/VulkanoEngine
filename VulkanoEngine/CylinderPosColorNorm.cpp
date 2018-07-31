@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "CylinderPosColorNorm.h"
 #include "VertexStructs.h"
@@ -50,7 +51,7 @@ void CylinderPosColorNorm::UpdateUniformVariables(VulkanContext* pVkContext)
 	ubo.world = m_WorldMatrix;
 	ubo.wvp = GetScene()->GetCamera()->GetViewProjection() * ubo.world;
 
-	int i = pVkContext->GetCurrentDrawingBufferIndex();
+	int i = pVkContext->GetCurrentFrameIndex();
 
 	void* data;
 	vkMapMemory(*pVkContext->GetVkDevice(), *m_UniformBuffersMemory[i], 0, sizeof(ubo), 0, &data);

@@ -261,6 +261,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSettings.cpp" />
     <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="GeometryObject.h" />
     <ClCompile Include="GimbalRigScene.cpp" />
     <ClCompile Include="InputTestScene.cpp" />
     <ClCompile Include="main.cpp" />

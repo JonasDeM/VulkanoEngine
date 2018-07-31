@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "PipelineManager.h"
 #include "VkPosColTexPipeline_Ext.h"

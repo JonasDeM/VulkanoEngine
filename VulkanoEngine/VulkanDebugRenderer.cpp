@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "VulkanDebugRenderer.h"
 #include "VertexStructs.h"
@@ -46,7 +47,7 @@ void VulkanDebugRenderer::UpdateUniformVariables(const VulkanContext* pVkContext
 
 	ubo.wvp = mat4() * pCurrentScene->GetCamera()->GetViewProjection();
 
-	int index = pVkContext->GetCurrentDrawingBufferIndex();
+	int index = pVkContext->GetCurrentFrameIndex();
 	void* data;
 	vkMapMemory(*pVkContext->GetVkDevice(), *m_UniformBuffersMemory[index], 0, sizeof(ubo), 0, &data);
 	memcpy(data, &ubo, sizeof(ubo));
@@ -55,7 +56,7 @@ void VulkanDebugRenderer::UpdateUniformVariables(const VulkanContext* pVkContext
 
 void VulkanDebugRenderer::UpdateVertexData(const VulkanContext* pVkContext, const vector<VertexPosCol>& lineList, unsigned int fixedBufferSize)
 {
-	int index = pVkContext->GetCurrentDrawingBufferIndex();
+	int index = pVkContext->GetCurrentFrameIndex();
 	void* data;
 	vkMapMemory(*pVkContext->GetVkDevice(), *m_VertexBuffersMemory[index], fixedBufferSize*sizeof(lineList[0]), sizeof(lineList[0]) * lineList.size(), 0, &data); // VK_WHOLE_SIZE
 	memcpy(data, &lineList[0], sizeof(lineList[0]) * lineList.size());

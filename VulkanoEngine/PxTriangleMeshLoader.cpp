@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "PxTriangleMeshLoader.h"
 #include "PhysxManager.h"

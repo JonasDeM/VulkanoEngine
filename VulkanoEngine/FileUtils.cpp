@@ -1,4 +1,4 @@
-
+#pragma once
 #include "stdafx.h"
 #include "FileUtils.h"
 #include <locale>

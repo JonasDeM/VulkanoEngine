@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "PhysxErrorCallback.h"
 #include "Debug.h"

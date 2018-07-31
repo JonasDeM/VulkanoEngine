@@ -1,6 +1,8 @@
+#pragma once
 #include "stdafx.h"
 #include "GameTimer.h"
 #include "glfw/glfw3.h"
+#include "Debug.h"
 
 GameTimer::GameTimer(void) :
 	m_ElapsedSeconds(0.0f),
@@ -21,6 +23,7 @@ GameTimer::GameTimer(void) :
 
 GameTimer::~GameTimer(void)
 {
+
 }
 
 void GameTimer::Update()
@@ -36,7 +39,7 @@ void GameTimer::Update()
 	double currTime = glfwGetTime();
 	m_CurrTime = currTime;
 
-	m_ElapsedSeconds = (float)((m_CurrTime - m_PrevTime));
+	m_ElapsedSeconds = m_CurrTime - m_PrevTime;
 	m_PrevTime = m_CurrTime;
 
 	if (m_ElapsedSeconds < 0.0f)
@@ -47,10 +50,10 @@ void GameTimer::Update()
 		m_ElapsedSeconds = m_ElapsedUpperBound;
 	}
 
-	m_TotalSeconds = (float)(((m_CurrTime - m_PausedTime) - m_BaseTime));
+	m_TotalSeconds = (m_CurrTime - m_PausedTime) - m_BaseTime;
 
 	//FPS LOGIC
-	m_FpsTimer += (float)m_ElapsedSeconds;
+	m_FpsTimer += m_ElapsedSeconds;
 	++m_FpsCount;
 	if (m_FpsTimer >= 1.0f)
 	{

@@ -16,7 +16,7 @@ protected:
 	virtual void Update() override;
 	virtual void Draw() override {};
 	virtual void SceneActivated() override;
-	virtual void SceneDeactivated() override { }
+	virtual void SceneDeactivated() override { };
 
 private:
 

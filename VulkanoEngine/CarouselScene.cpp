@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "CarouselScene.h"
 #include "SceneManager.h"

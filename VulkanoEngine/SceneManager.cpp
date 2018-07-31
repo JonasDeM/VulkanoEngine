@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "SceneManager.h"
 #include "GameScene.h"
@@ -128,6 +129,7 @@ void SceneManager::Initialize(VulkanContext* vkContext)
 	{
 		scene->RootInitialize(vkContext);
 	}
+	UpdateIfNewActiveScene();
 }
 
 void SceneManager::WindowStateChanged(int state, bool active)
@@ -138,11 +140,11 @@ void SceneManager::WindowStateChanged(int state, bool active)
 	}
 }
 
-void SceneManager::Update()
+void SceneManager::UpdateIfNewActiveScene()
 {
 	if (m_pNewActiveScene != nullptr)
 	{
-		UpdateChanges();
+		FlagDrawChanges();
 
 		//Deactivate the current active scene
 		if (m_pActiveScene != nullptr)
@@ -160,6 +162,11 @@ void SceneManager::Update()
 		m_pActiveScene->SetWindow(m_RegisteredWindows[m_NewActiveSceneWindowNr]);
 		glfwSetWindowUserPointer(m_RegisteredWindows[m_NewActiveSceneWindowNr], m_pActiveScene);
 	}
+}
+
+void SceneManager::Update()
+{
+	UpdateIfNewActiveScene();
 
 	if (m_pActiveScene != nullptr)
 	{
