@@ -17,6 +17,8 @@ public:
 		glm::mat4 world;
 		glm::mat4 wvp;
 	};
+
+	typedef struct VertexPosColNorm VertexType; // each derived pipeline that implements it's own vertexInputState needs to typedef the used Vertex struct as VertexType like this
 protected:
 
 	virtual std::vector<VkPipelineShaderStageCreateInfo> CreateShaderStageCreateInfos(HoldingContentLoader<VkShaderModule>& shaderModuleLoader) const override;

@@ -1,3 +1,4 @@
+#pragma once
 
 #include "stdafx.h"
 #include "VkDebugPipeline_Ext.h"
@@ -38,9 +39,10 @@ VkPipelineVertexInputStateCreateInfo VkDebugPipeline_Ext::CreateVertexInputState
 	VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
 	vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 	vertexInputInfo.vertexBindingDescriptionCount = 1;
-	vertexInputInfo.pVertexBindingDescriptions = &VertexPosCol::InputBindingDescription;
-	vertexInputInfo.vertexAttributeDescriptionCount = (uint32_t)VertexPosCol::AttributeDescriptions.size();
-	vertexInputInfo.pVertexAttributeDescriptions = VertexPosCol::AttributeDescriptions.data();
+	//Never hardcode the vertextype, use the public typedef VertexType of the class
+	vertexInputInfo.pVertexBindingDescriptions = &VertexType::InputBindingDescription;
+	vertexInputInfo.vertexAttributeDescriptionCount = (uint32_t)VertexType::AttributeDescriptions.size();
+	vertexInputInfo.pVertexAttributeDescriptions = VertexType::AttributeDescriptions.data();
 	return vertexInputInfo;
 }
 

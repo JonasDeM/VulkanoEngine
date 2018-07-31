@@ -1,3 +1,4 @@
+#pragma once
 
 #include "stdafx.h"
 #include "VkPosNormTexPipeline_Ext.h"
@@ -39,9 +40,10 @@ VkPipelineVertexInputStateCreateInfo VkPosNormTexPipeline_Ext::CreateVertexInput
 	VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
 	vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 	vertexInputInfo.vertexBindingDescriptionCount = 1;
-	vertexInputInfo.pVertexBindingDescriptions = &VertexPosNormTex::InputBindingDescription;
-	vertexInputInfo.vertexAttributeDescriptionCount = (uint32_t)VertexPosNormTex::AttributeDescriptions.size();
-	vertexInputInfo.pVertexAttributeDescriptions = VertexPosNormTex::AttributeDescriptions.data();
+	//Never hardcode the vertextype, use the public typedef VertexType of the class
+	vertexInputInfo.pVertexBindingDescriptions = &VertexType::InputBindingDescription;
+	vertexInputInfo.vertexAttributeDescriptionCount = (uint32_t)VertexType::AttributeDescriptions.size();
+	vertexInputInfo.pVertexAttributeDescriptions = VertexType::AttributeDescriptions.data();
 
 	return vertexInputInfo;
 }

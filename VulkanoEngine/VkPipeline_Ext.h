@@ -8,10 +8,12 @@ class VulkanContext;
 template<class T>
 class HoldingContentLoader;
 
+
 // Exception! Extended Handle where the vulkan object isn't created in the constructor
 // Because I wanted to use the Template Method design pattern for creation, and this is not possible in the constructor
 class VkPipeline_Ext : public DeriveableHandle<VkPipeline>
 {
+	
 public:
 	void Build(VulkanContext* pVkContext, HoldingContentLoader<VkShaderModule>& shaderModuleLoader, VkPipeline basePipeline=VK_NULL_HANDLE);
 	void Destroy(VkDevice device)

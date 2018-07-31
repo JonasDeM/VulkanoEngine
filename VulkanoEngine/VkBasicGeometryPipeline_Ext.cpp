@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "VkBasicGeometryPipeline_Ext.h"
 #include "FileUtils.h"
@@ -27,16 +28,13 @@ std::vector<VkPipelineShaderStageCreateInfo> VkBasicGeometryPipeline_Ext::Create
 
 VkPipelineVertexInputStateCreateInfo VkBasicGeometryPipeline_Ext::CreateVertexInputStateCreateInfo() const
 {
-	//Vertexinput
-	auto& bindingDescription = VertexPosColNorm::InputBindingDescription;
-	auto& attributeDescriptions = VertexPosColNorm::AttributeDescriptions;
-
 	VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
 	vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 	vertexInputInfo.vertexBindingDescriptionCount = 1;
-	vertexInputInfo.pVertexBindingDescriptions = &bindingDescription;
-	vertexInputInfo.vertexAttributeDescriptionCount = (uint32_t)attributeDescriptions.size();
-	vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions.data();
+	//Never hardcode the vertextype, use the public typedef VertexType of the class
+	vertexInputInfo.pVertexBindingDescriptions = &VertexType::InputBindingDescription;
+	vertexInputInfo.vertexAttributeDescriptionCount = (uint32_t)VertexType::AttributeDescriptions.size();
+	vertexInputInfo.pVertexAttributeDescriptions = VertexType::AttributeDescriptions.data();
 
 	return vertexInputInfo;
 }

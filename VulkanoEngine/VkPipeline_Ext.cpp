@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "VkPipeline_Ext.h"
 #include <array>
