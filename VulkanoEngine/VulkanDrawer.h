@@ -18,7 +18,8 @@ public:
 	const VkQueue GetPresentQueue() const override { return m_VkPresentQueue; }
 	const VkSurface_Ext* GetSurface() const override { return m_pVkSurface.get(); }
 
-	int GetCurrentDrawingBufferIndex() const override { return m_FrameIndexToUpdate; }
+	int GetCurrentFrameIndex() const override { return m_FrameIndex; }
+	void CreateDrawCommandBuffers(GameSettings* settings);
 	void VkDrawFrame(GameSettings* settings);
 
 private:
@@ -33,10 +34,9 @@ private:
 		size_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData);
 	void SetupDebugCallback();
 	void CreateCommandPools();
-	void CreateSemaphores();
+	void CreateSyncObjects();
 	void CreateDescriptorPool();
 	void RecreateVkSwapChain(GameSettings* settings);
-	void CreateDrawCommandBuffers(GameSettings* settings);
 
 	const std::vector<const char*> m_ValidationLayers = {
 		"VK_LAYER_LUNARG_standard_validation" // is a 'group' of all standard usefull validation layers
@@ -50,7 +50,7 @@ private:
 
 	unique_ptr_del<VkInstance_Ext> m_pVkInstance;
 	unique_ptr_del<VkDevice_Ext> m_pVkDevice;
-	std::unique_ptr<VkPhysicalDevice_Ext> m_pVkPhysicalDevice; //is implicitly destroyed when VkInstance is destroyed -> no need for custom del, its destructor is sufficient
+	std::unique_ptr<VkPhysicalDevice_Ext> m_pVkPhysicalDevice; //is implicitly destroyed when VkInstance is destroyed -> no need for custom del
 	unique_ptr_del<VkSurface_Ext> m_pVkSurface;
 	unique_ptr_del<VkSwapchainKHR_Ext> m_pVkSwapchain;
 	std::vector<VkCommandBuffer> m_DrawCommandBuffers;
@@ -59,14 +59,15 @@ private:
 	VkQueue m_VkGraphicsQueue; //Queue handles get cleaned up implicitly when the VkDevice is destroyed
 	VkQueue m_VkPresentQueue;
 	unique_ptr_del<VkCommandPool> m_pVkGraphicsCommandPool, m_pVkGraphicsCommandPoolTransient;
-	unique_ptr_del<VkSemaphore> m_pVkImageAvailableSemaphore;
-	unique_ptr_del<VkSemaphore> m_pVkRenderFinishedSemaphore;
+	std::vector<unique_ptr_del<VkSemaphore>> m_pVkImageAvailableSemaphores;
+	std::vector<unique_ptr_del<VkSemaphore>> m_pVkRenderFinishedSemaphores;
+	std::vector<unique_ptr_del<VkFence>> m_pVkFrameDrawingFences;
 	unique_ptr_del<VkDescriptorPool> m_pVkDescriptorPool;
 
-	int m_FrameIndexToUpdate = 0;
+	int m_FrameIndex = 0;
 
 	//Async
-	std::future<VkResult> m_PresentImageFuture;
+	//std::future<VkResult> m_PresentImageFuture;
 };
 
 
