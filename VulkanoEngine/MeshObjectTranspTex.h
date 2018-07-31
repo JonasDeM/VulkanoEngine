@@ -15,7 +15,7 @@ class MeshData;
 class MeshObjectTranspTex : public GameObject
 {
 public:
-	MeshObjectTranspTex(wstring assetFile, wstring textureFile);
+	MeshObjectTranspTex(wstring assetFile, wstring textureFile, bool isStatic=false);
 	~MeshObjectTranspTex(void) {};
 
 	virtual void Initialize(VulkanContext* pVkContext) override;

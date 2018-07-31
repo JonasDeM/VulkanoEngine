@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "MeshObject.h"
 #include "VertexStructs.h"
@@ -9,7 +10,8 @@
 #include "VulkanContext.h"
 #include "GameScene.h"
 
-MeshObject::MeshObject(wstring assetFile) :
+MeshObject::MeshObject(wstring assetFile, bool isStatic) :
+	GameObject(isStatic),
 	m_pMeshData(nullptr),
 	m_AssetFile(assetFile)
 {
@@ -44,7 +46,7 @@ void MeshObject::UpdateUniformVariables(VulkanContext* pVkContext)
 	ubo.world = m_WorldMatrix;
 	ubo.wvp = GetScene()->GetCamera()->GetViewProjection() * ubo.world;
 
-	int i = pVkContext->GetCurrentDrawingBufferIndex();
+	int i = pVkContext->GetCurrentFrameIndex();
 
 	void* data;
 	vkMapMemory(*pVkContext->GetVkDevice(), *m_UniformBuffersMemory[i], 0, sizeof(ubo), 0, &data);

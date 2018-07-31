@@ -1,4 +1,5 @@
 #pragma once
+#include "stdafx.h"
 #include "GameObject.h"
 #include <glm\glm.hpp>
 #include "VkPhysicalDevice_Ext.h"
@@ -12,7 +13,7 @@ class MeshData;
 class MeshObject : public GameObject
 {
 public:
-	MeshObject(wstring assetFile);
+	MeshObject(wstring assetFile, bool isStatic=false);
 	~MeshObject(void);
 
 	virtual void Initialize(VulkanContext* pVkContext) override;

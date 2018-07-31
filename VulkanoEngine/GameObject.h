@@ -13,7 +13,7 @@ using namespace glm;
 class GameObject
 {
 public:
-	GameObject(void);
+	GameObject(bool isStatic=false);
 	virtual ~GameObject(void);
 
 	vec3 GetPosition() const { return m_Position; }
@@ -49,7 +49,6 @@ protected:
 	vec3 m_Position, m_Scale;
 	quat m_Rotation;
 
-	//Is not updated every frame
 	vec3 m_WorldPosition, m_WorldScale;
 	quat m_WorldRotation;
 
@@ -62,12 +61,14 @@ private:
 	void RootInitialize(VulkanContext* pVkContext);
 	void RootUpdate(VulkanContext* pVkContext);
 	void RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex);
-	void CalculateWorldMatrix(const mat4 &parentWorld, bool updateChildren = true);
+	void CalculateWorldMatrix(const mat4 &parentWorld);
+	void UpdateWorldMatrix(const mat4 &parentWorld);
 
 	GameScene* m_pScene;
 	GameObject* m_pParent;
 	bool m_PositionChanged, m_RotationChanged, m_ScaleChanged, m_RigidActorAdded;
 	bool m_CanDraw;
+	bool m_IsStatic;
 
 private:
 	// -------------------------

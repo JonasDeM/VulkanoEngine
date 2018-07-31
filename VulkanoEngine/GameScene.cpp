@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "GameScene.h"
 #include "GameObject.h"
@@ -40,7 +41,7 @@ void GameScene::AddGameObject(GameObject* pObject)
 
 		RootInitializeSceneObject(pObject);
 
-		SceneManager::UpdateChanges();
+		SceneManager::FlagDrawChanges();
 	}
 }
 
@@ -59,7 +60,7 @@ void GameScene::RemoveGameObject(GameObject* pObject)
 		pObject->m_pScene = nullptr;
 		pObject->m_pParent = nullptr;
 
-		SceneManager::UpdateChanges();
+		SceneManager::FlagDrawChanges();
 	}
 }
 
@@ -112,17 +113,10 @@ void GameScene::RootUpdate()
 		m_pActiveVkCamera->Update(this);
 
 	Update();
-
 	for(auto& pObject:m_vecGameObjects)
 	{
 		pObject->RootUpdate(m_pVkContext);
 	}
-
-	for(auto& pObject:m_vecGameObjects)
-	{
-		pObject->CalculateWorldMatrix(mat4()); //or inside GameObject itself??
-	}
-
 	if(m_pTimer->IsRunning())
 	{
 		if(m_PhysXFrameStepping)
@@ -145,7 +139,6 @@ void GameScene::RootUpdate()
 			m_pPhysxScene->fetchResults(true);
 		}
 	}
-
 
 	//Send Camera to PVD
 	if(m_pPhysxScene->getPhysics().getPvdConnectionManager())

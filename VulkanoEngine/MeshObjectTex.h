@@ -15,8 +15,10 @@ class MeshData;
 class MeshObjectTex : public GameObject
 {
 public:
-	MeshObjectTex(wstring assetFile, wstring textureFile);
-	~MeshObjectTex(void) {};
+	MeshObjectTex(wstring assetFile, wstring textureFile, bool isStatic=false);
+	~MeshObjectTex(void) = default;
+	MeshObjectTex(const MeshObjectTex& t) = delete;
+	MeshObjectTex& operator=(const MeshObjectTex& t) = delete;
 
 	virtual void Initialize(VulkanContext* pVkContext) override;
 	virtual void Update(VulkanContext* pVkContext) override;
@@ -44,10 +46,4 @@ private:
 	bool m_UseCustomColor = false;
 	vec4 m_CustomColor;
 private:
-	// -------------------------
-	// Disabling default copy constructor and default 
-	// assignment operator.
-	// -------------------------
-	MeshObjectTex(const MeshObjectTex& t);
-	MeshObjectTex& operator=(const MeshObjectTex& t);
 };

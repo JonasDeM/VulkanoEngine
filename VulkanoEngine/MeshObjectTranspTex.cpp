@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "VertexStructs.h"
 #include "ContentManager.h"
@@ -14,7 +15,8 @@
 #include "VulkanContext.h"
 #include "GameScene.h"
 
-MeshObjectTranspTex::MeshObjectTranspTex(wstring assetFile, wstring textureFile) :
+MeshObjectTranspTex::MeshObjectTranspTex(wstring assetFile, wstring textureFile, bool isStatic) :
+	GameObject(isStatic),
 	m_AssetFile(assetFile),
 	m_TextureFile(textureFile)
 {
@@ -46,7 +48,7 @@ void MeshObjectTranspTex::UpdateUniformVariables(VulkanContext* pVkContext)
 	ubo.world = m_WorldMatrix;
 	ubo.wvp = GetScene()->GetCamera()->GetViewProjection() * ubo.world;
 
-	int i = pVkContext->GetCurrentDrawingBufferIndex();
+	int i = pVkContext->GetCurrentFrameIndex();
 
 	void* data;
 	vkMapMemory(*pVkContext->GetVkDevice(), *m_UniformBuffersMemory[i], 0, sizeof(ubo), 0, &data);
