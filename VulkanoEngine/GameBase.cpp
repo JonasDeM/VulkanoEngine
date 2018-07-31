@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 
 #include "GameBase.h"
@@ -30,10 +31,11 @@ void GameBase::RunGame()
 {
 #pragma region
 	//PREPARE GAME
+	Debug::StartProfileTimer();
 	OnPreparingGame();
 
 	//1. Create the Window
-	CreateGLFWWindow();
+	CreateGLFWWindow(); 
 
 	//2.Initialize Vulkan
 	m_pVulkanDrawer = std::make_unique<VulkanDrawer>(m_pWindow.get());
@@ -48,24 +50,26 @@ void GameBase::RunGame()
 
 	//5. Initialize the GameBase
 	Initialize();
+
+	//6. Register all windows to scenemanager and the initialize
+	SceneManager::RegisterWindow(m_pWindow.get());
 	SceneManager::Initialize(m_pVulkanDrawer.get());
 
-	//6. Register all windows
-	SceneManager::RegisterWindow(m_pWindow.get());
-
+	m_pVulkanDrawer->CreateDrawCommandBuffers(m_pGameSettings.get());
+	Debug::PrintProfileInterval(L"Initialization");
 #pragma endregion INITIALIZATION
 
 #pragma region
 	while (!glfwWindowShouldClose(m_pWindow.get())) {
+		//Debug::LogInfo(L"New Frame");
 		glfwPollEvents();
-
-		Debug::LogInfo(L"New Frame");
+		//Debug::PrintProfileInterval(L"GLFW");
 		//GAME LOOP
 		Update();
-		Debug::StartProfileTimer();
 		SceneManager::Update();
-		Debug::PrintProfileInterval(L"SceneManager::Update");
+		//Debug::PrintProfileInterval(L"Update");
 		m_pVulkanDrawer->VkDrawFrame(m_pGameSettings.get());
+		//Debug::PrintProfileInterval(L"Draw");
 	}
 	vkDeviceWaitIdle(*m_pVulkanDrawer->GetVkDevice()); //wait for all async processes to complete
 

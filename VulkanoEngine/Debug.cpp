@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "Debug.h"
 #include "ContentManager.h"
@@ -9,6 +10,7 @@
 #include "Colors.h"
 #include "GameScene.h"
 #include <limits>
+#include "FileUtils.h"
 
 #include <fcntl.h>
 //#include <stdio.h>
@@ -47,6 +49,8 @@ void Debug::StartProfileTimer()
 	m_LastProfileCheck = std::chrono::high_resolution_clock::now();
 }
 
+//void Debug::PrintProfileInterval(const wstring& info){}
+
 void Debug::PrintProfileInterval(const wstring& info)
 {
 	auto t = std::chrono::high_resolution_clock::now();
@@ -66,6 +70,7 @@ void Debug::Initialize(VulkanContext *vulkanContext, unsigned int bufferSize)
 	CreateFixedLineList();
 
 	m_VulkanDebugRenderer = std::make_unique<VulkanDebugRenderer>(vulkanContext, m_FixedLineList, m_BufferSize, m_FixedBufferSize);
+	m_DrawVertexCount = m_FixedBufferSize;
 }
 
 void Debug::CreateFixedLineList()
@@ -131,6 +136,7 @@ void Debug::Log(LogLevel level, const wstring& msg)
 		break;
 	case LogLevel::Error:
 		wcout << L"[ERROR]   >>";
+		throw new std::runtime_error(FileUtils::ToString(msg));
 	case LogLevel::Profile:
 		wcout << L"[PROFILE]   >>";
 		break;
@@ -152,6 +158,7 @@ void Debug::Log(LogLevel level, const string& msg)
 		break;
 	case LogLevel::Error:
 		cout << "[ERROR]   >>";
+		throw new std::runtime_error(msg);
 	case LogLevel::Profile:
 		cout << "[PROFILE]   >>";
 		break;
@@ -163,7 +170,7 @@ void Debug::Log(LogLevel level, const string& msg)
 void Debug::ToggleDebugRenderer()
 {
 	m_RendererEnabled = !m_RendererEnabled;
-	SceneManager::UpdateChanges();
+	SceneManager::FlagDrawChanges();
 }
 
 void Debug::DrawLine(vec3 start, vec3 end, vec4 color)
@@ -257,7 +264,11 @@ void Debug::UpdateRenderData(VulkanContext* pVulkanContext, const GameScene* pCu
 		m_VulkanDebugRenderer->UpdateVertexData(pVulkanContext, m_LineList, m_FixedBufferSize);
 	m_VulkanDebugRenderer->UpdateUniformVariables(pVulkanContext, pCurrentScene);
 
-	m_DrawVertexCount = (unsigned int)m_LineList.size() + m_FixedBufferSize;
+	if (m_DrawVertexCount != m_FixedBufferSize + size)
+	{
+		SceneManager::FlagDrawChanges();
+		m_DrawVertexCount = m_FixedBufferSize + size;
+	}
 	m_LineList.clear();
 }
 
