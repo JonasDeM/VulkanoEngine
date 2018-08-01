@@ -13,7 +13,9 @@
 #include "VkTextureLoader.h"
 #include "MeshObjectTranspTex.h"
 #include "VulkanContext.h"
+#include "VkSwapchainKHR_Ext.h"
 #include "GameScene.h"
+#include "VkDevice_Ext.h"
 
 MeshObjectTranspTex::MeshObjectTranspTex(wstring assetFile, wstring textureFile, bool isStatic) :
 	GameObject(isStatic),

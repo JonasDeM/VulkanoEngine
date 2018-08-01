@@ -1,6 +1,5 @@
 #pragma once
 #include "LowMemoryContentLoader.h"
-#include <memory>
 
 class PxTriangleMeshLoader final: public LowMemoryContentLoader<PxTriangleMesh>
 {

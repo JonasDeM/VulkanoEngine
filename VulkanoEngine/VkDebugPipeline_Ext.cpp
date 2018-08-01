@@ -1,16 +1,6 @@
 #pragma once
-
 #include "stdafx.h"
 #include "VkDebugPipeline_Ext.h"
-#include <stdexcept>
-#include <vulkan/vulkan.h>
-#include "FileUtils.h"
-#include <vector>
-#include <array>
-#include "VertexStructs.h"
-#include "VulkanContext.h"
-#include "VkDevice_Ext.h"
-#include "VkSwapchainKHR_Ext.h"
 #include "HoldingContentLoader.h"
 
 std::vector<VkPipelineShaderStageCreateInfo> VkDebugPipeline_Ext::CreateShaderStageCreateInfos(HoldingContentLoader<VkShaderModule>& shaderModuleLoader) const

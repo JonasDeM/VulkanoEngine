@@ -4,6 +4,8 @@
 #include "SceneManager.h"
 #include "Debug.h"
 #include "ManualCamera.h"
+#include "GameTimer.h"
+#include <GLFW/glfw3.h>
 
 #define DISPLAY_ENGINE
 #define REST_OF_SCENES

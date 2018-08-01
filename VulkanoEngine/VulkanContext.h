@@ -1,11 +1,8 @@
 #pragma once
-#include "HandleUtilities.h"
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
+
 class VkInstance_Ext;
 class VkDevice_Ext;
 class VkPhysicalDevice_Ext;
-class VkSwapchainKHR_Ext;
 class VkSwapchainKHR_Ext;
 class VkSurface_Ext;
 class GameSettings;
@@ -18,7 +15,11 @@ enum VkContextFlags : char {
 class VulkanContext
 {
 public:
-	VulkanContext() {};
+	VulkanContext() = default;
+	//disabling copy
+	VulkanContext(const VulkanContext&) = delete;
+	void operator=(VulkanContext const &x) = delete;
+
 	void virtual SetFlags(VkContextFlags flags)	{ m_Flags = static_cast<VkContextFlags>(m_Flags | flags);}
 	bool virtual HasFlags(VkContextFlags flags) { return (m_Flags & flags) == flags;}
 
@@ -33,10 +34,6 @@ public:
 	const virtual VkSurface_Ext* GetSurface() const = 0;
 
 	virtual int GetCurrentFrameIndex() const = 0;
-
-	//disabling copy
-	VulkanContext(const VulkanContext&) = delete;
-	void operator=(VulkanContext const &x) = delete;
 
 protected:
 	VkContextFlags m_Flags = static_cast<VkContextFlags>(0);

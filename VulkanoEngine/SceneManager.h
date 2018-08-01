@@ -1,15 +1,14 @@
 #pragma once
-
-#include "GameBase.h"
-#include "GameContext.h"
+using namespace std;
 
 class GameScene;
-using namespace std;
+struct GLFWwindow;
+class VulkanContext;
 
 class SceneManager final
 {
 public:
-	//Explicitly deleting construction of an object of this class
+	//Explicitly deleting construction of an object of this class 
 	SceneManager() = delete;
 
 	static void AddGameScene(GameScene* scene); //Takes ownership
@@ -20,7 +19,7 @@ public:
 	static void NextScene();
 	static void PreviousScene();
 	static bool IsInputEnabled() { return m_InputEnabled; }
-	static void FlagDrawChanges() { m_pVulkanContext->SetFlags(VkContextFlags::InvalidDrawCommandBuffers); };
+	static void FlagDrawChanges();
 
 	static const int MAX_REGISTERED_WINDOWS = 10;
 	static const int RegisterWindow(GLFWwindow* window, int windowNr = -1); // -1 means to take the next available nr, returns windowNr
@@ -46,12 +45,5 @@ private:
 
 	static std::array<GLFWwindow*, MAX_REGISTERED_WINDOWS> m_RegisteredWindows;
 	static int m_NewActiveSceneWindowNr;
-private:
-	// -------------------------
-	// Disabling default copy constructor and default 
-	// assignment operator.
-	// -------------------------
-	SceneManager(const SceneManager& t);
-	SceneManager& operator=(const SceneManager& t);
 };
 

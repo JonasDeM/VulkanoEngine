@@ -2,8 +2,6 @@
 #include <vector>
 #include "DeriveableHandle.h"
 #include <memory>
-#include <vulkan/vulkan.h>
-#include "Surface.h"
 
 struct QueueFamilyIndices
 {
@@ -13,6 +11,12 @@ struct QueueFamilyIndices
 	bool isComplete() const {
 		return graphicsFamily >= 0 && graphicsFamily >= 0;
 	}
+};
+struct SwapChainSupportDetails
+{
+	VkSurfaceCapabilitiesKHR capabilities;
+	std::vector<VkSurfaceFormatKHR> formats;
+	std::vector<VkPresentModeKHR> presentModes;
 };
 
 //Wrapper around VkPhysicalDevice, so i can call utility functions (special case because i don't have ownership)
@@ -26,6 +30,7 @@ public:
 		m_SwapChainSupportDetails = std::make_unique<SwapChainSupportDetails>();
 		ControlAndRecordFeatures(surface, deviceExtensions);
 	}
+	~VkPhysicalDevice_Ext() = default;
 
 	bool IsSuitable() const { return m_IsSuitable; }
 	const QueueFamilyIndices* GetQueueFamilyIndices() const { return m_QueueFamilyIndices.get(); }

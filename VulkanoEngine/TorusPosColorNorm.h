@@ -6,6 +6,7 @@ class VkBasicSampler_Ext;
 class VkTextureImage_Ext;
 class VkImageView_Ext;
 class VkBasicGeometryPipeline_Ext;
+class VulkanContext;
 
 
 class TorusPosColorNorm : public GameObject

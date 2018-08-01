@@ -1,6 +1,5 @@
 #pragma once
 class GameSettings;
-class GameContext;
 class GameScene;
 using namespace glm;
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GameContext.h"
 #include "PhysxManager.h"
 #include <vector>
 #include "glm/gtx/quaternion.hpp"

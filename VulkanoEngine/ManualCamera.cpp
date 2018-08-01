@@ -1,11 +1,14 @@
 #pragma once
 #include "stdafx.h"
 #include "ManualCamera.h"
-#include "GameContext.h"
 #include "SceneManager.h"
 #include "GameScene.h"
 #include <glm/gtx/euler_angles.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <GLFW/glfw3.h>
 #include "Debug.h"
+#include "GameTimer.h"
+#include "GameSettings.h"
 
 int ManualCamera::m_UpKey = GLFW_KEY_W;
 int ManualCamera::m_LeftKey = GLFW_KEY_A;

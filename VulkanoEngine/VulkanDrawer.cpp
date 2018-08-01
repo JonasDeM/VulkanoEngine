@@ -3,7 +3,6 @@
 #include "VulkanDrawer.h"
 #include <vulkan/vulkan.h>
 #include "VkSwapchainKHR_Ext.h"
-#include "VkPhysicalDevice_Ext.h"
 #include "VkDevice_Ext.h"
 #include "VkInstance_Ext.h"
 #include "Surface.h"

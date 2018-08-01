@@ -2,9 +2,11 @@
 #include "stdafx.h"
 #include "SceneManager.h"
 #include "GameScene.h"
-#include "GameContext.h"
 #include "GameTimer.h"
 #include "Debug.h"
+#include "GameBase.h"
+#include "VulkanContext.h"
+#include <GLFW/glfw3.h>
 
 
 vector<std::unique_ptr<GameScene>> SceneManager::m_vecScenes = vector<std::unique_ptr<GameScene>>();
@@ -82,6 +84,11 @@ void SceneManager::PreviousScene()
 			break;
 		}
 	}
+}
+
+void SceneManager::FlagDrawChanges()
+{
+	m_pVulkanContext->SetFlags(VkContextFlags::InvalidDrawCommandBuffers);
 }
 
 const int SceneManager::RegisterWindow(GLFWwindow* window, int windowNr)

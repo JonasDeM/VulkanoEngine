@@ -7,10 +7,12 @@
 #include "ContentManager.h"
 #include "MeshObject.h"
 #include "ManualCamera.h"
+#include <GLFW/glfw3.h>
 
 InputTestScene::InputTestScene(GameSettings* pSettings):
 	GameScene(L"InputTestScene", pSettings),
-	m_pSphere(nullptr)
+	m_pSphere(nullptr),
+	m_SpaceKeyStateLastFrame(GLFW_RELEASE)
 {
 }
 

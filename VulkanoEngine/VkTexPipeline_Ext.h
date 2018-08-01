@@ -1,13 +1,5 @@
 #pragma once
-#include <glm/gtc/matrix_transform.hpp>
-#include "DeriveableHandle.h"
-#include "HandleUtilities.h"
 #include "VkPipeline_Ext.h"
-#include <vector>
-
-
-class VulkanContext;
-//contains the pipeline, the pipelinelayout 
 
 class VkTexPipeline_Ext: public VkPipeline_Ext
 {

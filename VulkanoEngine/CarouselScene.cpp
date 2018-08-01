@@ -4,6 +4,7 @@
 #include "SceneManager.h"
 #include "CubePosColorNorm.h"
 #include "CylinderPosColorNorm.h"
+#include "GameTimer.h"
 
 CarouselScene::CarouselScene(GameSettings* pGameSettings):
 	GameScene(L"CarouselScene", pGameSettings)

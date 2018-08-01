@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "GameScene.h"
+#include "Gametimer.h"
 #include "GameObject.h"
 #include "Debug.h"
 #include "PhysxManager.h"

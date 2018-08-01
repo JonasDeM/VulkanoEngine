@@ -6,8 +6,6 @@
 #include <stdexcept>
 #include "HandleUtilities.h"
 #include "VulkanUtils.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 #include "VulkanContext.h"
 #include "VkDevice_Ext.h"
 #include "FileUtils.h"

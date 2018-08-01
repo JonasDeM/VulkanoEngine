@@ -198,7 +198,6 @@
     <ClInclude Include="HoldingContentLoader.h" />
     <ClInclude Include="MeshObjectTranspTex.h" />
     <ClInclude Include="TexturedMeshScene.h" />
-    <ClInclude Include="GameContext.h" />
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="PhysXMeshTestScene_2.h" />
     <ClInclude Include="CubePosColorNorm.h" />
@@ -275,7 +274,6 @@
     </ClCompile>
     <ClCompile Include="TexturedMeshScene.cpp" />
     <ClCompile Include="FileUtils.cpp" />
-    <ClCompile Include="GameContext.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="CubePosColorNorm.cpp" />
     <ClCompile Include="CubePosColorTex.cpp" />

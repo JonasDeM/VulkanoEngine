@@ -11,6 +11,8 @@
 #include "VkBasicGeometryPipeline_Ext.h"
 #include "VulkanContext.h"
 #include "GameScene.h"
+#include "VkSwapchainKHR_Ext.h"
+#include "VkDevice_Ext.h"
 
 
 TorusPosColorNorm::TorusPosColorNorm(float majorRadius, uint16_t majorRadiusSteps, float minorRadius, uint16_t minorRadiusSteps, vec4 color) :

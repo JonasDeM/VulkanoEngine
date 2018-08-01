@@ -7,8 +7,9 @@ class BinaryReader
 {
 public:
 	BinaryReader(void);
-	~BinaryReader();
-
+	~BinaryReader() = default;
+	BinaryReader(const BinaryReader& yRef) = delete;
+	BinaryReader& operator=(const BinaryReader& yRef) = delete;
 
 	template<class T>
 	T Read() const
@@ -38,13 +39,5 @@ private:
 
 	bool m_Exists;
 	std::unique_ptr<istream> m_pReader;
-
-private:
-	// -------------------------
-	// Disabling default copy constructor and default 
-	// assignment operator.
-	// -------------------------
-	BinaryReader(const BinaryReader& yRef);									
-	BinaryReader& operator=(const BinaryReader& yRef);
 };
 

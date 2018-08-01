@@ -6,10 +6,9 @@
 #include "PxTriangleMeshLoader.h"
 #include "VkTextureLoader.h"
 #include "BaseLoader.h"
-#include <memory>
 
 
-unordered_map<std::type_index, std::unique_ptr<BaseLoader>> ContentManager::m_Loaders;
+std::unordered_map<std::type_index, std::unique_ptr<BaseLoader>> ContentManager::m_Loaders;
 
 void ContentManager::Initialize(VulkanContext * pVkContext)
 {

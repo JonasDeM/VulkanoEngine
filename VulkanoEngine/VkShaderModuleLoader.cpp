@@ -4,6 +4,7 @@
 #include "FileUtils.h"
 #include "VulkanContext.h"
 #include "VkDevice_Ext.h"
+#include "HandleUtilities.h"
 
 std::shared_ptr<VkShaderModule> VkShaderModuleLoader::LoadContent(const wstring & fileName) const
 {

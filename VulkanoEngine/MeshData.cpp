@@ -2,9 +2,10 @@
 #include "stdafx.h"
 #include "MeshData.h"
 #include <algorithm>
-#include "GameContext.h"
 #include "VulkanUtils.h"
 #include "VulkanContext.h"
+#include "HandleUtilities.h"
+#include "VkDevice_Ext.h"
 
 MeshData::MeshData(const vector<VertexBase>& vertices, const vector<uint32_t>& indices) :
 	m_Vertices(vertices),

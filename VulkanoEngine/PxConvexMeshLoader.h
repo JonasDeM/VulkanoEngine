@@ -1,6 +1,5 @@
 #pragma once
 #include "LowMemoryContentLoader.h"
-#include <memory>
 
 class PxConvexMeshLoader final: public LowMemoryContentLoader<PxConvexMesh>
 {

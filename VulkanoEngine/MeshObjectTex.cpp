@@ -13,6 +13,8 @@
 #include "MeshObjectTex.h"
 #include "VulkanContext.h"
 #include "GameScene.h"
+#include "VkSwapchainKHR_Ext.h"
+#include "VkDevice_Ext.h"
 
 MeshObjectTex::MeshObjectTex(wstring assetFile, wstring textureFile, bool isStatic) :
 	GameObject(isStatic),

@@ -1,8 +1,6 @@
 #pragma once
 #include "LowMemoryContentLoader.h"
 #include "VkTextureImage_Ext.h"
-#include <memory>
-#include <string>
 
 class VulkanContext;
 

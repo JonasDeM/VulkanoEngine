@@ -5,6 +5,7 @@
 #include "TorusPosColorNorm.h"
 #include "CubePosColorNorm.h"
 #include "GameScene.h"
+#include "GameTimer.h"
 
 GimbalRig::GimbalRig(void) :
 	m_pBase(nullptr),

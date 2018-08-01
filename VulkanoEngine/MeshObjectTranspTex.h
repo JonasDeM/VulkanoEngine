@@ -11,6 +11,7 @@
 #include <string>
 
 class MeshData;
+class VulkanContext;
 
 class MeshObjectTranspTex : public GameObject
 {

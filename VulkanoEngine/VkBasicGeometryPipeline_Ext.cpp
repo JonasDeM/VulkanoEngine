@@ -1,7 +1,6 @@
 #pragma once
 #include "stdafx.h"
 #include "VkBasicGeometryPipeline_Ext.h"
-#include "FileUtils.h"
 #include "VertexStructs.h"
 #include "HoldingContentLoader.h"
 

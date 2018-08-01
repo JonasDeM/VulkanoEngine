@@ -4,6 +4,11 @@
 //*******
 #include <vulkan/vulkan.h>
 
+//GLFW
+//****
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
+
 // GLM
 //****
 #define GLM_FORCE_RADIANS
@@ -64,3 +69,7 @@ using namespace physx;
 #include <array>
 #include <memory>
 using namespace std;
+
+//STB IMAGE
+//*********
+#include "stb_image.h"

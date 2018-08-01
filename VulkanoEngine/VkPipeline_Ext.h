@@ -2,6 +2,8 @@
 
 #include "DeriveableHandle.h"
 #include "HandleUtilities.h"
+#include "VertexStructs.h"
+#include <vector>
 
 class VulkanContext;
 

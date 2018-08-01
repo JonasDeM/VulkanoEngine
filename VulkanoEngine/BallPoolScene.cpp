@@ -6,10 +6,13 @@
 #include "Debug.h"
 #include "ManualCamera.h"
 #include "PhysxHelpers.h"
+#include "GameTimer.h"
+#include <GLFW/glfw3.h>
 
 
 BallPoolScene::BallPoolScene(GameSettings* pSettings):
-	GameScene(L"BallPoolScene", pSettings)
+	GameScene(L"BallPoolScene", pSettings),
+	m_SpaceKeyStateLastFrame(GLFW_RELEASE)
 {
 }
 

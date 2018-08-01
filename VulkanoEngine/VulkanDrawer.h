@@ -1,6 +1,8 @@
 #pragma once
+#include "HandleUtilities.h"
 #include "VulkanContext.h"
-#include <future>
+#include "VkPhysicalDevice_Ext.h"
+//#include <future>
 
 class VulkanDrawer : public VulkanContext
 {
@@ -48,6 +50,7 @@ private:
 #endif
 	const std::vector<const char*> m_DeviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
 
+	// Order is important here (= order of cleanup)
 	unique_ptr_del<VkInstance_Ext> m_pVkInstance;
 	unique_ptr_del<VkDevice_Ext> m_pVkDevice;
 	std::unique_ptr<VkPhysicalDevice_Ext> m_pVkPhysicalDevice; //is implicitly destroyed when VkInstance is destroyed -> no need for custom del

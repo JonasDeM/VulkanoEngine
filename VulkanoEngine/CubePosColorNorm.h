@@ -6,6 +6,7 @@
 #include "HandleUtilities.h"
 #include "VkImageView_Ext.h"
 
+class VulkanContext;
 
 class CubePosColorNorm : public GameObject
 {

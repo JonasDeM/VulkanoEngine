@@ -22,7 +22,7 @@ private:
 	MeshObject *m_pSphereNoBounce, *m_pSphereMidBounce, *m_pSphereMaxBounce;
 	GameObject* m_pControllableSphere;
 
-	int m_SpaceKeyStateLastFrame = GLFW_RELEASE;
+	int m_SpaceKeyStateLastFrame;
 
 private:
 	// -------------------------

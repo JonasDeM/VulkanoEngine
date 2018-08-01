@@ -1,7 +1,5 @@
 #pragma once
-
 #include "stdafx.h"
-
 #include <set>
 #include "VkDevice_Ext.h"
 #include "VkPhysicalDevice_Ext.h"

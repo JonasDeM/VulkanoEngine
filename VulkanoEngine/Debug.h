@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include <chrono>
-class GameContext;
 class VulkanContext;
 struct VertexPosCol;
 class VulkanDebugRenderer;

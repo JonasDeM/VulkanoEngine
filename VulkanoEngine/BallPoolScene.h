@@ -34,7 +34,7 @@ private:
 	PxVec3 m_KinematicPosition;
 	const float m_KinematicSpeed = 17.f;
 
-	int m_SpaceKeyStateLastFrame = GLFW_RELEASE;
+	int m_SpaceKeyStateLastFrame;
 
 private:
 	// -------------------------

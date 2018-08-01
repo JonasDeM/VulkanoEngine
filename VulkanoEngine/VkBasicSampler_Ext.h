@@ -1,6 +1,5 @@
 #pragma once
 #include "DeriveableHandle.h"
-#include "vulkan/vulkan.h"
 
 class VkBasicSampler_Ext : public DeriveableHandle<VkSampler>
 {

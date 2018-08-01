@@ -1,12 +1,9 @@
 #pragma once
-#include "Singleton.h"
 #include <unordered_map>
 #include <memory>
 #include "ContentLoader.h"
 #include "Debug.h"
 #include <typeindex>
-
-using namespace std;
 
 // Static manager, it manages loaders for every type of content
 class ContentManager final
@@ -22,7 +19,7 @@ public:
 	static void AddLoader(BaseLoader* loader);
 
 	template<class T> 
-	static shared_ptr<T> Load(const wstring& assetFile)
+	static std::shared_ptr<T> Load(const wstring& assetFile)
 	{
 		if (m_Loaders.find(typeid(T)) != m_Loaders.end())
 		{
@@ -36,5 +33,5 @@ public:
 
 private:
 
-	static unordered_map<std::type_index, std::unique_ptr<BaseLoader>> m_Loaders;
+	static std::unordered_map<std::type_index, std::unique_ptr<BaseLoader>> m_Loaders;
 };

@@ -7,6 +7,8 @@
 #include "ContentManager.h"
 #include "MeshObjectTex.h"
 #include "ManualCamera.h"
+#include "GameTimer.h"
+#include <GLFW/glfw3.h>
 
 PhysXMeshTestScene_2::PhysXMeshTestScene_2(GameSettings* pGameSettings):
 	GameScene(L"PhysXMeshTestScene_2", pGameSettings),

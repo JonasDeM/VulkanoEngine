@@ -10,8 +10,10 @@
 #include "VkTextureImage_Ext.h"
 #include "PipelineManager.h"
 #include "VulkanContext.h"
+#include "VkDevice_Ext.h"
 #include "GameScene.h"
 #include "VkTextureImage_Ext.h"
+#include "VkSwapchainKHR_Ext.h"
 
 CubePosColorTex::CubePosColorTex(float width, float height, float depth, wstring tex) :
 	m_Width(width),

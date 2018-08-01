@@ -1,8 +1,6 @@
 #pragma once
 #include "DeriveableHandle.h"
-#include "vulkan/vulkan.h"
 #include "VkTextureImage_Ext.h"
-//remove this class
 
 class VkImageView_Ext :	public DeriveableHandle<VkImageView>
 {

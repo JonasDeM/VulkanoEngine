@@ -5,6 +5,7 @@
 #include "MeshObjectTex.h"
 #include "MeshObjectTranspTex.h"
 #include "ManualCamera.h"
+#include "GameTimer.h"
 #include <random>
 
 TexturedMeshScene::TexturedMeshScene(GameSettings* pGameSettings):

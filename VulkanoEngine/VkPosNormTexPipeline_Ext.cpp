@@ -2,15 +2,6 @@
 
 #include "stdafx.h"
 #include "VkPosNormTexPipeline_Ext.h"
-
-#include <stdexcept>
-#include <vulkan/vulkan.h>
-#include "FileUtils.h"
-#include <vector>
-#include <array>
-#include "VertexStructs.h"
-#include "VulkanContext.h"
-#include "VkDevice_Ext.h"
 #include "HoldingContentLoader.h"
 
 std::vector<VkPipelineShaderStageCreateInfo> VkPosNormTexPipeline_Ext::CreateShaderStageCreateInfos(HoldingContentLoader<VkShaderModule>& shaderModuleLoader) const

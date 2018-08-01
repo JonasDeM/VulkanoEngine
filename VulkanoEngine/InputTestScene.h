@@ -19,7 +19,7 @@ private:
 
 	GameObject* m_pSphere;
 
-	int m_SpaceKeyStateLastFrame = GLFW_RELEASE;
+	int m_SpaceKeyStateLastFrame;
 
 private:
 	// -------------------------

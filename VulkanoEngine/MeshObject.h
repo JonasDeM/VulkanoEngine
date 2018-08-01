@@ -9,6 +9,7 @@
 
 
 class MeshData;
+class VulkanContext;
 
 class MeshObject : public GameObject
 {

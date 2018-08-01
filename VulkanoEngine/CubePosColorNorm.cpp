@@ -8,6 +8,8 @@
 #include "PipelineManager.h"
 #include "VulkanContext.h"
 #include "GameScene.h"
+#include "VkSwapchainKHR_Ext.h"
+#include "VkDevice_Ext.h"
 
 CubePosColorNorm::CubePosColorNorm(float width, float height, float depth) :
 	m_Width(width),

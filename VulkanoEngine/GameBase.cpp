@@ -7,10 +7,10 @@
 #include "ContentManager.h"
 #include "Debug.h"
 #include "PhysxManager.h"
-#include "VkDebugPipeline_Ext.h"
 #include "PipelineManager.h"
-#include "VkTextureLoader.h"
 #include "VulkanDrawer.h"
+#include <GLFW/glfw3.h>
+#include "vkDevice_Ext.h"
 
 
 GameBase::GameBase(void){

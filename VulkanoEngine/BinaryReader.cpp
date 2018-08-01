@@ -8,9 +8,6 @@ BinaryReader::BinaryReader(void):
 {
 }
 
-BinaryReader::~BinaryReader()
-{
-}
 
 wstring BinaryReader::ReadLongString() const
 {

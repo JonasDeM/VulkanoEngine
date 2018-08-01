@@ -1,9 +1,7 @@
 #pragma once
-
 #include <vector>
 #include "VertexStructs.h"
 #include "Debug.h"
-#include <unordered_map>
 #include "HandleUtilities.h"
 
 class VulkanContext;

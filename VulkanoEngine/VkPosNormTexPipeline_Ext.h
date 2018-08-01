@@ -1,7 +1,4 @@
 #pragma once
-#include <glm/gtc/matrix_transform.hpp>
-#include "DeriveableHandle.h"
-#include "HandleUtilities.h"
 #include "VkTexPipeline_Ext.h"
 class VulkanContext;
 

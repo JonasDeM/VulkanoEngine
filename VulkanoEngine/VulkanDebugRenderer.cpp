@@ -4,7 +4,6 @@
 #include "VertexStructs.h"
 #include "ContentManager.h"
 #include "Debug.h"
-#include "GameContext.h"
 #include "VulkanUtils.h"
 #include "VkDebugPipeline_Ext.h"
 #include "VkPhysicalDevice_Ext.h"
@@ -12,18 +11,16 @@
 #include "PipelineManager.h"
 #include "VkSwapChainKHR_Ext.h"
 #include "GameScene.h"
+#include "VkDevice_Ext.h"
+#include "VulkanContext.h"
 
-VulkanDebugRenderer::VulkanDebugRenderer(VulkanContext* pVkContext, const vector<VertexPosCol>& fixedLineList, unsigned int bufferSize, unsigned int fixedBufferSize)
+VulkanDebugRenderer::VulkanDebugRenderer(VulkanContext* pVkContext, const vector<VertexType>& fixedLineList, unsigned int bufferSize, unsigned int fixedBufferSize)
 {
 	auto debugGraphicsPipeline = PipelineManager::GetPipeline<VkDebugPipeline_Ext>();
 	CreateUniformBuffer(pVkContext);
 	CreateVertexBuffer(pVkContext, fixedLineList, bufferSize, fixedBufferSize);
 	m_DescriptorPool = debugGraphicsPipeline->CreateDescriptorPool(*pVkContext->GetVkDevice(), pVkContext->GetVkSwapChain()->GetAmountImages());
 	m_DescriptorSets = debugGraphicsPipeline->CreateAndWriteDescriptorSets(*pVkContext->GetVkDevice(), *m_DescriptorPool, m_UniformBuffers);
-}
-
-VulkanDebugRenderer::~VulkanDebugRenderer()
-{
 }
 
 void VulkanDebugRenderer::RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, unsigned int vertexCount, const int frameBufferIndex)
@@ -54,7 +51,7 @@ void VulkanDebugRenderer::UpdateUniformVariables(const VulkanContext* pVkContext
 	vkUnmapMemory(*pVkContext->GetVkDevice(), *m_UniformBuffersMemory[index]);
 }
 
-void VulkanDebugRenderer::UpdateVertexData(const VulkanContext* pVkContext, const vector<VertexPosCol>& lineList, unsigned int fixedBufferSize)
+void VulkanDebugRenderer::UpdateVertexData(const VulkanContext* pVkContext, const vector<VertexType>& lineList, unsigned int fixedBufferSize)
 {
 	int index = pVkContext->GetCurrentFrameIndex();
 	void* data;
@@ -63,7 +60,7 @@ void VulkanDebugRenderer::UpdateVertexData(const VulkanContext* pVkContext, cons
 	vkUnmapMemory(*pVkContext->GetVkDevice(), *m_VertexBuffersMemory[index]);
 }
 
-void VulkanDebugRenderer::CreateVertexBuffer(VulkanContext* pVkContext, const vector<VertexPosCol>& fixedLineList, unsigned int bufferSize, unsigned int fixedBufferSize)
+void VulkanDebugRenderer::CreateVertexBuffer(VulkanContext* pVkContext, const vector<VertexType>& fixedLineList, unsigned int bufferSize, unsigned int fixedBufferSize)
 {
 	auto device = *pVkContext->GetVkDevice();
 

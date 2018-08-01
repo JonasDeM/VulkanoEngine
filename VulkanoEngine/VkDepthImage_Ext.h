@@ -1,6 +1,5 @@
 #pragma once
 #include "VkImage_Ext.h"
-#include "HandleUtilities.h"
 
 class VkPhysicalDevice_Ext;
 class VulkanContext;

@@ -13,6 +13,8 @@
 #include "VkBasicGeometryPipeline_Ext.h"
 #include "VulkanContext.h"
 #include "GameScene.h"
+#include "VkSwapchainKHR_Ext.h"
+#include "VkDevice_Ext.h"
 
 
 CylinderPosColorNorm::CylinderPosColorNorm(float radius, uint16_t radiusSteps, float height, vec4 color):

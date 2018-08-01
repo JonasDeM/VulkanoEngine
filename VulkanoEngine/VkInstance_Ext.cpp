@@ -1,12 +1,11 @@
 #pragma once
 #include "stdafx.h"
 
+#include "VkInstance_Ext.h"
 #include <algorithm>
 #include <iostream>
-#include <GLFW/glfw3.h>
 #include <sstream>
-#include <vulkan/vulkan.h>
-#include "VkInstance_Ext.h"
+#include <GLFW/glfw3.h>
 
 VkInstance_Ext::VkInstance_Ext(bool enableValidationLayers, const std::vector<const char*>& validationLayers)
 {

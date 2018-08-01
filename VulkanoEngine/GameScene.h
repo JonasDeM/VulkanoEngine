@@ -1,11 +1,10 @@
 #pragma once
 
 #include "SceneManager.h"
-#include "GameContext.h"
 #include "BaseCamera.h"
 
+class GameTimer;
 class GameObject;
-class GameContext;
 class BaseCamera;
 
 class GameScene: public PxSimulationEventCallback

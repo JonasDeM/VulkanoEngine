@@ -1,5 +1,4 @@
 #pragma once
-
 #include "stdafx.h"
 #include "VkPosNormTex2SPipeline_Ext.h"
 

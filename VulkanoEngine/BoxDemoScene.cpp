@@ -6,6 +6,7 @@
 #include "CubePosColorNorm.h"
 #include "ManualCamera.h"
 #include "GeometryObject.h"
+#include "GameTimer.h"
 
 
 BoxDemoScene::BoxDemoScene(GameSettings* pGameSettings):

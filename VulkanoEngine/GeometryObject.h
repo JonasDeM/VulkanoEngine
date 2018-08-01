@@ -14,6 +14,8 @@
 #include <glm\glm.hpp>
 #include "VkPhysicalDevice_Ext.h"
 #include "HandleUtilities.h"
+#include "VkDevice_Ext.h"
+#include "VkSwapchainKHR_Ext.h"
 #include "VkImageView_Ext.h"
 
 

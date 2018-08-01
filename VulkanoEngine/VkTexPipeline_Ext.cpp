@@ -1,18 +1,6 @@
 #pragma once
-
 #include "stdafx.h"
 #include "VkTexPipeline_Ext.h"
-
-#include <stdexcept>
-#include <vulkan/vulkan.h>
-#include "FileUtils.h"
-#include <vector>
-#include <array>
-#include "VertexStructs.h"
-#include "VulkanContext.h"
-#include "VkDevice_Ext.h"
-#include "VkSwapchainKHR_Ext.h"
-#include "HoldingContentLoader.h"
 
 unique_ptr_del<VkDescriptorPool> VkTexPipeline_Ext::CreateDescriptorPool(VkDevice device, const int uboCount) const
 {

@@ -1,13 +1,78 @@
 #pragma once
-
 #include "stdafx.h"
 
 #include "VkSwapchainKHR_Ext.h"
 #include "VkImageView_Ext.h"
+#include "VkDepthImage_Ext.h"
 #include "VulkanUtils.h"
 #include "VkBasicSampler_Ext.h"
 #include "VulkanContext.h"
 #include "VkDevice_Ext.h"
+#include "Surface.h"
+#include "VkPhysicalDevice_Ext.h"
+#include <algorithm>
+
+
+VkSwapchainKHR_Ext::VkSwapchainKHR_Ext(VulkanContext * pVkContext, const VkExtent2D & windowExtent, VkSwapchainKHR oldSwapChain, int desiredFrameBuffers)
+{
+	CreateSwapChain(pVkContext, windowExtent, oldSwapChain, desiredFrameBuffers);
+	CreateImageViews(*pVkContext->GetVkDevice());
+	CreateDepthResources(pVkContext);
+	CreateRenderPass(pVkContext);
+	CreateFrameBuffers(*pVkContext->GetVkDevice());
+}
+
+VkSurfaceFormatKHR VkSwapchainKHR_Ext::ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats)
+{
+	if (availableFormats.size() == 1 && availableFormats[0].format == VK_FORMAT_UNDEFINED)
+	{
+		return{ VK_FORMAT_B8G8R8A8_UNORM, VK_COLOR_SPACE_SRGB_NONLINEAR_KHR };
+	}
+
+	for (const auto availableFormat : availableFormats)
+	{
+		if (availableFormat.format == VK_FORMAT_B8G8R8A8_UNORM
+			&&
+			availableFormat.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)
+		{
+			return availableFormat;
+		}
+	}
+	//we could rank formats and pick the best 
+
+	return availableFormats[0];
+}
+
+VkPresentModeKHR VkSwapchainKHR_Ext::ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes)
+{
+	VkPresentModeKHR preferedMode = VK_PRESENT_MODE_FIFO_KHR;//guarenteed to be available
+
+	for (const auto availablePresentMode : availablePresentModes)
+	{
+		if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR)
+			return availablePresentMode;
+		else if (availablePresentMode == VK_PRESENT_MODE_IMMEDIATE_KHR)
+			preferedMode = availablePresentMode;
+	}
+
+	return preferedMode;
+}
+
+VkExtent2D VkSwapchainKHR_Ext::GetActualSwapExtent(const VkSurfaceCapabilitiesKHR & surfaceCapabilities, const VkExtent2D & windowExtent) const
+{
+	if (surfaceCapabilities.currentExtent.width != std::numeric_limits<uint32_t>::max())
+		return windowExtent;
+	else
+	{
+		//int width, height;
+		//glfwGetWindowSize(m_Window, &width, &height);
+		VkExtent2D actualExtent = {
+			std::max(surfaceCapabilities.minImageExtent.width, std::min(surfaceCapabilities.maxImageExtent.width, windowExtent.width))
+			,std::max(surfaceCapabilities.minImageExtent.height, std::min(surfaceCapabilities.maxImageExtent.height, windowExtent.height))
+		};
+		return actualExtent;
+	}
+}
 
 void VkSwapchainKHR_Ext::CreateSwapChain(VulkanContext* pVkContext, const VkExtent2D& windowExtent, VkSwapchainKHR oldSwapChain, int desiredFrameBuffers)
 {

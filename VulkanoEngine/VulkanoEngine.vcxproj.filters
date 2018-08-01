@@ -41,9 +41,6 @@
     <Filter Include="Engine Files\Vulkan">
       <UniqueIdentifier>{9d5c9420-41ed-4a6e-89c8-d6edf929b15f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Vulkan\Pipelines">
-      <UniqueIdentifier>{85bb5e76-ed07-4b82-81f0-7819b0e8e901}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine Files\PlatformSpecific">
       <UniqueIdentifier>{04c51de0-c3ed-45fd-86f1-104af39007c7}</UniqueIdentifier>
     </Filter>
@@ -53,14 +50,26 @@
     <Filter Include="Engine Files\Utilities">
       <UniqueIdentifier>{0a41c065-d96c-47b0-b856-323db508c813}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Vulkan\Pipelines\BasicGeometry">
-      <UniqueIdentifier>{340a50ae-e495-4191-b726-ad173eeaa54a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine Files\Vulkan\Pipelines\TexturedGeometry">
-      <UniqueIdentifier>{289f2cfb-2b71-460c-b0d9-0f7864d64f7d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine Files\Loaders\Implementations">
       <UniqueIdentifier>{12fe90d2-a26d-455a-9585-b9a42f3284b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Loaders\Utilities">
+      <UniqueIdentifier>{c981362f-1767-483d-8217-b474ec5f8bcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Vulkan\Base">
+      <UniqueIdentifier>{de7bebec-35ae-4af9-b8c4-038f5918d43c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Pipelines">
+      <UniqueIdentifier>{85bb5e76-ed07-4b82-81f0-7819b0e8e901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Pipelines\BasicGeometry">
+      <UniqueIdentifier>{340a50ae-e495-4191-b726-ad173eeaa54a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Pipelines\TexturedGeometry">
+      <UniqueIdentifier>{289f2cfb-2b71-460c-b0d9-0f7864d64f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Vulkan\Images">
+      <UniqueIdentifier>{6e8fdeca-b89e-40bf-9510-0fd13c94b146}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -85,15 +94,6 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Engine Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Debug.h">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexStructs.h">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="BinaryReader.h">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="PhysxAllocator.h">
       <Filter>Engine Files\Physx</Filter>
     </ClInclude>
@@ -102,48 +102,6 @@
     </ClInclude>
     <ClInclude Include="PhysxManager.h">
       <Filter>Engine Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysxHelpers.h">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomSimulationFilterShader.h">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="DeriveableHandle.h">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VkDevice_Ext.h">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VkImage_Ext.h">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VkDepthImage_Ext.h">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VkImageView_Ext.h">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VkPhysicalDevice_Ext.h">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VkTextureImage_Ext.h">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VkBasicSampler_Ext.h">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VkInstance_Ext.h">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="Surface.h">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VkSwapchainKHR_Ext.h">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClInclude>
-    <ClInclude Include="VulkanDebugRenderer.h">
-      <Filter>Engine Files\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="GameBase.h">
       <Filter>Engine Files\SceneGraph</Filter>
@@ -168,7 +126,7 @@
       <Filter>Engine Files\Vulkan</Filter>
     </ClInclude>
     <ClInclude Include="VkPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+      <Filter>Engine Files\Pipelines</Filter>
     </ClInclude>
     <ClInclude Include="Colors.h">
       <Filter>Engine Files\Utilities</Filter>
@@ -178,12 +136,6 @@
     </ClInclude>
     <ClInclude Include="ManualCamera.h">
       <Filter>Engine Files\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="GameContext.h">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshData.h">
-      <Filter>Engine Files\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="CubePosColorNorm.h">
       <Filter>Prefabs\Basic Shapes</Filter>
@@ -237,22 +189,22 @@
       <Filter>Engine Files\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="VkDebugPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines\BasicGeometry</Filter>
+      <Filter>Engine Files\Pipelines\BasicGeometry</Filter>
     </ClInclude>
     <ClInclude Include="VkTexPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+      <Filter>Engine Files\Pipelines\TexturedGeometry</Filter>
     </ClInclude>
     <ClInclude Include="VkPosNormTex2SPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+      <Filter>Engine Files\Pipelines\TexturedGeometry</Filter>
     </ClInclude>
     <ClInclude Include="VkPosNormTexPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+      <Filter>Engine Files\Pipelines\TexturedGeometry</Filter>
     </ClInclude>
     <ClInclude Include="VkPosColTexPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+      <Filter>Engine Files\Pipelines\TexturedGeometry</Filter>
     </ClInclude>
     <ClInclude Include="VkBasicGeometryPipeline_Ext.h">
-      <Filter>Engine Files\Vulkan\Pipelines\BasicGeometry</Filter>
+      <Filter>Engine Files\Pipelines\BasicGeometry</Filter>
     </ClInclude>
     <ClInclude Include="PipelineManager.h">
       <Filter>Engine Files\Managers</Filter>
@@ -284,6 +236,60 @@
     <ClInclude Include="HoldingContentLoader.h">
       <Filter>Engine Files\Loaders</Filter>
     </ClInclude>
+    <ClInclude Include="BinaryReader.h">
+      <Filter>Engine Files\Loaders\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomSimulationFilterShader.h">
+      <Filter>Engine Files\Physx</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Engine Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshData.h">
+      <Filter>Engine Files\Loaders\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysxHelpers.h">
+      <Filter>Engine Files\Physx</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanDebugRenderer.h">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexStructs.h">
+      <Filter>Engine Files\Loaders\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>Engine Files\Vulkan\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="VkDevice_Ext.h">
+      <Filter>Engine Files\Vulkan\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="VkInstance_Ext.h">
+      <Filter>Engine Files\Vulkan\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="VkPhysicalDevice_Ext.h">
+      <Filter>Engine Files\Vulkan\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="VkSwapchainKHR_Ext.h">
+      <Filter>Engine Files\Vulkan\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DeriveableHandle.h">
+      <Filter>Engine Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="VkBasicSampler_Ext.h">
+      <Filter>Engine Files\Vulkan\Images</Filter>
+    </ClInclude>
+    <ClInclude Include="VkDepthImage_Ext.h">
+      <Filter>Engine Files\Vulkan\Images</Filter>
+    </ClInclude>
+    <ClInclude Include="VkImage_Ext.h">
+      <Filter>Engine Files\Vulkan\Images</Filter>
+    </ClInclude>
+    <ClInclude Include="VkImageView_Ext.h">
+      <Filter>Engine Files\Vulkan\Images</Filter>
+    </ClInclude>
+    <ClInclude Include="VkTextureImage_Ext.h">
+      <Filter>Engine Files\Vulkan\Images</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -298,50 +304,11 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Engine Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Debug.cpp">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="BinaryReader.cpp">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="PhysxErrorCallback.cpp">
       <Filter>Engine Files\Physx</Filter>
     </ClCompile>
     <ClCompile Include="PhysxManager.cpp">
       <Filter>Engine Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Surface.cpp">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="VkBasicSampler_Ext.cpp">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="VkDepthImage_Ext.cpp">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="VkDevice_Ext.cpp">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="VkImage_Ext.cpp">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="VkImageView_Ext.cpp">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="VkInstance_Ext.cpp">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="VkPhysicalDevice_Ext.cpp">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="VkTextureImage_Ext.cpp">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="VkSwapchainKHR_Ext.cpp">
-      <Filter>Engine Files\Vulkan</Filter>
-    </ClCompile>
-    <ClCompile Include="VulkanDebugRenderer.cpp">
-      <Filter>Engine Files\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="GameBase.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
@@ -364,7 +331,7 @@
       <Filter>Engine Files\Vulkan</Filter>
     </ClCompile>
     <ClCompile Include="VkPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines</Filter>
+      <Filter>Engine Files\Pipelines</Filter>
     </ClCompile>
     <ClCompile Include="ContentManager.cpp">
       <Filter>Engine Files\Managers</Filter>
@@ -374,12 +341,6 @@
     </ClCompile>
     <ClCompile Include="ManualCamera.cpp">
       <Filter>Engine Files\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="GameContext.cpp">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshData.cpp">
-      <Filter>Engine Files\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="CubePosColorNorm.cpp">
       <Filter>Prefabs\Basic Shapes</Filter>
@@ -429,26 +390,23 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Engine Files\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="VertexStructs.cpp">
-      <Filter>Engine Files\Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="VkDebugPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines\BasicGeometry</Filter>
+      <Filter>Engine Files\Pipelines\BasicGeometry</Filter>
     </ClCompile>
     <ClCompile Include="VkPosNormTex2SPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+      <Filter>Engine Files\Pipelines\TexturedGeometry</Filter>
     </ClCompile>
     <ClCompile Include="VkPosNormTexPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+      <Filter>Engine Files\Pipelines\TexturedGeometry</Filter>
     </ClCompile>
     <ClCompile Include="VkTexPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+      <Filter>Engine Files\Pipelines\TexturedGeometry</Filter>
     </ClCompile>
     <ClCompile Include="VkPosColTexPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines\TexturedGeometry</Filter>
+      <Filter>Engine Files\Pipelines\TexturedGeometry</Filter>
     </ClCompile>
     <ClCompile Include="VkBasicGeometryPipeline_Ext.cpp">
-      <Filter>Engine Files\Vulkan\Pipelines\BasicGeometry</Filter>
+      <Filter>Engine Files\Pipelines\BasicGeometry</Filter>
     </ClCompile>
     <ClCompile Include="PipelineManager.cpp">
       <Filter>Engine Files\Managers</Filter>
@@ -470,6 +428,51 @@
     </ClCompile>
     <ClCompile Include="GeometryObject.h">
       <Filter>Prefabs\MeshObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryReader.cpp">
+      <Filter>Engine Files\Loaders\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Engine Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshData.cpp">
+      <Filter>Engine Files\Loaders\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="VulkanDebugRenderer.cpp">
+      <Filter>Engine Files\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexStructs.cpp">
+      <Filter>Engine Files\Loaders\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Surface.cpp">
+      <Filter>Engine Files\Vulkan\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="VkDevice_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="VkInstance_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="VkPhysicalDevice_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="VkSwapchainKHR_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="VkBasicSampler_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="VkDepthImage_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="VkImage_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="VkImageView_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="VkTextureImage_Ext.cpp">
+      <Filter>Engine Files\Vulkan\Images</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

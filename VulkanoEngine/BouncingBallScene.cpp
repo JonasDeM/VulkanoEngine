@@ -5,13 +5,15 @@
 #include "MeshObject.h"
 #include "Debug.h"
 #include "ManualCamera.h"
+#include <GLFW/glfw3.h>
 
 
 BouncingBallScene::BouncingBallScene(GameSettings* pSettings):
 	GameScene(L"BouncingBallScene", pSettings),
 	m_pSphereNoBounce(nullptr), 
 	m_pSphereMidBounce(nullptr), 
-	m_pSphereMaxBounce(nullptr)
+	m_pSphereMaxBounce(nullptr),
+	m_SpaceKeyStateLastFrame(GLFW_RELEASE)
 {
 }
 
