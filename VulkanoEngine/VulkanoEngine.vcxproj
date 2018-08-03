@@ -180,10 +180,10 @@
     <ClInclude Include="BallPoolScene.h" />
     <ClInclude Include="BouncingBallScene.h" />
     <ClInclude Include="BoxDemoScene.h" />
-    <ClInclude Include="CarouselScene.h" />
     <ClInclude Include="BinaryReader.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="ContentLoader.h" />
+    <ClInclude Include="GeometryObjectTex.h" />
     <ClInclude Include="LowMemoryContentLoader.h" />
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="CustomSimulationFilterShader.h" />
@@ -195,25 +195,18 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameSettings.h" />
     <ClInclude Include="GameTimer.h" />
-    <ClInclude Include="GimbalRigScene.h" />
     <ClInclude Include="BaseLoader.h" />
     <ClInclude Include="InputTestScene.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="HoldingContentLoader.h" />
-    <ClInclude Include="MeshObjectTranspTex.h" />
     <ClInclude Include="TexturedMeshScene.h" />
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="PhysXMeshTestScene_2.h" />
-    <ClInclude Include="CubePosColorNorm.h" />
-    <ClInclude Include="CubePosColorTex.h" />
-    <ClInclude Include="CylinderPosColorNorm.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="VkDebugPipeline_Ext.h" />
     <ClInclude Include="ManualCamera.h" />
-    <ClInclude Include="GimbalRig.h" />
     <ClInclude Include="MeshData.h" />
     <ClInclude Include="MeshDataLoader.h" />
-    <ClInclude Include="MeshObject.h" />
-    <ClInclude Include="MeshObjectTex.h" />
     <ClInclude Include="PipelineManager.h" />
     <ClInclude Include="VkPipeline_Ext.h" />
     <ClInclude Include="VkBasicGeometryPipeline_Ext.h" />
@@ -248,7 +241,6 @@
     <ClInclude Include="VkPhysicalDevice_Ext.h" />
     <ClInclude Include="VkTextureImage_Ext.h" />
     <ClInclude Include="VkTextureLoader.h" />
-    <ClInclude Include="TorusPosColorNorm.h" />
     <ClInclude Include="VulkanDebugRenderer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -256,7 +248,6 @@
     <ClCompile Include="BinaryReader.cpp" />
     <ClCompile Include="BouncingBallScene.cpp" />
     <ClCompile Include="BoxDemoScene.cpp" />
-    <ClCompile Include="CarouselScene.cpp" />
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GameBase.cpp" />
@@ -265,11 +256,9 @@
     <ClCompile Include="GameSettings.cpp" />
     <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="GeometryObject.h" />
-    <ClCompile Include="GimbalRigScene.cpp" />
     <ClCompile Include="InputTestScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
-    <ClCompile Include="MeshObjectTranspTex.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -279,18 +268,12 @@
     <ClCompile Include="TexturedMeshScene.cpp" />
     <ClCompile Include="FileUtils.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
-    <ClCompile Include="CubePosColorNorm.cpp" />
-    <ClCompile Include="CubePosColorTex.cpp" />
-    <ClCompile Include="CylinderPosColorNorm.cpp" />
     <ClCompile Include="ManualCamera.cpp" />
-    <ClCompile Include="GimbalRig.cpp" />
     <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="MeshDataLoader.cpp" />
     <ClCompile Include="PhysXMeshTestScene_2.cpp" />
     <ClCompile Include="VertexStructs.cpp" />
     <ClCompile Include="VkDebugPipeline_Ext.cpp" />
-    <ClCompile Include="MeshObject.cpp" />
-    <ClCompile Include="MeshObjectTex.cpp" />
     <ClCompile Include="PipelineManager.cpp" />
     <ClCompile Include="VkPipeline_Ext.cpp" />
     <ClCompile Include="VkBasicGeometryPipeline_Ext.cpp" />
@@ -315,7 +298,6 @@
     <ClCompile Include="VkTexPipeline_Ext.cpp" />
     <ClCompile Include="VkTextureImage_Ext.cpp" />
     <ClCompile Include="VkTextureLoader.cpp" />
-    <ClCompile Include="TorusPosColorNorm.cpp" />
     <ClCompile Include="VulkanDrawer.cpp" />
     <ClCompile Include="VulkanDebugRenderer.cpp" />
     <ClCompile Include="VulkanUtils.cpp" />

@@ -110,12 +110,6 @@
     <ClInclude Include="BoxDemoScene.h">
       <Filter>Scenes\Basic</Filter>
     </ClInclude>
-    <ClInclude Include="CarouselScene.h">
-      <Filter>Scenes\Basic</Filter>
-    </ClInclude>
-    <ClInclude Include="GimbalRigScene.h">
-      <Filter>Scenes\Basic</Filter>
-    </ClInclude>
     <ClInclude Include="VulkanContext.h">
       <Filter>Engine Files\Vulkan</Filter>
     </ClInclude>
@@ -137,32 +131,11 @@
     <ClInclude Include="ManualCamera.h">
       <Filter>Engine Files\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="CubePosColorNorm.h">
-      <Filter>Prefabs\Basic Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="CubePosColorTex.h">
-      <Filter>Prefabs\Basic Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="CylinderPosColorNorm.h">
-      <Filter>Prefabs\Basic Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="GimbalRig.h">
-      <Filter>Prefabs\Basic Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="TorusPosColorNorm.h">
-      <Filter>Prefabs\Basic Shapes</Filter>
-    </ClInclude>
     <ClInclude Include="FileUtils.h">
       <Filter>Engine Files\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="VulkanUtils.h">
       <Filter>Engine Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshObject.h">
-      <Filter>Prefabs\MeshObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshObjectTex.h">
-      <Filter>Prefabs\MeshObjects</Filter>
     </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>Engine Files\Utilities</Filter>
@@ -178,9 +151,6 @@
     </ClInclude>
     <ClInclude Include="TexturedMeshScene.h">
       <Filter>Scenes\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshObjectTranspTex.h">
-      <Filter>Prefabs\MeshObjects</Filter>
     </ClInclude>
     <ClInclude Include="BallPoolScene.h">
       <Filter>Scenes\PhysX</Filter>
@@ -290,6 +260,12 @@
     <ClInclude Include="VkTextureImage_Ext.h">
       <Filter>Engine Files\Vulkan\Images</Filter>
     </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Prefabs\Basic Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryObjectTex.h">
+      <Filter>Prefabs\MeshObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -318,12 +294,6 @@
     <ClCompile Include="BoxDemoScene.cpp">
       <Filter>Scenes\Basic</Filter>
     </ClCompile>
-    <ClCompile Include="CarouselScene.cpp">
-      <Filter>Scenes\Basic</Filter>
-    </ClCompile>
-    <ClCompile Include="GimbalRigScene.cpp">
-      <Filter>Scenes\Basic</Filter>
-    </ClCompile>
     <ClCompile Include="GameSettings.cpp">
       <Filter>Engine Files\Managers</Filter>
     </ClCompile>
@@ -342,32 +312,11 @@
     <ClCompile Include="ManualCamera.cpp">
       <Filter>Engine Files\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="CubePosColorNorm.cpp">
-      <Filter>Prefabs\Basic Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="CubePosColorTex.cpp">
-      <Filter>Prefabs\Basic Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="CylinderPosColorNorm.cpp">
-      <Filter>Prefabs\Basic Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="GimbalRig.cpp">
-      <Filter>Prefabs\Basic Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="TorusPosColorNorm.cpp">
-      <Filter>Prefabs\Basic Shapes</Filter>
-    </ClCompile>
     <ClCompile Include="FileUtils.cpp">
       <Filter>Engine Files\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="VulkanUtils.cpp">
       <Filter>Engine Files\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshObject.cpp">
-      <Filter>Prefabs\MeshObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshObjectTex.cpp">
-      <Filter>Prefabs\MeshObjects</Filter>
     </ClCompile>
     <ClCompile Include="BouncingBallScene.cpp">
       <Filter>Scenes\PhysX</Filter>
@@ -380,9 +329,6 @@
     </ClCompile>
     <ClCompile Include="TexturedMeshScene.cpp">
       <Filter>Scenes\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshObjectTranspTex.cpp">
-      <Filter>Prefabs\MeshObjects</Filter>
     </ClCompile>
     <ClCompile Include="BallPoolScene.cpp">
       <Filter>Scenes\PhysX</Filter>

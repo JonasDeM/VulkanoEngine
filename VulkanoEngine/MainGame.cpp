@@ -17,8 +17,6 @@
 #include "BallPoolScene.h"
 #endif
 #ifdef REST_OF_SCENES
-#include "GimbalRigScene.h"
-#include "CarouselScene.h"
 #include "InputTestScene.h"
 #endif
 
@@ -56,8 +54,6 @@ void MainGame::Initialize()
 	SceneManager::AddGameScene(new PhysXMeshTestScene_2(m_pGameSettings.get()));
 #endif
 #ifdef REST_OF_SCENES
-	SceneManager::AddGameScene(new CarouselScene(m_pGameSettings.get()));
-	SceneManager::AddGameScene(new GimbalRigScene(m_pGameSettings.get()));
 	SceneManager::AddGameScene(new InputTestScene(m_pGameSettings.get()));
 #endif
 	std::cout << "-----------------------------------------------" << '\n' ;
