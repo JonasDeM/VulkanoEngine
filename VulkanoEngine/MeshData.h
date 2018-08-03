@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <type_traits>
 #include "VertexStructs.h"
 #include "Debug.h"
 #include "HandleUtilities.h"
@@ -20,19 +21,17 @@ public:
 	template<typename T>
 	VkBuffer* GetVertexBuffer(const VulkanContext* pVkContext)
 	{
-		const type_info &type = typeid(T);
-		if (type == typeid(VertexPosColNorm))
+		if (std::is_same_v<T, VertexPosColNorm>)
 			return GetVertexBuffer_PosNormCol(pVkContext);
 
-		if (type == typeid(VertexPosColNormTex))
+		if (std::is_same_v<T, VertexPosColNormTex>)
 			return GetVertexBuffer_PosNormColTex(pVkContext);
 
-		if (type == typeid(VertexPosNormTex))
+		if (std::is_same_v<T, VertexPosNormTex>)
 			return GetVertexBuffer_PosNormTex(pVkContext);
 
-		wstringstream ss;
-		ss << L"MeshData::GetVertexBuffer<" << type.name() << L">(): No implementation found for \'" << type.name() << L"\'!";
-		Debug::LogWarning(ss.str());
+		constexpr bool valid = std::is_same_v<T, VertexPosColNorm> || std::is_same_v<T, VertexPosColNormTex> || std::is_same_v<T, VertexPosNormTex>;
+		static_assert(valid, "No implementation found for this Vertex type.");
 		return nullptr;
 	}
 
