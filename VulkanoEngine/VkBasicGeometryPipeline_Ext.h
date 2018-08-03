@@ -6,6 +6,8 @@ class VulkanContext;
 class VkBasicGeometryPipeline_Ext : public VkPipeline_Ext
 {
 public:
+	using VertexType = VertexPosColNorm; // each derived pipeline that implements it's own vertexInputState should typedef the used Vertex struct as VertexType like this
+
 	virtual unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) const final override;
 	std::vector<VkDescriptorSet> CreateAndWriteDescriptorSets(VkDevice device, VkDescriptorPool descPool, const vector<unique_ptr_del<VkBuffer>>& uniformBuffers) const;
 
@@ -13,8 +15,6 @@ public:
 		glm::mat4 world;
 		glm::mat4 wvp;
 	};
-
-	typedef struct VertexPosColNorm VertexType; // each derived pipeline that implements it's own vertexInputState needs to typedef the used Vertex struct as VertexType like this
 protected:
 
 	virtual std::vector<VkPipelineShaderStageCreateInfo> CreateShaderStageCreateInfos(HoldingContentLoader<VkShaderModule>& shaderModuleLoader) const override;

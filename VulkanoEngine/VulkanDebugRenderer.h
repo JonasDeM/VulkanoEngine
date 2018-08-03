@@ -10,7 +10,7 @@ class GameScene;
 class VulkanDebugRenderer
 {
 public:
-	typedef struct VkDebugPipeline_Ext::VertexType VertexType; // convienience
+	using VertexType = struct VkDebugPipeline_Ext::VertexType; // convienience
 
 	VulkanDebugRenderer(VulkanContext* vulkanContext, const vector<VertexType>& fixedLineList, unsigned int bufferSize, unsigned int fixedBufferSize) ;
 	~VulkanDebugRenderer() = default;
