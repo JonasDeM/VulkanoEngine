@@ -11,7 +11,7 @@
 
 // Never loads content while it is already in memory.
 // Unloads the content as soon as there are no owners(have a sharedptr to it) of the content anymore.
-template <class T>
+template <typename T>
 class LowMemoryContentLoader : public ContentLoader<T>
 {
 public:

@@ -12,7 +12,7 @@
 // Keeps the content in memory as long as loader exists (even when nothing else currently has ownership)
 // Gives you the option to manually clean up content.
 // Never loads content while it is already in memory.
-template <class T>
+template <typename T>
 class HoldingContentLoader : public ContentLoader<T>
 {
 public:

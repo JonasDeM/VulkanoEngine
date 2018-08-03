@@ -11,7 +11,8 @@
 #include "VkSwapChainKHR_Ext.h"
 #include "VkShaderModuleLoader.h"
 
-unordered_map<std::type_index, unique_ptr_del<VkPipeline_Ext>> PipelineManager::m_Pipelines{};
+std::vector<unique_ptr_del<VkPipeline_Ext>> PipelineManager::m_Pipelines{};
+std::vector<PipelineManager::id_type*> PipelineManager::m_PipelinesRttiIndices{}; // to make clearing possible
 
 void PipelineManager::Initialize(VulkanContext* pVkContext)
 {
@@ -26,11 +27,11 @@ void PipelineManager::Initialize(VulkanContext* pVkContext)
 	AddPipeline<VkDebugPipeline_Ext>(device);
 	for (auto& pipeline : m_Pipelines)
 	{
-		pipeline.second->Build(pVkContext, shaderLoader);
+		pipeline->Build(pVkContext, shaderLoader);
 	}
 }
 
 void PipelineManager::CleanUp()
 {
-	m_Pipelines.clear();
+	ClearPipelines();
 }

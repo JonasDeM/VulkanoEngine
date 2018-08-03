@@ -41,7 +41,6 @@ void GameBase::RunGame()
 	m_pVulkanDrawer = std::make_unique<VulkanDrawer>(m_pWindow.get());
 	m_pGameSettings->AttachVkContextObserver(m_pVulkanDrawer.get());
 
-	Debug::StartProfileTimer();
 	//4. Initialize Managers
 	PipelineManager::Initialize(m_pVulkanDrawer.get());
 	ContentManager::Initialize(m_pVulkanDrawer.get());
@@ -56,20 +55,17 @@ void GameBase::RunGame()
 	SceneManager::Initialize(m_pVulkanDrawer.get());
 
 	m_pVulkanDrawer->CreateDrawCommandBuffers(m_pGameSettings.get());
-	Debug::PrintProfileInterval(L"Initialization");
 #pragma endregion INITIALIZATION
 
 #pragma region
 	while (!glfwWindowShouldClose(m_pWindow.get())) {
-		//Debug::LogInfo(L"New Frame");
 		glfwPollEvents();
-		//Debug::PrintProfileInterval(L"GLFW");
+
 		//GAME LOOP
 		Update();
 		SceneManager::Update();
-		//Debug::PrintProfileInterval(L"Update");
+
 		m_pVulkanDrawer->VkDrawFrame(m_pGameSettings.get());
-		//Debug::PrintProfileInterval(L"Draw");
 	}
 	vkDeviceWaitIdle(*m_pVulkanDrawer->GetVkDevice()); //wait for all async processes to complete
 
