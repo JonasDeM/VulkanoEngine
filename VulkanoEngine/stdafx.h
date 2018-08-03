@@ -68,6 +68,7 @@ using namespace physx;
 #include <vector>
 #include <array>
 #include <memory>
+#include <type_traits>
 using namespace std;
 
 //STB IMAGE
