@@ -45,7 +45,7 @@ void SceneManager::RemoveGameScene(unsigned int sceneIndex)
 	if (m_vecScenes.size() < sceneIndex)
 		m_vecScenes.erase(m_vecScenes.begin() + sceneIndex);
 	else
-		Debug::LogError(L"Attempt to remove scene by index, but index was not in range.");
+		Debug::LogError(L"Attempted to remove scene by index, but index was not in range.");
 }
 
 void SceneManager::RemoveGameScene(const GameScene * scene)
