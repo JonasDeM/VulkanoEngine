@@ -60,6 +60,11 @@ struct VertexPosCol
 		Color(vertex.Color)
 	{}
 
+	VertexPosCol() :
+		Position(0, 0, 0),
+		Color(0, 0, 0, 0)
+	{}
+
 	vec3 Position;
 	vec4 Color;
 

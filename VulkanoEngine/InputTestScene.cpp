@@ -1,13 +1,12 @@
 #pragma once
 #include "stdafx.h"
 #include "InputTestScene.h"
-#include "CubePosColorNorm.h"
-#include "MeshObject.h"
 #include "Debug.h"
 #include "ContentManager.h"
-#include "MeshObject.h"
 #include "ManualCamera.h"
 #include <GLFW/glfw3.h>
+#include "GeometryObject.h"
+#include "VkBasicGeometryPipeline_Ext.h"
 
 InputTestScene::InputTestScene(GameSettings* pSettings):
 	GameScene(L"InputTestScene", pSettings),
@@ -35,7 +34,7 @@ void InputTestScene::Initialize()
 	m_pPhysxScene->addActor(*groundPlaneActor);
 
 	//Sphere
-	m_pSphere = new MeshObject(L"Meshes/Sphere.ovm");
+	m_pSphere = new GeometryObject<VkBasicGeometryPipeline_Ext>(L"Meshes/Sphere.ovm");
 	auto actor = physX->createRigidDynamic(PxTransform::createIdentity());
 	auto shape = actor->createShape(PxSphereGeometry(1.f),*defaultMaterial);
 
