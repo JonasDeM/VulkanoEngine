@@ -1,14 +1,13 @@
 #pragma once
 #include "stdafx.h"
 #include "PhysXMeshTestScene_2.h"
-#include "CubePosColorNorm.h"
-#include "MeshObject.h"
 #include "Debug.h"
 #include "ContentManager.h"
-#include "MeshObjectTex.h"
 #include "ManualCamera.h"
 #include "GameTimer.h"
 #include <GLFW/glfw3.h>
+#include "GeometryObjectTex.h"
+#include "VkPosNormTexPipeline_Ext.h"
 
 PhysXMeshTestScene_2::PhysXMeshTestScene_2(GameSettings* pGameSettings):
 	GameScene(L"PhysXMeshTestScene_2", pGameSettings),
@@ -37,7 +36,7 @@ void PhysXMeshTestScene_2::Initialize()
 	m_pConvexMesh = ContentManager::Load<PxConvexMesh>(L"Meshes/Chair.ovpc");
 
 	//Triangle mesh
-	auto chairTriangle = new MeshObjectTex(L"Meshes/Chair.ovm", L"Textures/Chair_Dark.tga");
+	auto chairTriangle = new GeometryObjectTex<VkPosNormTexPipeline_Ext>(L"Meshes/Chair.ovm", L"Textures/Chair_Dark.tga");
 	m_pKinematicActor = physX->createRigidDynamic(PxTransform::createIdentity());
 	m_pKinematicActor->setRigidDynamicFlag(PxRigidDynamicFlag::eKINEMATIC, true);
 	m_pKinematicActor->createShape(PxTriangleMeshGeometry(m_pTriangleMesh.get()),*defaultMaterial);
@@ -49,7 +48,7 @@ void PhysXMeshTestScene_2::Initialize()
 	AddGameObject(chairTriangle);
 
 	//Convex mesh
-	m_pConvexChair = new MeshObjectTex(L"Meshes/Chair.ovm", L"Textures/Chair_Dark.tga");
+	m_pConvexChair = new GeometryObjectTex<VkPosNormTexPipeline_Ext>(L"Meshes/Chair.ovm", L"Textures/Chair_Dark.tga");
 	auto convexActor = physX->createRigidDynamic(PxTransform::createIdentity());
 	convexActor->createShape(PxConvexMeshGeometry(m_pConvexMesh.get()),*defaultMaterial);
 	PxRigidBodyExt::updateMassAndInertia(*convexActor, 10.f);

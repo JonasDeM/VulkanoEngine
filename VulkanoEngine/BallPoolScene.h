@@ -1,7 +1,6 @@
 #pragma once
 #include "GameScene.h"
 
-class MeshObject;
 
 class BallPoolScene: public GameScene
 {

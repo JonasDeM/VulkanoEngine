@@ -3,8 +3,9 @@
 #include "GameScene.h"
 #include "Debug.h"
 
-class CubePosColorTex;
 class GameSettings;
+class GameObject;
+
 
 class BoxDemoScene: public GameScene
 {
@@ -22,7 +23,7 @@ protected:
 
 private:
 
-	CubePosColorTex *m_pVkCube0, *m_pVkCube1, *m_pVkCube2;
+	GameObject *m_pVkCube0, *m_pVkCube1, *m_pVkCube2;
 
 private:
 	// -------------------------

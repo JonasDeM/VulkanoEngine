@@ -2,13 +2,13 @@
 #include "stdafx.h"
 
 #include "BallPoolScene.h"
-#include "MeshObject.h"
 #include "Debug.h"
 #include "ManualCamera.h"
 #include "PhysxHelpers.h"
 #include "GameTimer.h"
 #include <GLFW/glfw3.h>
-
+#include "GeometryObject.h"
+#include "VkBasicGeometryPipeline_Ext.h"
 
 BallPoolScene::BallPoolScene(GameSettings* pSettings):
 	GameScene(L"BallPoolScene", pSettings),
@@ -39,7 +39,7 @@ void BallPoolScene::Initialize()
 	const auto sphereScale = 1.f;
 	for (size_t i = 0; i < AMOUNT_BALLS; i++)
 	{
-		auto sphere = new MeshObject(L"Meshes/Sphere.ovm");
+		auto sphere = new GeometryObject<VkBasicGeometryPipeline_Ext>(L"Meshes/Sphere.ovm");
 		m_PhysXBalls[i] = sphere;
 		auto sphereActor = physX->createRigidDynamic(PxTransform::createIdentity());
 		sphereActor->createShape(PxSphereGeometry(1.f), *sphereMaterial);
@@ -50,7 +50,7 @@ void BallPoolScene::Initialize()
 	}
 
 	//KINEMATIC ACTOR
-	m_pControllableBall = new MeshObject(L"Meshes/Sphere.ovm");
+	m_pControllableBall = new GeometryObject<VkBasicGeometryPipeline_Ext>(L"Meshes/Sphere.ovm");
 	m_pKinematicActor = physX->createRigidDynamic(PxTransform::createIdentity());
 	m_pKinematicActor->setRigidDynamicFlag(PxRigidDynamicFlag::eKINEMATIC, true);
 	m_pKinematicActor->createShape(PxSphereGeometry(1.f), *defaultMaterial);

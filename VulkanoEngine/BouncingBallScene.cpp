@@ -2,10 +2,13 @@
 #include "stdafx.h"
 
 #include "BouncingBallScene.h"
-#include "MeshObject.h"
 #include "Debug.h"
 #include "ManualCamera.h"
 #include <GLFW/glfw3.h>
+#include "GameObject.h"
+#include "GeometryObject.h"
+#include "VkBasicGeometryPipeline_Ext.h"
+
 
 
 BouncingBallScene::BouncingBallScene(GameSettings* pSettings):
@@ -39,7 +42,7 @@ void BouncingBallScene::Initialize()
 
 	//SPHERE NO-BOUNCE
 	auto sphereMaterial = physX->createMaterial(.5f,.5f,.1f);
-	m_pSphereNoBounce = new MeshObject(L"Meshes/Sphere.ovm");
+	m_pSphereNoBounce = new GeometryObject<VkBasicGeometryPipeline_Ext>(L"Meshes/Sphere.ovm");
 	auto sphereActor = physX->createRigidDynamic(PxTransform::createIdentity());
 	sphereActor->createShape(PxSphereGeometry(1.f),*sphereMaterial);
 	m_pSphereNoBounce->AttachRigidActor(sphereActor);
@@ -47,7 +50,7 @@ void BouncingBallScene::Initialize()
 
 	//SPHERE MID-BOUNCE
 	sphereMaterial = physX->createMaterial(.5f,.5f,.7f);
-	m_pSphereMidBounce = new MeshObject(L"Meshes/Sphere.ovm");
+	m_pSphereMidBounce = new GeometryObject<VkBasicGeometryPipeline_Ext>(L"Meshes/Sphere.ovm");
 	sphereActor = physX->createRigidDynamic(PxTransform::createIdentity());
 	sphereActor->createShape(PxSphereGeometry(1.f),*sphereMaterial);
 	m_pSphereMidBounce->AttachRigidActor(sphereActor);
@@ -55,7 +58,7 @@ void BouncingBallScene::Initialize()
 
 	//SPHERE MAX-BOUNCE
 	sphereMaterial = physX->createMaterial(.5f,.5f,1.0f);
-	m_pSphereMaxBounce = new MeshObject(L"Meshes/Sphere.ovm");
+	m_pSphereMaxBounce = new GeometryObject<VkBasicGeometryPipeline_Ext>(L"Meshes/Sphere.ovm");
 	sphereActor = physX->createRigidDynamic(PxTransform::createIdentity());
 	sphereActor->createShape(PxSphereGeometry(1.f),*sphereMaterial);
 	m_pSphereMaxBounce->AttachRigidActor(sphereActor);
@@ -63,7 +66,7 @@ void BouncingBallScene::Initialize()
 
 
 	//CONTROLLABLE SPHERE
-	m_pControllableSphere = new MeshObject(L"Meshes/Sphere.ovm");
+	m_pControllableSphere = new GeometryObject<VkBasicGeometryPipeline_Ext>(L"Meshes/Sphere.ovm");
 	auto actor = physX->createRigidDynamic(PxTransform::createIdentity());
 	auto shape = actor->createShape(PxSphereGeometry(1.f), *defaultMaterial);
 

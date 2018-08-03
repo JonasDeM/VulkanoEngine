@@ -2,11 +2,13 @@
 #include "stdafx.h"
 #include "BoxDemoScene.h"
 #include "Debug.h"
-#include "CubePosColorTex.h"
-#include "CubePosColorNorm.h"
+#include "Cube.h"
 #include "ManualCamera.h"
 #include "GeometryObject.h"
+#include "VkPosColTexPipeline_Ext.h"
 #include "GameTimer.h"
+#include "VkBasicGeometryPipeline_Ext.h"
+#include "VkDebugPipeline_Ext.h"
 
 
 BoxDemoScene::BoxDemoScene(GameSettings* pGameSettings):
@@ -24,10 +26,10 @@ BoxDemoScene::~BoxDemoScene(void)
 
 void BoxDemoScene::Initialize()
 {
-	m_pVkCube0 = new CubePosColorTex(5.f, 5.f, 5.f);
-	m_pVkCube1 = new CubePosColorTex(4.f, 4.f, 4.f);
+	m_pVkCube0 = new Cube<VkBasicGeometryPipeline_Ext>(5.f, 5.f, 5.f);
+	m_pVkCube1 = new Cube<VkBasicGeometryPipeline_Ext>(4.f, 4.f, 4.f);
 	m_pVkCube1->Translate(6.f, 0.f, 0.f);
-	m_pVkCube2 = new CubePosColorTex(2.f, 2.f, 2.f);
+	m_pVkCube2 = new Cube<VkBasicGeometryPipeline_Ext>(2.f, 2.f, 2.f);
 	m_pVkCube2->Translate(0.f, 4.f, 0.f);
 
 	AddGameObject(m_pVkCube0);
@@ -39,6 +41,7 @@ void BoxDemoScene::Initialize()
 	m_pVkCube0->RotateEuler(0, 0, 90.0f);
 
 	auto ptr = new GeometryObject<VkBasicGeometryPipeline_Ext>(L"Meshes/Sphere.ovm");
+
 	ptr->Translate(20, 0, 0);
 	AddGameObject(ptr);
 }

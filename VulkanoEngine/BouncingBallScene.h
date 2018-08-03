@@ -1,7 +1,7 @@
 #pragma once
 #include "GameScene.h"
 
-class MeshObject;
+class GameObject;
 
 class BouncingBallScene: public GameScene
 {
@@ -19,7 +19,7 @@ protected:
 
 private:
 
-	MeshObject *m_pSphereNoBounce, *m_pSphereMidBounce, *m_pSphereMaxBounce;
+	GameObject *m_pSphereNoBounce, *m_pSphereMidBounce, *m_pSphereMaxBounce;
 	GameObject* m_pControllableSphere;
 
 	int m_SpaceKeyStateLastFrame;

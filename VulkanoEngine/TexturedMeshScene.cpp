@@ -1,12 +1,14 @@
 #pragma once
 #include "stdafx.h"
 #include "TexturedMeshScene.h"
-#include "MeshObject.h"
-#include "MeshObjectTex.h"
-#include "MeshObjectTranspTex.h"
+#include "GeometryObject.h"
+#include "GeometryObjectTex.h"
 #include "ManualCamera.h"
 #include "GameTimer.h"
 #include <random>
+#include "VkBasicGeometryPipeline_Ext.h"
+#include "VkPosNormTex2SPipeline_Ext.h"
+#include "VkPosNormTexPipeline_Ext.h"
 
 TexturedMeshScene::TexturedMeshScene(GameSettings* pGameSettings):
 	GameScene(L"MeshTestScene", pGameSettings)
@@ -29,7 +31,7 @@ void TexturedMeshScene::Initialize()
 
 	const float space = 20.f;
 
-	std::array<MeshObjectTranspTex*, sqrtAmount*sqrtAmount> transpObjectsPtrArr;
+	std::array<GeometryObjectTex<VkPosNormTex2SPipeline_Ext>*, sqrtAmount*sqrtAmount> transpObjectsPtrArr;
 	for (int x = 0; x < sqrtAmount; x++)
 	{
 		for (int z = 0; z < sqrtAmount; z++)
@@ -37,17 +39,17 @@ void TexturedMeshScene::Initialize()
 			int randRot = (rand() % 50) - 50;
 			const bool isStatic = false;
 
-			auto pedestal2 = new MeshObjectTex(L"Meshes/pedestal.ovm", L"Textures/Pedestal.png", isStatic);
-			auto hut2 = new MeshObjectTex(L"Meshes/hut.ovm", L"Textures/Hut.png", isStatic);
+			auto pedestal2 = new GeometryObjectTex<VkPosNormTexPipeline_Ext>(L"Meshes/pedestal.ovm", L"Textures/Pedestal.png", isStatic);
+			auto hut2 = new GeometryObject<VkBasicGeometryPipeline_Ext>(L"Meshes/hut.ovm", isStatic); //, L"Textures/Hut.png"
 			pedestal2->AddChild(hut2);
-			auto floor2 = new MeshObjectTex(L"Meshes/floor.ovm", L"Textures/Floor.png", isStatic);
+			auto floor2 = new GeometryObjectTex<VkPosNormTexPipeline_Ext>(L"Meshes/floor.ovm", L"Textures/Floor.png", isStatic);
 			pedestal2->AddChild(floor2);
 			pedestal2->Scale(0.01f, 0.01f, 0.01f);
 			pedestal2->RotateEuler(0, (float)randRot, 0);
 			AddGameObject(pedestal2);
 			pedestal2->Translate(x * space - (space*(float)sqrtAmount /2.0f), 0, z * space - (space*(float)sqrtAmount /2.0f));
 
-			auto leaves2 = new MeshObjectTranspTex(L"Meshes/leaves.ovm", L"Textures/LeavesT.png", isStatic);
+			auto leaves2 = new GeometryObjectTex<VkPosNormTex2SPipeline_Ext>(L"Meshes/leaves.ovm", L"Textures/LeavesT.png", isStatic);
 			leaves2->Scale(0.01f, 0.01f, 0.01f);
 			leaves2->Translate(x * space - (space*(float)sqrtAmount / 2.0f), 0, z*space - (space*(float)sqrtAmount / 2.0f));
 			leaves2->RotateEuler(0, (float)randRot,0);
