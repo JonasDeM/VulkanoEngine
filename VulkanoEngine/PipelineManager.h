@@ -20,13 +20,8 @@ public:
 	//Template parameter: A class that derives from VkPipeline_Ext
 	// >Note: class must've been added with PipelineManager::AddPipeline<T>
 	template<class T>
-	static const T* GetPipeline()
-	{
-		if (RttiPipelineWrap<T>::id != std::numeric_limits<id_type>::max())
-			return static_cast<T*>(m_Pipelines[RttiPipelineWrap<T>::id].get());
-		Debug::LogError(L"This pipeline isn't managed by the PipelineManager (use PipelineManager::AddPipeline in Initialize)");
-		return nullptr;
-	}
+	static const T* GetPipeline();
+
 private:
 	using id_type = uint8_t;
 
@@ -38,32 +33,9 @@ private:
 
 	// Only pipelines derived from VkPipeline_Ext are accepted
 	template<class T, typename... Args>
-	static void AddPipeline(VkDevice device, Args... as)
-	{
-		static_assert(std::is_base_of<VkPipeline_Ext, T>::value, "Pipeline must derive from VkPipeline_Ext");
-		if (RttiPipelineWrap<T>::id != std::numeric_limits<id_type>::max())
-		{
-			Debug::LogError(L"Pipeline is already added. Index=" + std::to_wstring(RttiPipelineWrap<T>::id));
-			return;
-		}
-		if (m_Pipelines.size() >= std::numeric_limits<id_type>::max())
-		{
-			Debug::LogError(L"Maximum pipelines reached! (change id_type in ContentManager to a bigger data type)");
-			return;
-		}
-		RttiPipelineWrap<T>::id = (id_type)m_Pipelines.size();
-		m_Pipelines.push_back(CreateExtendedHandle<VkPipeline_Ext>(new T(as...), device));
-		m_PipelinesRttiIndices.emplace_back(&RttiPipelineWrap<T>::id);
-	}
+	static void AddPipeline(VkDevice device, Args... as);
 
-	static void ClearPipelines()
-	{
-		m_Pipelines.clear();
-		for (auto p : m_PipelinesRttiIndices)
-		{
-			*p = std::numeric_limits<id_type>::max();
-		}
-	}
+	static void ClearPipelines();
 	 
 	static std::vector<unique_ptr_del<VkPipeline_Ext>> m_Pipelines;
 	static std::vector<id_type*> m_PipelinesRttiIndices; // to make clearing possible
@@ -71,3 +43,31 @@ private:
 
 template <typename T>
 PipelineManager::id_type PipelineManager::RttiPipelineWrap<T>::id = std::numeric_limits<id_type>::max(); //maximum pipelines: 256-1 (need to change? -> change the using id_type to e.g. uint32_t)
+
+template<class T>
+const T * PipelineManager::GetPipeline()
+{
+	if (RttiPipelineWrap<T>::id != std::numeric_limits<id_type>::max())
+		return static_cast<T*>(m_Pipelines[RttiPipelineWrap<T>::id].get());
+	Debug::LogError(L"This pipeline isn't managed by the PipelineManager (use PipelineManager::AddPipeline in Initialize)");
+	return nullptr;
+}
+
+template<class T, typename ...Args>
+void PipelineManager::AddPipeline(VkDevice device, Args ...as)
+{
+	static_assert(std::is_base_of<VkPipeline_Ext, T>::value, "Pipeline must derive from VkPipeline_Ext");
+	if (RttiPipelineWrap<T>::id != std::numeric_limits<id_type>::max())
+	{
+		Debug::LogError(L"Pipeline is already added. Index=" + std::to_wstring(RttiPipelineWrap<T>::id));
+		return;
+	}
+	if (m_Pipelines.size() >= std::numeric_limits<id_type>::max())
+	{
+		Debug::LogError(L"Maximum pipelines reached! (change id_type in ContentManager to a bigger data type)");
+		return;
+	}
+	RttiPipelineWrap<T>::id = (id_type)m_Pipelines.size();
+	m_Pipelines.push_back(CreateExtendedHandle<VkPipeline_Ext>(new T(as...), device));
+	m_PipelinesRttiIndices.emplace_back(&RttiPipelineWrap<T>::id);
+}

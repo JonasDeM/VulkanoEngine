@@ -35,3 +35,12 @@ void PipelineManager::CleanUp()
 {
 	ClearPipelines();
 }
+
+void PipelineManager::ClearPipelines()
+{
+	m_Pipelines.clear();
+	for (auto p : m_PipelinesRttiIndices)
+	{
+		*p = std::numeric_limits<id_type>::max();
+	}
+}
