@@ -36,7 +36,7 @@ public:
 	void CanDraw(bool canDraw) { m_CanDraw = canDraw; }
 
 	virtual void Initialize(VulkanContext* pVkContext) = 0;
-	virtual void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex) {};
+	virtual void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex) = 0;
 	virtual void Update(VulkanContext* pVkContext) = 0;
 
 protected:
