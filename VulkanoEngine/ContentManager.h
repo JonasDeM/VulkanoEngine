@@ -42,7 +42,7 @@ template <typename T>
 ContentManager::id_type ContentManager::RttiContentWrap<T>::id = std::numeric_limits<id_type>::max();
 
 template<class T>
-std::shared_ptr<T> ContentManager::Load(const wstring & assetFile)
+std::shared_ptr<T> ContentManager::Load(const wstring& assetFile)
 {
 	if (RttiContentWrap<T>::id != std::numeric_limits<id_type>::max())
 		return static_cast<ContentLoader<T>*>(m_Loaders[RttiContentWrap<T>::id].get())->GetContent(assetFile);
@@ -55,17 +55,7 @@ void ContentManager::AddLoaderNew(Args ...as)
 {
 	//1. Determine the type of content Loader loads
 	//*********************************************
-
-	// c++11 option A
-	//using ContentType = std::remove_pointer<decltype(decltype(Loader(as...).GetContent(L""))(nullptr).get())>;  
-
-	// c++11 option B
-	using ContentSmartPtrType = std::result_of_t<decltype(&Loader::GetContent)(Loader, const std::wstring&)>;
-	using ContentType = std::remove_pointer_t<decltype(ContentSmartPtrType().get())>;
-
-	// c++17 (deprecates result_of<T>)
-	//using ContentSmartPtrType = std::invoke_result_t<decltype(&Loader::GetContent), Loader, const std::wstring&>;
-	//using ContentType = std::remove_pointer_t<decltype(ContentSmartPtrType().get())>;
+	using ContentType = Loader::ContentType;
 
 	//2. Check if Loader Derives from BaseLoader
 	//******************************************

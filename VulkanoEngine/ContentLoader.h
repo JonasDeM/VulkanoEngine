@@ -10,4 +10,6 @@ public:
 	ContentLoader(const ContentLoader &obj) = delete;
 	ContentLoader& operator=(const ContentLoader& obj) = delete;
 	virtual shared_ptr<T> GetContent(const wstring& assetFile) = 0;
+
+	using ContentType = T; // very usefull when specialized, you still know the Template Parameter
 };
