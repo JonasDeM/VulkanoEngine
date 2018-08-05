@@ -1,6 +1,5 @@
 #pragma once
 #include "Debug.h"
-#include <typeindex>
 #include <type_traits>
 #include <limits>
 #include "HandleUtilities.h"

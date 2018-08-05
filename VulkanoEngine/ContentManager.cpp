@@ -11,10 +11,12 @@ std::vector<std::unique_ptr<BaseLoader>> ContentManager::m_Loaders{};
 
 void ContentManager::Initialize(VulkanContext * pVkContext)
 {
-	AddLoaderNew<MeshDataLoader>();
-	AddLoaderNew<VkTextureLoader>(pVkContext);
-	AddLoaderNew<PxConvexMeshLoader>();
-	AddLoaderNew<PxTriangleMeshLoader>();
+	m_Loaders.reserve(4);
+
+	AddLoader<MeshDataLoader>();
+	AddLoader<VkTextureLoader>(pVkContext);
+	AddLoader<PxConvexMeshLoader>();
+	AddLoader<PxTriangleMeshLoader>();
 }
 
 void ContentManager::CleanUp()

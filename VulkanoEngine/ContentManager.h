@@ -33,7 +33,7 @@ private:
 	// >Arguments: Loader constructor arguments.
 	// >Notes: Only one Loader per ContentType!
 	template<class Loader, typename... Args>
-	static void AddLoaderNew(Args... as);
+	static void AddLoader(Args... as);
 
 	static std::vector<std::unique_ptr<BaseLoader>> m_Loaders;
 };
@@ -51,7 +51,7 @@ std::shared_ptr<T> ContentManager::Load(const wstring& assetFile)
 }
 
 template<class Loader, typename ...Args>
-void ContentManager::AddLoaderNew(Args ...as)
+void ContentManager::AddLoader(Args ...as)
 {
 	//1. Determine the type of content Loader loads
 	//*********************************************
