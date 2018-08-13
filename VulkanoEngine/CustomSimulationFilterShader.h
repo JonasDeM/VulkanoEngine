@@ -1,5 +1,4 @@
 #pragma once
-#include "stdafx.h"
 
 PxFilterFlags GP1SimulationFilterShader(
 	PxFilterObjectAttributes attribute0, PxFilterData filterData0,

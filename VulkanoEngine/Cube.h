@@ -122,12 +122,12 @@ void Cube<Pipeline>::CreateIndexBuffer(VulkanContext* pVkContext)
 {
 	//Indexbuffer
 	uint16_t indices[NUMINDICES] = {
-		0,1,2, 2,1,3,
-		4,6,5, 5,6,7,
-		8,10,9, 9,10,11,
-		12,13,14, 14,13,15,
-		16,18,17, 17,18,19,
-		20,21,22, 22,21,23
+		1 ,0 ,2,  1 ,2, 3,
+		6 ,4 ,5,  6 ,5, 7,
+		10,8 ,9,  10,9, 11,
+		13,12,14, 13,14,15,
+		18,16,17, 18,17,19,
+		21,20,22, 21,22,23
 	};
 	VkDeviceSize bufferSize = sizeof(indices[0]) * NUMINDICES;
 
