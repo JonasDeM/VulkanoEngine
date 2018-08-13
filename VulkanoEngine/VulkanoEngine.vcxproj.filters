@@ -71,6 +71,9 @@
     <Filter Include="Engine Files\Vulkan\Images">
       <UniqueIdentifier>{6e8fdeca-b89e-40bf-9510-0fd13c94b146}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Components">
+      <UniqueIdentifier>{3fa3969d-ad85-4eb3-a71c-a93579bb7f2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -266,6 +269,21 @@
     <ClInclude Include="GeometryObjectTex.h">
       <Filter>Prefabs\MeshObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Engine Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentGameObject.h">
+      <Filter>Engine Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>Engine Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidComponent.h">
+      <Filter>Engine Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseGameObject.h">
+      <Filter>Engine Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -419,6 +437,15 @@
     </ClCompile>
     <ClCompile Include="VkTextureImage_Ext.cpp">
       <Filter>Engine Files\Vulkan\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseGameObject.cpp">
+      <Filter>Engine Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidComponent.cpp">
+      <Filter>Engine Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>Engine Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

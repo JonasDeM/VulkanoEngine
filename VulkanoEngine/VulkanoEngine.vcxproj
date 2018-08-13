@@ -89,6 +89,7 @@
       <AdditionalIncludeDirectories>C:\Libraries\PhysX-3.3\PhysXSDK\Include;C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,6 +114,7 @@
       <AdditionalIncludeDirectories>C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN64\include;C:\Libraries\PhysX-3.3\PhysXSDK\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,6 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,6 +166,7 @@
       <AdditionalIncludeDirectories>C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN64\include;C:\Libraries\PhysX-3.3\PhysXSDK\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -178,10 +182,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BallPoolScene.h" />
+    <ClInclude Include="BaseGameObject.h" />
     <ClInclude Include="BouncingBallScene.h" />
     <ClInclude Include="BoxDemoScene.h" />
     <ClInclude Include="BinaryReader.h" />
     <ClInclude Include="Colors.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentGameObject.h" />
     <ClInclude Include="ContentLoader.h" />
     <ClInclude Include="GeometryObjectTex.h" />
     <ClInclude Include="LowMemoryContentLoader.h" />
@@ -199,10 +206,12 @@
     <ClInclude Include="InputTestScene.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="HoldingContentLoader.h" />
+    <ClInclude Include="RigidComponent.h" />
     <ClInclude Include="TexturedMeshScene.h" />
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="PhysXMeshTestScene_2.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="VkDebugPipeline_Ext.h" />
     <ClInclude Include="ManualCamera.h" />
     <ClInclude Include="MeshData.h" />
@@ -245,6 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BallPoolScene.cpp" />
+    <ClCompile Include="BaseGameObject.cpp" />
     <ClCompile Include="BinaryReader.cpp" />
     <ClCompile Include="BouncingBallScene.cpp" />
     <ClCompile Include="BoxDemoScene.cpp" />
@@ -259,6 +269,7 @@
     <ClCompile Include="InputTestScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="RigidComponent.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -272,6 +283,7 @@
     <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="MeshDataLoader.cpp" />
     <ClCompile Include="PhysXMeshTestScene_2.cpp" />
+    <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="VertexStructs.cpp" />
     <ClCompile Include="VkDebugPipeline_Ext.cpp" />
     <ClCompile Include="PipelineManager.cpp" />
