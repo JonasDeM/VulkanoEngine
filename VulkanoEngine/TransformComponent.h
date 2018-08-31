@@ -6,7 +6,7 @@ using namespace glm;
 class TransformComponent :public Component
 {
 public:
-	enum Flags : char
+	enum Flags : uint8_t
 	{
 		PosChanged = 1<<0,
 		RotChanged = 1<<1,
@@ -24,11 +24,10 @@ public:
 	quat GetRotation() const { return m_Rotation; }
 	mat4 GetWorldMatrix() const { return m_WorldMatrix; }
 
-	// worldmatrix only gets updated after everything else, so decomposing it is not a good idea
-	// make this add all the pos or rot or scale from all the parents
-	vec3 GetWorldPosition() const;
-	quat GetWorldRotation() const;
-	vec3 GetWorldScale() const;
+	// Problem is that Worldvariables should be correct if one of its grand-parents changed before decomposing the worldmatrix this frame
+	//vec3 GetWorldPosition();
+	//quat GetWorldRotation();
+	//vec3 GetWorldScale();
 
 	void Translate(float x, float y, float z);
 	void Rotate(float x, float y, float z);
@@ -37,13 +36,14 @@ public:
 	void Scale(float x, float y, float z);
 
 	Flags GetFlags() { return m_Flags; }
+	TransformComponent* GetParentTransform() { return m_pParentTransform; }
 private:
-	friend class BaseGameObject; // because this is the standard component that every gameobject has.
+	friend class CompObj; // because addchild must set the parent transform
 	void Build(VulkanContext* vkContext) override;
 	void Update(VulkanContext* vkContext) override;
 	void CalculateWorldMatrix(const mat4 &parentWorld);
 
-	// flags that show if the local position has changed since last update
+	// flags that show if the local position/rot/scale has changed since last update
 	Flags m_Flags = (Flags)0;
 
 	TransformComponent* m_pParentTransform = nullptr;
@@ -57,4 +57,3 @@ private:
 	//vec3 m_WorldScale = vec3(1, 1, 1);
 	//quat m_WorldRotation = vec4(0, 0, 0, 1);
 };
-

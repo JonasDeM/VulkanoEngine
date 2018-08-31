@@ -1,6 +1,7 @@
 #pragma once
 #include <vulkan/vulkan.h>
 
+class CompObj;
 class VulkanContext;
 
 class Component
@@ -18,7 +19,6 @@ protected:
 	virtual void RecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const int frameBufferIndex) {};
 	virtual void SceneStop() {};
 
-private:
-	template<uint8_t C>
-	friend class CompGameObj;
+	friend class CompObj; // sets the gameobject to this
+	CompObj* m_pCompObj = nullptr;
 };

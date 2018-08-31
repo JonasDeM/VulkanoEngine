@@ -9,6 +9,10 @@
 #include "GameTimer.h"
 #include "VkBasicGeometryPipeline_Ext.h"
 #include "VkDebugPipeline_Ext.h"
+#include "CompObj.h"
+#include "TransformComponent.h"
+#include "RigidComponent.h"
+#include "MeshComponent.h"
 
 
 BoxDemoScene::BoxDemoScene(GameSettings* pGameSettings):
@@ -44,6 +48,17 @@ void BoxDemoScene::Initialize()
 
 	ptr->Translate(20, 0, 0);
 	AddGameObject(ptr);
+
+	// ComponentObject
+	// ***************
+	auto compObj = new CompObj();
+	compObj->AddComponent<TransformComponent>(new TransformComponent());
+	compObj->GetComponent<TransformComponent>()->Translate(-20, 10, 0);
+	compObj->AddComponent<MeshComponent>(new MeshComponent(L"Meshes/Sphere.ovm"));
+	auto physX = &m_pPhysxScene->getPhysics();
+	auto defaultMaterial = physX->createMaterial(.5f, .5f, .1f);
+	compObj->AddComponent<RigidComponent>(new RigidComponent(RigidComponent::SimulationType::Dynamic, *defaultMaterial, PxSphereGeometry(1.f)));
+	AddGameObject(compObj);
 }
 
 void BoxDemoScene::Update()

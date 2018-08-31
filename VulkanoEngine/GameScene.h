@@ -2,8 +2,9 @@
 
 #include "SceneManager.h"
 #include "BaseCamera.h"
+#include "GameTimer.h"
+#include "CompObj.h"
 
-class GameTimer;
 class GameObject;
 class BaseCamera;
 
@@ -11,7 +12,9 @@ class GameScene: public PxSimulationEventCallback
 {
 public:
 	GameScene(wstring sceneName, GameSettings* settings);
-	virtual ~GameScene(void);
+	virtual ~GameScene(void) = default;
+	GameScene(const GameScene& t) = delete;
+	GameScene& operator=(const GameScene& t) = delete;
 
 	//GET
 	PxScene* GetPhysxScene() const { return m_pPhysxScene; }
@@ -29,6 +32,9 @@ public:
 	void AddGameObject(GameObject* pObject);
 	void RemoveGameObject(GameObject* pObject);
 	void RootInitializeSceneObject(GameObject* pObject);
+	void AddGameObject(CompObj* pObject);
+	void RemoveGameObject(CompObj* pObject);
+	void RootInitializeSceneObject(CompObj* pObject);
 
 	//Debug Methods
 	static void EnablePhysXFrameStepping(bool enable) { m_PhysXFrameStepping = enable; }
@@ -50,7 +56,8 @@ protected:
 	virtual void onContact(const PxContactPairHeader & pairHeader, const PxContactPair *pairs, PxU32 nbPairs) override {}
 	virtual void onTrigger(PxTriggerPair *pairs, PxU32 count) override {}
 
-	vector<std::unique_ptr<GameObject>> m_vecGameObjects;
+	std::vector<std::unique_ptr<GameObject>> m_vecGameObjects;
+	std::vector<std::unique_ptr<CompObj>> m_vecCompObjs;
 	bool m_IsInitialized;
 
 	//Physx
@@ -79,13 +86,5 @@ private:
 
 	static bool m_PhysXFrameStepping;
 	static float m_PhysXStepTime;
-
-private:
-	// -------------------------
-	// Disabling default copy constructor and default 
-	// assignment operator.
-	// -------------------------
-	GameScene(const GameScene& t) = delete;
-	GameScene& operator=(const GameScene& t) = delete;
 };
 

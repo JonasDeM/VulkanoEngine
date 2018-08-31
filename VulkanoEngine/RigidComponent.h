@@ -5,36 +5,33 @@ class TransformComponent;
 class BaseGameObject;
 
 // component that makes a rigidactor and transform of gameobject work together
+// Not Supported: scaling rigidactor after build, transform has a parenttransform
+// Idea: in postupdate change according to transformchange, get worldpositions, in transformcomp flag all children too
 class RigidComponent :	public Component
 {
 public:
-	enum SimulationType : char 
+	enum SimulationType : uint8_t 
 	{
 		Static,
 		Dynamic,
 		Kinematic
 	};
 public:
-	RigidComponent(BaseGameObject* ownerObject, SimulationType simType, const PxMaterial* mat, PxGeometry geom);
+	RigidComponent(SimulationType simType, const PxMaterial& mat, const PxGeometry& geom);
 	virtual ~RigidComponent() = default;
 
 private:
 	void Build(VulkanContext* vkContext) override;
 	void Update(VulkanContext* vkContext) override;
 
-	BaseGameObject* m_pGameObject;
 	TransformComponent* m_pTransform;
 	PxRigidActor * m_pRigidActor;
-
-	SimulationType m_SimType;
-	const PxMaterial* m_pMaterial;
-	PxGeometry m_Geometry;
 };
 
 class RigidConvexMeshComponent : public RigidComponent
 {
 public:
-	RigidConvexMeshComponent(BaseGameObject * ownerObject, SimulationType simType, const PxMaterial* mat, const wstring & mesh);
+	RigidConvexMeshComponent(SimulationType simType, const PxMaterial& mat, const wstring & mesh);
 private:
 	shared_ptr<PxConvexMesh> m_pConvexMesh;
 };
@@ -42,7 +39,7 @@ private:
 class RigidTriangleMeshComponent : public RigidComponent
 {
 public:
-	RigidTriangleMeshComponent(BaseGameObject * ownerObject, SimulationType simType, const PxMaterial* mat, const wstring & mesh);
+	RigidTriangleMeshComponent(SimulationType simType, const PxMaterial& mat, const wstring & mesh);
 private:
 	shared_ptr<PxTriangleMesh> m_pTriangleMesh;
 };

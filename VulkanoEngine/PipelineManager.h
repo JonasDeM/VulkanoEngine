@@ -19,7 +19,7 @@ public:
 	//Template parameter: A class that derives from VkPipeline_Ext
 	// >Note: class must've been added with PipelineManager::AddPipeline<T>
 	template<class T>
-	static const T* GetPipeline();
+	static T* GetPipeline();
 
 private:
 	using id_type = uint8_t;
@@ -44,7 +44,7 @@ template <typename T>
 PipelineManager::id_type PipelineManager::RttiPipelineWrap<T>::id = std::numeric_limits<id_type>::max(); //maximum pipelines: 256-1 (need to change? -> change the using id_type to e.g. uint32_t)
 
 template<class T>
-const T * PipelineManager::GetPipeline()
+T * PipelineManager::GetPipeline()
 {
 	if (RttiPipelineWrap<T>::id != std::numeric_limits<id_type>::max())
 		return static_cast<T*>(m_Pipelines[RttiPipelineWrap<T>::id].get());

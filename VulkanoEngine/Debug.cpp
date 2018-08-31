@@ -14,7 +14,6 @@
 //#include <stdio.h>
 //#include <stdlib.h>
 
-
 unsigned int Debug::m_BufferSize = 100;
 unsigned int Debug::m_DrawVertexCount = 0;
 unique_ptr<VulkanDebugRenderer> Debug::m_VulkanDebugRenderer = nullptr;
@@ -28,7 +27,6 @@ std::chrono::high_resolution_clock::time_point Debug::m_LastProfileCheck;
 Debug::Debug(void)
 {
 }
-
 
 Debug::~Debug(void)
 {
@@ -46,8 +44,6 @@ void Debug::StartProfileTimer()
 {
 	m_LastProfileCheck = std::chrono::high_resolution_clock::now();
 }
-
-//void Debug::PrintProfileInterval(const wstring& info){}
 
 void Debug::PrintProfileInterval(const wstring& info)
 {
@@ -133,7 +129,7 @@ void Debug::Log(LogLevel level, const wstring& msg)
 		wcout << L"[VULKAN] >>";
 		break;
 	case LogLevel::Error:
-		wcout << L"[ERROR]   >>";
+		wcout << L"[ERROR]   >>" + msg;
 		throw new std::runtime_error(FileUtils::ToString(msg));
 	case LogLevel::Profile:
 		wcout << L"[PROFILE]   >>";

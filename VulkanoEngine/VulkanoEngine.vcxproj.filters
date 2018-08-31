@@ -74,6 +74,12 @@
     <Filter Include="Engine Files\Components">
       <UniqueIdentifier>{3fa3969d-ad85-4eb3-a71c-a93579bb7f2b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Components\Base">
+      <UniqueIdentifier>{8c59b19c-aae1-425d-8827-1585e816239c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Components\Mesh">
+      <UniqueIdentifier>{d89e8fad-0a13-4bc9-87c6-8ccffba42862}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -269,12 +275,6 @@
     <ClInclude Include="GeometryObjectTex.h">
       <Filter>Prefabs\MeshObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentGameObject.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="TransformComponent.h">
       <Filter>Engine Files\Components</Filter>
     </ClInclude>
@@ -283,6 +283,18 @@
     </ClInclude>
     <ClInclude Include="BaseGameObject.h">
       <Filter>Engine Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CompObj.h">
+      <Filter>Engine Files\Components\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Engine Files\Components\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="TexMeshComponent.h">
+      <Filter>Engine Files\Components\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshComponent.h">
+      <Filter>Engine Files\Components\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -446,6 +458,15 @@
     </ClCompile>
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Engine Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TexMeshComponent.cpp">
+      <Filter>Engine Files\Components\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshComponent.cpp">
+      <Filter>Engine Files\Components\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CompObj.cpp">
+      <Filter>Engine Files\Components\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

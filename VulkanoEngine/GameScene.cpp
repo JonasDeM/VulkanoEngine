@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "Gametimer.h"
 #include "GameObject.h"
+#include "CompObj.h"
 #include "Debug.h"
 #include "PhysxManager.h"
 #include "PhysxHelpers.h"
@@ -26,11 +27,6 @@ GameScene::GameScene(wstring sceneName, GameSettings* settings):
 	m_pTimer->Stop();
 }
 
-
-GameScene::~GameScene(void)
-{
-}
-
 void GameScene::AddGameObject(GameObject* pObject)
 {
 	auto it = find_if(m_vecGameObjects.begin(), m_vecGameObjects.end(), [pObject](std::unique_ptr<GameObject> &pChildObject) {return pObject == pChildObject.get(); });
@@ -46,20 +42,54 @@ void GameScene::AddGameObject(GameObject* pObject)
 	}
 }
 
+void GameScene::RemoveGameObject(GameObject* pObject)
+{
+	auto it = find_if(m_vecGameObjects.begin(), m_vecGameObjects.end(), [pObject](std::unique_ptr<GameObject> &pChildObject) {return pObject == pChildObject.get(); });
+	if(it != m_vecGameObjects.end())
+	{
+		pObject->m_pScene = nullptr;
+		pObject->m_pParent = nullptr;
+		m_vecGameObjects.erase(it);
+
+		SceneManager::FlagDrawChanges();
+	}
+}
+
 void GameScene::RootInitializeSceneObject(GameObject * pObject)
 {
 	if (m_IsInitialized)
 		pObject->RootInitialize(m_pVkContext);
 }
 
-void GameScene::RemoveGameObject(GameObject* pObject)
+void GameScene::RootInitializeSceneObject(CompObj * pObject)
 {
-	auto it = find_if(m_vecGameObjects.begin(), m_vecGameObjects.end(), [pObject](std::unique_ptr<GameObject> &pChildObject) {return pObject == pChildObject.get(); });
-	if(it != m_vecGameObjects.end())
+	if (m_IsInitialized)
+		pObject->Build(m_pVkContext);
+}
+
+void GameScene::AddGameObject(CompObj * pObject)
+{
+	auto it = find_if(m_vecCompObjs.begin(), m_vecCompObjs.end(), [pObject](std::unique_ptr<CompObj> &pChildObject) {return pObject == pChildObject.get(); });
+	if (it == m_vecCompObjs.end())
 	{
-		m_vecGameObjects.erase(it);
+		m_vecCompObjs.emplace_back(std::unique_ptr<CompObj>(pObject));
+		pObject->m_pScene = this;
+		pObject->m_pParent = nullptr;
+
+		RootInitializeSceneObject(pObject);
+
+		SceneManager::FlagDrawChanges();
+	}
+}
+
+void GameScene::RemoveGameObject(CompObj * pObject)
+{
+	auto it = find_if(m_vecCompObjs.begin(), m_vecCompObjs.end(), [pObject](std::unique_ptr<CompObj> &pChildObject) {return pObject == pChildObject.get(); });
+	if (it != m_vecCompObjs.end())
+	{
 		pObject->m_pScene = nullptr;
 		pObject->m_pParent = nullptr;
+		m_vecCompObjs.erase(it);
 
 		SceneManager::FlagDrawChanges();
 	}
@@ -101,6 +131,10 @@ void GameScene::RootInitialize(VulkanContext* vkContext)
 	for(auto& pObject: m_vecGameObjects)
 	{
 		pObject->RootInitialize(m_pVkContext);
+	}	
+	for (auto& pObject : m_vecCompObjs)
+	{
+		pObject->Build(m_pVkContext);
 	}
 
 	m_IsInitialized = true;
@@ -117,6 +151,10 @@ void GameScene::RootUpdate()
 	for(auto& pObject:m_vecGameObjects)
 	{
 		pObject->RootUpdate(m_pVkContext);
+	}	
+	for (auto& pObject : m_vecCompObjs)
+	{
+		pObject->Update(m_pVkContext);
 	}
 	if(m_pTimer->IsRunning())
 	{
@@ -158,6 +196,10 @@ void GameScene::RootRecordVulkanDrawCommands(VkCommandBuffer cmdBuffer, const in
 	for (auto& pObject : m_vecGameObjects)
 	{
 		pObject->RootRecordVulkanDrawCommands(cmdBuffer, frameBufferIndex);
+	}
+	for (auto& pObject : m_vecCompObjs)
+	{
+		pObject->RecordVulkanDrawCommands(cmdBuffer, frameBufferIndex);
 	}
 }
 

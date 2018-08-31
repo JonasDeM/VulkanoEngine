@@ -187,10 +187,11 @@
     <ClInclude Include="BoxDemoScene.h" />
     <ClInclude Include="BinaryReader.h" />
     <ClInclude Include="Colors.h" />
+    <ClInclude Include="CompObj.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="ComponentGameObject.h" />
     <ClInclude Include="ContentLoader.h" />
     <ClInclude Include="GeometryObjectTex.h" />
+    <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="LowMemoryContentLoader.h" />
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="CustomSimulationFilterShader.h" />
@@ -207,6 +208,7 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="HoldingContentLoader.h" />
     <ClInclude Include="RigidComponent.h" />
+    <ClInclude Include="TexMeshComponent.h" />
     <ClInclude Include="TexturedMeshScene.h" />
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="PhysXMeshTestScene_2.h" />
@@ -258,6 +260,7 @@
     <ClCompile Include="BinaryReader.cpp" />
     <ClCompile Include="BouncingBallScene.cpp" />
     <ClCompile Include="BoxDemoScene.cpp" />
+    <ClCompile Include="CompObj.cpp" />
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GameBase.cpp" />
@@ -269,6 +272,7 @@
     <ClCompile Include="InputTestScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="RigidComponent.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -276,6 +280,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TexMeshComponent.cpp" />
     <ClCompile Include="TexturedMeshScene.cpp" />
     <ClCompile Include="FileUtils.cpp" />
     <ClCompile Include="BaseCamera.cpp" />

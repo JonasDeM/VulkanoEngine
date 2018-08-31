@@ -8,7 +8,7 @@ class VkBasicGeometryPipeline_Ext : public VkPipeline_Ext
 public:
 	using VertexType = VertexPosColNorm; // each derived pipeline that implements it's own vertexInputState should typedef the used Vertex struct as VertexType like this
 
-	virtual unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) const final override;
+	unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) const final override;
 	std::vector<VkDescriptorSet> CreateAndWriteDescriptorSets(VkDevice device, VkDescriptorPool descPool, const vector<unique_ptr_del<VkBuffer>>& uniformBuffers) const;
 
 	struct UniformBufferObject {
