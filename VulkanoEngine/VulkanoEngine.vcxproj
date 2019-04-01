@@ -86,7 +86,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Libraries\PhysX-3.3\PhysXSDK\Include;C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"assert.h";C:\Libraries\PhysX-3.3\PhysXSDK\Include;C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
@@ -110,7 +110,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN64\include;C:\Libraries\PhysX-3.3\PhysXSDK\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"assert.h";C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN64\include;C:\Libraries\PhysX-3.3\PhysXSDK\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
@@ -136,7 +136,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"assert.h";C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
@@ -160,7 +160,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN64\include;C:\Libraries\PhysX-3.3\PhysXSDK\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"assert.h";C:\VulkanSDK\1.0.49.0\Include;C:\VulkanSDK\1.0.49.0\Third-Party\Include;C:\Libraries\glfw\glfw-3.2.1.bin.WIN64\include;C:\Libraries\PhysX-3.3\PhysXSDK\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
@@ -177,6 +177,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AGameObject.h" />
     <ClInclude Include="BallPoolScene.h" />
     <ClInclude Include="BouncingBallScene.h" />
     <ClInclude Include="BoxDemoScene.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Colors.h" />
     <ClInclude Include="ContentLoader.h" />
     <ClInclude Include="GeometryObjectTex.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="LowMemoryContentLoader.h" />
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="CustomSimulationFilterShader.h" />
@@ -199,10 +201,12 @@
     <ClInclude Include="InputTestScene.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="HoldingContentLoader.h" />
+    <ClInclude Include="SceneGraphDataManager.h" />
     <ClInclude Include="TexturedMeshScene.h" />
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="PhysXMeshTestScene_2.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="VkDebugPipeline_Ext.h" />
     <ClInclude Include="ManualCamera.h" />
     <ClInclude Include="MeshData.h" />
@@ -215,6 +219,7 @@
     <ClInclude Include="VkPosNormTex2SPipeline_Ext.h" />
     <ClInclude Include="VkShaderModuleLoader.h" />
     <ClInclude Include="VkTexPipeline_Ext.h" />
+    <ClInclude Include="VoxelTerrain.h" />
     <ClInclude Include="VulkanContext.h" />
     <ClInclude Include="VulkanDrawer.h" />
     <ClInclude Include="VulkanUtils.h" />
@@ -244,6 +249,7 @@
     <ClInclude Include="VulkanDebugRenderer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AGameObject.cpp" />
     <ClCompile Include="BallPoolScene.cpp" />
     <ClCompile Include="BinaryReader.cpp" />
     <ClCompile Include="BouncingBallScene.cpp" />
@@ -298,6 +304,7 @@
     <ClCompile Include="VkTexPipeline_Ext.cpp" />
     <ClCompile Include="VkTextureImage_Ext.cpp" />
     <ClCompile Include="VkTextureLoader.cpp" />
+    <ClCompile Include="VoxelTerrain.cpp" />
     <ClCompile Include="VulkanDrawer.cpp" />
     <ClCompile Include="VulkanDebugRenderer.cpp" />
     <ClCompile Include="VulkanUtils.cpp" />

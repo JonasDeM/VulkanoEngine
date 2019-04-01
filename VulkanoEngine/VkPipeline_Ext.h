@@ -10,12 +10,12 @@ template<class T>
 class HoldingContentLoader;
 class VulkanContext;
 
-// Exception! Extended Handle where the vulkan object isn't created in the constructor
-// Because I wanted to use the Template Method design pattern for creation, and this is not possible in the constructor
 class VkPipeline_Ext : public DeriveableHandle<VkPipeline>
 {
 
 public:
+	// Exception! Extended Handle where the vulkan object isn't created in the constructor
+	// Because I wanted to use the Template Method design pattern for creation, and this is not possible in the constructor
 	void Build(VulkanContext* pVkContext, HoldingContentLoader<VkShaderModule>& shaderModuleLoader, VkPipeline basePipeline=VK_NULL_HANDLE);
 	void Destroy(VkDevice device)
 	{
@@ -25,8 +25,8 @@ public:
 	virtual unique_ptr_del<VkDescriptorPool> CreateDescriptorPool(VkDevice device, const int uboCount) const = 0;
 	VkPipelineLayout GetPipelineLayout() const { return *m_pPipelineLayout; }
 
+	// TODO: Make private for template methods
 protected:
-
 	virtual std::vector<VkPipelineShaderStageCreateInfo> CreateShaderStageCreateInfos(HoldingContentLoader<VkShaderModule>& shaderModuleLoader) const = 0;
 	virtual VkPipelineVertexInputStateCreateInfo CreateVertexInputStateCreateInfo() const = 0;
 	virtual VkPipelineInputAssemblyStateCreateInfo CreateInputAssemblyStateCreateInfo() const;
