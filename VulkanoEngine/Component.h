@@ -1,17 +1,6 @@
 #pragma once
 #include "AGameObject.h"
-
-class ComponentTypeIndexGenerator
-{
-public:
-	static const uint16_t GenerateTypeIndex() noexcept
-	{
-		return m_Counter++;
-	}
-private:
-	static uint16_t m_Counter;
-};
-uint16_t ComponentTypeIndexGenerator::m_Counter = 0;
+#include "ComponentTypeIndexGenerator.h"
 
 template<typename DataType>
 class Component

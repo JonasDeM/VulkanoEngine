@@ -284,6 +284,9 @@
     <ClInclude Include="SceneGraphDataManager.h">
       <Filter>Engine Files\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentTypeIndexGenerator.h">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -442,6 +445,10 @@
       <Filter>Prefabs\VoxelTerrain</Filter>
     </ClCompile>
     <ClCompile Include="AGameObject.cpp">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="ComponentTypeIndexGenerator.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
   </ItemGroup>

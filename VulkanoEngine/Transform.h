@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include <glm\glm.hpp>
 
 struct TransformData;
 
@@ -11,6 +12,10 @@ class Transform : public Component<TransformData>
 	void RecordVulkanDrawCommands() {};
 	void Stop() {};
 	void Destroy() {};
+
+public:
+	void SetPosition(const glm::vec3& pos);
+	void GetPosition(glm::vec3& pos);
 };
 
 struct TransformData {
@@ -18,27 +23,3 @@ struct TransformData {
 	std::vector<Transform> Children;
 	glm::vec3 Position;
 };
-
-struct TransformData2;
-class Transform2 : public Component<TransformData2>
-{
-	void Build() {};
-	void Start() {};
-	void Update() {};
-	void RecordVulkanDrawCommands() {};
-	void Stop() {};
-	void Destroy() {};
-};
-
-struct TransformData2 {
-	Transform Parent;
-	std::vector<Transform> Children;
-	glm::vec3 Position;
-};
-
-int main(int arc, char** argv)
-{
-	GameObject1 GameObject = GameObject1::CreateNew();
-	Transform t = GameObject.AddComponent<Transform>();
-	Transform2 t2 = GameObject.AddComponent<Transform2>();
-}

@@ -24,17 +24,18 @@ public:
 	template<class ComponentType>
 	ComponentType GetComponent();
 
-	template<>
-	Transform GetComponent<Transform>();
+	// Template specialization was impossible because i can't include "Transform.h" (template specialization needs to be in header)
+	// (Because this header is included in "Transform.h" via "Component.h")
+	// If i'm wrong, please contact me with a solution - Jonas De Maeseneer
+	Transform GetTransform();
 private:
-	friend class Transform;
 	uint32_t m_IndexToAccesData = 0;
 };
 
 template<class ComponentType>
-ComponentType GetComponent()
+ComponentType GameObject1::GetComponent()
 {
-	assert(DataManager::GetData(m_IndexToAccesData)->find() != DataManager::GetData()->end());
+	assert(GameObjectDataManager::GetData(m_IndexToAccesData).m_ComponentMap.find(ComponentType::TypeIndex) != GameObjectDataManager::GetData(m_IndexToAccesData).m_ComponentMap.end());
 	ComponentType c;
 	c.InitializeHandle(*this, GameObjectDataManager::GetData(m_IndexToAccesData).m_ComponentMap.at(ComponentType::TypeIndex));
 	return c;

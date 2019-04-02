@@ -10,7 +10,10 @@ public:
 		Data.resize(IndexCounter+1);
 		return IndexCounter++;
 	}
-	static DataType& GetData(int32_t index) { return Data[index]; }
+	static DataType& GetData(int32_t index) { 
+		assert(index < Data.size());
+		return Data[index]; 
+	}
 private:
 	static std::vector<DataType> Data;
 };

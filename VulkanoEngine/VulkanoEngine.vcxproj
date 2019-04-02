@@ -183,6 +183,7 @@
     <ClInclude Include="BoxDemoScene.h" />
     <ClInclude Include="BinaryReader.h" />
     <ClInclude Include="Colors.h" />
+    <ClInclude Include="ComponentTypeIndexGenerator.h" />
     <ClInclude Include="ContentLoader.h" />
     <ClInclude Include="GeometryObjectTex.h" />
     <ClInclude Include="Component.h" />
@@ -254,6 +255,7 @@
     <ClCompile Include="BinaryReader.cpp" />
     <ClCompile Include="BouncingBallScene.cpp" />
     <ClCompile Include="BoxDemoScene.cpp" />
+    <ClCompile Include="ComponentTypeIndexGenerator.cpp" />
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GameBase.cpp" />
@@ -278,6 +280,7 @@
     <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="MeshDataLoader.cpp" />
     <ClCompile Include="PhysXMeshTestScene_2.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="VertexStructs.cpp" />
     <ClCompile Include="VkDebugPipeline_Ext.cpp" />
     <ClCompile Include="PipelineManager.cpp" />

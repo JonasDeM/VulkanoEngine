@@ -1,8 +1,8 @@
-TODO 	write some test+usages in a UnitTest Project
-	replace uint32_t/uint16_t with a using
+TODO 	replace uint32_t/uint16_t with a using
 	access modifiers + friend
-	write down (instead of do) every micro optimization that might be possible (e.g. There's an initialize method instead of constructor with initializer list) 
+	assert messages
 	add static asserts in add/get component and other places
+	write down (instead of do) every micro optimization that might be possible (e.g. There's an initialize method instead of constructor with initializer list) 
 	Comment thoroughly, format nicely
 	Do all events of components of same type simultaneous (write method to divide array of indices in chunks and call the chuncks sequentially on each their own async thread)
 	assert when calling destroy on Transform (use destroy on gameobject)
