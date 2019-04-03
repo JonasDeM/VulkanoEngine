@@ -1,18 +1,22 @@
 #pragma once
 #include <vector>
 
+using SceneGraphDataIndex = uint32_t;
+
+// Manages all objects of type Datatype in a static vector
 template<typename DataType>
 class SceneGraphDataManager
 {
 public:
-	static int32_t CreateNew() { 
-		static int32_t IndexCounter;
-		Data.resize(IndexCounter+1);
+	static SceneGraphDataIndex CreateNew() {
+		static SceneGraphDataIndex IndexCounter = 1;
+		Data.resize(IndexCounter);
 		return IndexCounter++;
 	}
-	static DataType& GetData(int32_t index) { 
+	static DataType& GetData(SceneGraphDataIndex index) {
 		assert(index < Data.size());
-		return Data[index]; 
+		assert(index > 0);
+		return Data[index-1]; 
 	}
 private:
 	static std::vector<DataType> Data;

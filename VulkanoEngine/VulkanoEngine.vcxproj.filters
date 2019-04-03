@@ -447,8 +447,10 @@
     <ClCompile Include="AGameObject.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="ComponentTypeIndexGenerator.cpp">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
   </ItemGroup>

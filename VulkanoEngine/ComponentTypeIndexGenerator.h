@@ -1,12 +1,16 @@
 #pragma once
+#include <limits>
+using ComponentTypeIndex = uint16_t;
+
 class ComponentTypeIndexGenerator
 {
 public:
-	static const uint16_t GenerateTypeIndex() noexcept
+	static const ComponentTypeIndex GenerateTypeIndex() noexcept
 	{
+		assert(m_Counter < std::numeric_limits<ComponentTypeIndex>::max());
 		return m_Counter++;
 	}
 private:
-	static uint16_t m_Counter;
+	static ComponentTypeIndex m_Counter;
 };
 

@@ -1,7 +1,8 @@
 #pragma once
 #include "AGameObject.h"
-#include "ComponentTypeIndexGenerator.h"
 
+// Handle for users to work with
+// Contains an index into a container of objects of type <Datatype>
 template<typename DataType>
 class Component
 {
@@ -11,24 +12,27 @@ public:
 	template<class ComponentType>
 	ComponentType GetComponent();
 
+	bool IsValid() { return m_IndexToAccesData == 0; };
 protected:
-	static const uint16_t TypeIndex;
-	using ComponentDataManager = SceneGraphDataManager<DataType>; // I could make SceneGraphDataManager a template parameter aswell, then you could specify a custom datamanager
-	uint32_t m_IndexToAccesData = 0;
-	GameObject1 m_GameObject;
-	friend class GameObject1;
-
+	// Method to get a reference to the actual DataType
 	DataType& GetData();
 
+private:
+	friend class GameObject1;
+	static const ComponentTypeIndex TypeIndex;
+	using ComponentDataManager = SceneGraphDataManager<DataType>; // I could make SceneGraphDataManager a template parameter aswell, then you could specify a custom datamanager
+
 	// Initialize existing component
-	void InitializeHandle(GameObject1 gameObject, uint32_t indexToAccesData);
+	void InitializeHandle(GameObject1 gameObject, SceneGraphDataIndex indexToAccesData);
 	// Initialize existing new component
 	void InitializeHandle(GameObject1 gameObject);
 
+	SceneGraphDataIndex m_IndexToAccesData = 0;
+	GameObject1 m_GameObject;
 };
 
 template<typename DataType>
-const uint16_t Component<DataType>::TypeIndex = ComponentTypeIndexGenerator::GenerateTypeIndex();
+const ComponentTypeIndex Component<DataType>::TypeIndex = ComponentTypeIndexGenerator::GenerateTypeIndex();
 
 template<typename DataType>
 template<class ComponentType>
@@ -44,7 +48,7 @@ inline DataType & Component<DataType>::GetData()
 }
 
 template<typename DataType>
-void Component<DataType>::InitializeHandle(GameObject1 gameObject, uint32_t indexToAccesData)
+void Component<DataType>::InitializeHandle(GameObject1 gameObject, SceneGraphDataIndex indexToAccesData)
 {
 	m_GameObject = gameObject;
 	m_IndexToAccesData = indexToAccesData;
