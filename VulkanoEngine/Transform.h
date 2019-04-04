@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "TransformFlags.h"
 #include <glm\glm.hpp>
 using namespace glm;
 
@@ -12,26 +13,31 @@ class Transform : public Component<TransformData>
 public:
 	// Hierarchy
 	Transform GetParent();
-	Transform GetScene(); // Maybe keep scene handle in TransformData?
+	Transform GetRootParent(); // Maybe keep rootparent handle in TransformData?
 	void AddChild(Transform child);
 	void RemoveChild(Transform child);
 
+	// 3D Position - Rotation - Scale
 	void SetPosition(const vec3& pos);
-	void GetPosition(vec3& pos);
+	vec3 GetPosition();
 	void SetRotation(const quat& rot);
-	void GetRotation(quat& rot);
+	quat GetRotation();
 	void SetEulerRotation(const vec3& rot);
-	void GetEulerRotation(vec3& rot);
+	vec3 GetEulerRotation();
 	void SetEulerRotationInDegrees(const vec3& rot);
-	void GetEulerRotationInDegrees(vec3& rot);
+	vec3 GetEulerRotationInDegrees();
 	void SetScale(const vec3& scale);
-	void GetScale(vec3& scale);
+	vec3 GetScale();
 
 	void Translate(const vec3& delta);
 	void Rotate(const quat& delta);
 	void RotateEuler(const vec3& delta);
 	void RotateEulerDegrees(const vec3& delta);
 	void Scale(const vec3& delta);
+
+	mat4 GetWorldMatrix();
+private:
+	void CalculateWorldMatrix();
 
 private:
 	void Build() {};
@@ -42,14 +48,21 @@ private:
 	void Destroy() {};
 };
 
+
 struct TransformData {
-	Transform m_Parent;
-	std::vector<Transform> m_Children;
-
-	mat4 m_WorldMatrix;
-	vec3 m_Position, m_Scale;
-	quat m_Rotation;
-
-	vec3 m_WorldPosition, m_WorldScale;
-	quat m_WorldRotation;
+	std::vector<Transform> m_Children;	// 32 bytes - 8 byte aligned
+	Transform m_Parent;					// 8  bytes - 4 byte aligned
+												  
+	mat4 m_WorldMatrix;					// 64 bytes - 4 byte aligned
+	vec3 m_Position;					// 12 bytes - 4 byte aligned
+	vec3 m_WorldPosition;				// 12 bytes - 4 byte aligned
+	vec3 m_Scale;						// 12 bytes - 4 byte aligned
+	vec3 m_WorldScale;					// 12 bytes - 4 byte aligned
+	quat m_Rotation;					// 16 bytes - 4 byte aligned
+	quat m_WorldRotation;				// 16 bytes - 4 byte aligned
+												  
+	TransformFlags m_Flags;				// 1  byte  - 1 byte aligned
+												  
+private:										  
+	char _padding[7];					// 7  bytes padding adds everything up to 192 bytes
 };

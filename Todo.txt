@@ -1,8 +1,22 @@
-TODO 	hierarchy/owning + Worldmatrix
-	global include met #include "glm/glm.hpp" en wa andere glms stuf + using namespace glm
+TODO 	hierarchy/owning
+	use memcpy instead of Initialize
 	replace current scenegraph stuff
 	Do all events of components of same type simultaneous (write method to divide array of indices in chunks and call the chuncks sequentially on each their own async thread)
 	Components can change TypeIndex (Bad for serializing,Possible alternative: Compile time string hashes + check for collision in debug)
 	Start at 1 with scenegraph indices (check if works correctly)
 	assert when calling destroy on Transform (use destroy on gameobject)
 	
+
+Priorities:
+P0:
+TodoList
+P1:
+[RequireComponent]
+Culling
+identify independent computations at the highest possible level => candidates for threading, 
+static vs dynamic in components
+P2:
+Base layer for an Event based system
+P3:
+Editor like interface
+Animation System

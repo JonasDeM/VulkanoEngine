@@ -349,13 +349,6 @@ void GameObject::CalculateWorldMatrix(const mat4 &parentWorld)
 	}
 
 	m_PositionChanged = m_RotationChanged = m_ScaleChanged = false;
-
-	//make the ParentTranslateRotateScale (PTRS) matrix => this scales, rotates, translates and then applies parent transform (order: SRTP)
-	m_WorldMatrix = mat4(1.0f);
-	m_WorldMatrix *= parentWorld;
-	m_WorldMatrix = glm::translate(m_WorldMatrix, m_Position);
-	m_WorldMatrix *= glm::toMat4(m_Rotation);
-	m_WorldMatrix = glm::scale(m_WorldMatrix, m_Scale);
 }
 
 void GameObject::UpdateWorldMatrix(const mat4 &parentWorld)

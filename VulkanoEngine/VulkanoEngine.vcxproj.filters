@@ -287,6 +287,9 @@
     <ClInclude Include="ComponentTypeIndexGenerator.h">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
+    <ClInclude Include="TransformFlags.h">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -451,6 +454,9 @@
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformFlags.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
   </ItemGroup>

@@ -10,6 +10,7 @@ GameObject1 GameObject1::CreateNew()
 	GameObject1 g;
 	g.m_IndexToAccesData = GameObjectDataManager::CreateNew();
 	assert(g.m_IndexToAccesData < std::numeric_limits<SceneGraphDataIndex>::max());
+	g.AddComponent<Transform>();
 	return g;
 }
 
