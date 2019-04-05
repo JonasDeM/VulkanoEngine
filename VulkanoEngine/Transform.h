@@ -6,14 +6,17 @@ using namespace glm;
 
 struct TransformData;
 
-// Component that manages the position rotation and scale of objects
+// Component that manages the hierarchy, position, rotation and scale of objects
 // Every Gameobject has a Transform
 class Transform : public Component<TransformData>
 {
 public:
 	// Hierarchy
 	Transform GetParent();
+	void SetParent(Transform parent);
 	Transform GetRootParent(); // Maybe keep rootparent handle in TransformData?
+	Transform GetChild(size_t index);
+	size_t GetChildCount();
 	void AddChild(Transform child);
 	void RemoveChild(Transform child);
 
@@ -64,5 +67,5 @@ struct TransformData {
 	TransformFlags m_Flags;				// 1  byte  - 1 byte aligned
 												  
 private:										  
-	char _padding[7];					// 7  bytes padding adds everything up to 192 bytes
+	char _padding[7];					// 7  bytes explicit padding adds everything up to 192 bytes
 };

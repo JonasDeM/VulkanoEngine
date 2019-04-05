@@ -13,8 +13,9 @@ public:
 	ComponentType GetComponent();
 
 	bool IsValid() { return m_IndexToAccesData == 0; };
+	bool operator ==(const Component<DataType> &b) const;
 protected:
-	// Method to get a reference to the actual DataType
+	// Method to get a reference to the actual DataType object
 	DataType& GetData();
 
 private:
@@ -39,6 +40,12 @@ template<class ComponentType>
 ComponentType Component<DataType>::GetComponent()
 {
 	return m_GameObject.GetComponent<ComponentType>();
+}
+
+template<typename DataType>
+bool Component<DataType>::operator==(const Component<DataType>& b) const
+{
+	return m_IndexToAccesData == b.m_IndexToAccesData;
 }
 
 template<typename DataType>

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Transform.h"
+#include <algorithm>
 #include "glm/gtx/euler_angles.hpp"
 #include "glm/gtx/quaternion.hpp"
 #include "glm/gtc/constants.hpp"
@@ -9,6 +10,12 @@
 Transform Transform::GetParent()
 {
 	return GetData().m_Parent;
+}
+
+void Transform::SetParent(Transform parent)
+{
+	GetParent().RemoveChild(*this);
+	parent.AddChild(*this);
 }
 
 Transform Transform::GetRootParent()
@@ -24,14 +31,26 @@ Transform Transform::GetRootParent()
 	return t;
 }
 
+Transform Transform::GetChild(size_t index)
+{
+	assert(index < GetData().m_Children.size());
+	return GetData().m_Children[index];
+}
+
+size_t Transform::GetChildCount()
+{
+	return GetData().m_Children.size();
+}
+
 void Transform::AddChild(Transform child)
 {
-
+	GetData().m_Children.push_back(child);
 }
 
 void Transform::RemoveChild(Transform child)
 {
-
+	auto& children = GetData().m_Children;
+	children.erase(std::find(children.begin(), children.end(), child));
 }
 
 void Transform::SetPosition(const glm::vec3 & pos)

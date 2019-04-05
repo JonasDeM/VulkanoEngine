@@ -221,7 +221,6 @@
     <ClInclude Include="VkPosNormTex2SPipeline_Ext.h" />
     <ClInclude Include="VkShaderModuleLoader.h" />
     <ClInclude Include="VkTexPipeline_Ext.h" />
-    <ClInclude Include="VoxelTerrain.h" />
     <ClInclude Include="VulkanContext.h" />
     <ClInclude Include="VulkanDrawer.h" />
     <ClInclude Include="VulkanUtils.h" />
@@ -249,6 +248,7 @@
     <ClInclude Include="VkTextureImage_Ext.h" />
     <ClInclude Include="VkTextureLoader.h" />
     <ClInclude Include="VulkanDebugRenderer.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AGameObject.cpp" />
@@ -309,10 +309,10 @@
     <ClCompile Include="VkTexPipeline_Ext.cpp" />
     <ClCompile Include="VkTextureImage_Ext.cpp" />
     <ClCompile Include="VkTextureLoader.cpp" />
-    <ClCompile Include="VoxelTerrain.cpp" />
     <ClCompile Include="VulkanDrawer.cpp" />
     <ClCompile Include="VulkanDebugRenderer.cpp" />
     <ClCompile Include="VulkanUtils.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -71,9 +71,6 @@
     <Filter Include="Engine Files\Vulkan\Images">
       <UniqueIdentifier>{6e8fdeca-b89e-40bf-9510-0fd13c94b146}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Prefabs\VoxelTerrain">
-      <UniqueIdentifier>{153b9bc0-ad3a-417c-95c3-e4e09b325188}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -269,9 +266,6 @@
     <ClInclude Include="GeometryObjectTex.h">
       <Filter>Prefabs\MeshObjects</Filter>
     </ClInclude>
-    <ClInclude Include="VoxelTerrain.h">
-      <Filter>Prefabs\VoxelTerrain</Filter>
-    </ClInclude>
     <ClInclude Include="AGameObject.h">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
@@ -288,6 +282,9 @@
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
     <ClInclude Include="TransformFlags.h">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
   </ItemGroup>
@@ -444,9 +441,6 @@
     <ClCompile Include="VkTextureImage_Ext.cpp">
       <Filter>Engine Files\Vulkan\Images</Filter>
     </ClCompile>
-    <ClCompile Include="VoxelTerrain.cpp">
-      <Filter>Prefabs\VoxelTerrain</Filter>
-    </ClCompile>
     <ClCompile Include="AGameObject.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
@@ -457,6 +451,9 @@
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
     <ClCompile Include="TransformFlags.cpp">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
   </ItemGroup>
