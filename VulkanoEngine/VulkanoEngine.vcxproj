@@ -248,7 +248,6 @@
     <ClInclude Include="VkTextureImage_Ext.h" />
     <ClInclude Include="VkTextureLoader.h" />
     <ClInclude Include="VulkanDebugRenderer.h" />
-    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AGameObject.cpp" />
@@ -312,7 +311,6 @@
     <ClCompile Include="VulkanDrawer.cpp" />
     <ClCompile Include="VulkanDebugRenderer.cpp" />
     <ClCompile Include="VulkanUtils.cpp" />
-    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

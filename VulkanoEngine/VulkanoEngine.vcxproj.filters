@@ -284,9 +284,6 @@
     <ClInclude Include="TransformFlags.h">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Engine Files\SceneGraph</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -451,9 +448,6 @@
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
     <ClCompile Include="TransformFlags.cpp">
-      <Filter>Engine Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
   </ItemGroup>
