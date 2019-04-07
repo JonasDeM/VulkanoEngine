@@ -1,34 +1,32 @@
 #pragma once
 #include "AGameObject.h"
 
+class World;
+
 // Handle for users to work with
 // Contains an index into a container of objects of type <Datatype>
-template<typename DataType>
+template<typename T>
 class Component
 {
+public:
+	using DataType = T;
 public:
 	GameObject1 GetGameObject() { return m_GameObject; }
 
 	template<class ComponentType>
 	ComponentType GetComponent();
 
-	bool IsValid() { return m_IndexToAccesData == 0; };
+	bool IsValid() { return m_pData != nullptr; }
 	bool operator ==(const Component<DataType> &b) const;
 protected:
-	// Method to get a reference to the actual DataType object
-	DataType& GetData();
-
+	friend class World;
+	DataType* m_pData = nullptr;
 private:
 	friend class GameObject1;
 	static const ComponentTypeIndex TypeIndex;
-	using ComponentDataManager = SceneGraphDataManager<DataType>; // I could make SceneGraphDataManager a template parameter aswell, then you could specify a custom datamanager
 
-	// Initialize existing component
-	void InitializeHandle(GameObject1 gameObject, SceneGraphDataIndex indexToAccesData);
-	// Initialize existing new component
-	void InitializeHandle(GameObject1 gameObject);
+	void InitializeHandle(GameObject1 gameObject, DataType* pData);
 
-	SceneGraphDataIndex m_IndexToAccesData = 0;
 	GameObject1 m_GameObject;
 };
 
@@ -45,25 +43,12 @@ ComponentType Component<DataType>::GetComponent()
 template<typename DataType>
 bool Component<DataType>::operator==(const Component<DataType>& b) const
 {
-	return m_IndexToAccesData == b.m_IndexToAccesData;
+	return m_pData == b.m_pData;
 }
 
 template<typename DataType>
-inline DataType & Component<DataType>::GetData()
-{
-	return ComponentDataManager::GetData(m_IndexToAccesData);
-}
-
-template<typename DataType>
-void Component<DataType>::InitializeHandle(GameObject1 gameObject, SceneGraphDataIndex indexToAccesData)
+void Component<DataType>::InitializeHandle(GameObject1 gameObject, DataType* pData)
 {
 	m_GameObject = gameObject;
-	m_IndexToAccesData = indexToAccesData;
-}
-
-template<typename DataType>
-void Component<DataType>::InitializeHandle(GameObject1 gameObject)
-{
-	m_GameObject = gameObject;
-	m_IndexToAccesData = ComponentDataManager::CreateNew();
+	m_pData = pData;
 }

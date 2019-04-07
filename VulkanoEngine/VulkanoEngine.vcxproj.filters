@@ -275,14 +275,17 @@
     <ClInclude Include="Transform.h">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
-    <ClInclude Include="SceneGraphDataManager.h">
-      <Filter>Engine Files\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentTypeIndexGenerator.h">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
     <ClInclude Include="TransformFlags.h">
       <Filter>Engine Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldDataManager.h">
+      <Filter>Engine Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -448,6 +451,9 @@
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
     <ClCompile Include="TransformFlags.cpp">
+      <Filter>Engine Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
   </ItemGroup>

@@ -41,18 +41,15 @@ public:
 	mat4 GetWorldMatrix();
 private:
 	void CalculateWorldMatrix();
-
-private:
-	void Build() {};
-	void Start() {};
-	void Update() {};
-	void RecordVulkanDrawCommands() {};
-	void Stop() {};
-	void Destroy() {};
 };
 
 
 struct TransformData {
+	void Build() {};
+	void Update() {};
+	void RecordVulkanDrawCommands() {};
+	void Destroy() {};
+
 	std::vector<Transform> m_Children;	// 32 bytes - 8 byte aligned
 	Transform m_Parent;					// 8  bytes - 4 byte aligned
 												  
