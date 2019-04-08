@@ -1,6 +1,8 @@
 #pragma once
 
 #include "WorldDataManager.h"
+#include "WorldDataManagerSpecialization.h"
+
 class GameObject1;
 struct GameObjectData;
 class Transform;
@@ -18,11 +20,12 @@ public:
 	virtual void Update();
 
 	GameObject1 CreateGameObject();
+	GameObject1 CreateGameObject(Transform parent);
 
 	template<class ComponentType>
-	typename ComponentType::DataType* CreateDataFor();
+	ComponentType CreateComponent(GameObject1 gameObjectHandle);
 
-	TransformData* FastTransformAccess(GameObjectData* pGameObjectData);
+	Transform FastTransformAccess(GameObjectData* pGameObjectData);
 private:
 	template<class ComponentType>
 	void RegisterComponentType();
@@ -40,6 +43,7 @@ private:
 template<class ComponentType>
 void World::RegisterComponentType()
 {
+	static_assert(std::is_base_of<ComponentData, typename ComponentType::DataType>::value, "Your Component its ComponentData doesn't inherit from ComponentData.");
 	assert(ComponentType::TypeIndex != std::numeric_limits<ComponentTypeIndex>::max());
 	m_ComponentDataManagers[ComponentType::TypeIndex] = std::make_unique<WorldDataManager<ComponentType>>();
 }
@@ -47,6 +51,7 @@ void World::RegisterComponentType()
 template<class ComponentType>
 WorldDataManager<ComponentType>* World::GetManager()
 {
+	static_assert(std::is_base_of<ComponentData, typename ComponentType::DataType>::value, "Your Component its ComponentData doesn't inherit from ComponentData.");
 	assert(ComponentType::TypeIndex < m_ComponentDataManagers.size()); // should never happen because vector is initialized so its size equals the amount of ComponentTypes
 	assert(m_ComponentDataManagers[ComponentType::TypeIndex] == nullptr); // ComponentType is not registered
 	return static_cast<WorldDataManager<ComponentType>*>(m_ComponentDataManagers[ComponentType::TypeIndex].get());
@@ -59,11 +64,12 @@ WorldDataManager<GameObject1>* World::GetManager()
 }
 
 template<class ComponentType>
-typename ComponentType::DataType * World::CreateDataFor()
+ComponentType World::CreateComponent(GameObject1 gameObjectHandle)
 {
+	static_assert(std::is_base_of<ComponentData, typename ComponentType::DataType>::value, "Your Component its ComponentData doesn't inherit from ComponentData.");
 	assert(ComponentType::TypeIndex < m_ComponentDataManagers.size()); // should never happen because vector is initialized so its size equals the amount of ComponentTypes
 	assert(m_ComponentDataManagers[ComponentType::TypeIndex] == nullptr); // ComponentType is not registered
-	return static_cast<WorldDataManager<ComponentType>*>(m_ComponentDataManagers[ComponentType::TypeIndex].get())->CreateNew();
+	return GetManager<ComponentType>()->CreateNew();
 }
 
 

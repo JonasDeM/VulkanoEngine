@@ -10,24 +10,31 @@ public:
 	DataManager& operator=(const DataManager& obj) = delete;
 };
 
-// Manages all objects of type Datatype in a vector
+// Manages all objects of type HandleType::Datatype in a vector
 template<typename HandleType>
 class WorldDataManager : public DataManager
 {
 private:
 	using DataType = typename HandleType::DataType;
+	using SystemType = typename HandleType::SystemType;
+	static_assert(std::is_base_of<ComponentData, DataType>::value, "HandleType::Datatype has to inherit from ComponentData");
 public:
-	DataType* CreateNew() {
-		m_Data.resize(m_Data.size()+1);
-		DataType* data = &m_Data[m_Data.size() - 1];
-		data->Build();
-		return data;
+	HandleType CreateNew()
+	{
+		size_t indexOfNew = m_Data.size();
+		m_Data.resize(indexOfNew+1);
+		HandleType handle = GetByIndex(indexOfNew);
+		SystemType::Awake(handle);
+		return handle;
 	}
 
-	// Needs to be defined here or all hell breaks loose
-	DataType* GetData(size_t index)
+	// Only call this if you're sure of having data at that index
+	HandleType GetByIndex(size_t index)
 	{
-		return &m_Data[index];
+		assert(index < m_Data.size());
+		HandleType handle;
+		handle.InitializeHandle(&m_Data[index]);
+		return handle;
 	}
 
 	template<typename... Args>
@@ -41,15 +48,17 @@ public:
 
 private:
 	std::vector<DataType> m_Data;
+	// std::vector<size_t> m_DataToCallStartOnWithItsSystemPleaseRenameMe;
 };
 
-template<typename DataType>
+template<typename HandleType>
 template<typename ...Args>
-void WorldDataManager<DataType>::UpdateAll(Args ...as)
+void WorldDataManager<HandleType>::UpdateAll(Args ...as)
 {
+	HandleType handle;
 	for (DataType& data: m_Data)
 	{
-		data.Update();
+		handle.InitializeHandle(&data);
+		SystemType::Update(handle, as...);
 	}
 }
-

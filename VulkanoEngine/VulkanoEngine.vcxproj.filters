@@ -71,6 +71,12 @@
     <Filter Include="Engine Files\Vulkan\Images">
       <UniqueIdentifier>{6e8fdeca-b89e-40bf-9510-0fd13c94b146}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\SceneGraph\Components">
+      <UniqueIdentifier>{5d918bd5-16c8-440b-8277-92225238a1fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\SceneGraph\Components\Transform">
+      <UniqueIdentifier>{96363d48-7672-43cb-822c-daa71ac4fe3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -269,22 +275,34 @@
     <ClInclude Include="AGameObject.h">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Engine Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Engine Files\SceneGraph</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentTypeIndexGenerator.h">
-      <Filter>Engine Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformFlags.h">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentData.h">
+      <Filter>Engine Files\SceneGraph\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformFlags.h">
+      <Filter>Engine Files\SceneGraph\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Engine Files\SceneGraph\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformSystem.h">
+      <Filter>Engine Files\SceneGraph\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformData.h">
+      <Filter>Engine Files\SceneGraph\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Engine Files\SceneGraph\Components</Filter>
+    </ClInclude>
     <ClInclude Include="WorldDataManager.h">
+      <Filter>Engine Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldDataManagerSpecialization.h">
       <Filter>Engine Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -447,14 +465,17 @@
     <ClCompile Include="ComponentTypeIndexGenerator.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Engine Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformFlags.cpp">
-      <Filter>Engine Files\SceneGraph</Filter>
-    </ClCompile>
     <ClCompile Include="World.cpp">
       <Filter>Engine Files\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Engine Files\SceneGraph\Components\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformFlags.cpp">
+      <Filter>Engine Files\SceneGraph\Components\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformSystem.cpp">
+      <Filter>Engine Files\SceneGraph\Components\Transform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

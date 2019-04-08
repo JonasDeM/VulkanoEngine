@@ -1,37 +1,17 @@
 #include "stdafx.h"
 #include "TransformFlags.h"
 
-void TransformFlags::PositionChanged()
+bool TransformFlags::HasFlags(TransformFlag flags)
 {
-	Flags = static_cast<TransformFlag>(Flags & TransformFlag::POSITION_CHANGED);
+	return m_Flags & flags;
 }
 
-void TransformFlags::RotationChanged()
+void TransformFlags::SetFlags(TransformFlag flags)
 {
-	Flags = static_cast<TransformFlag>(Flags & TransformFlag::ROTATION_CHANGED);
+	m_Flags = m_Flags | flags;
 }
 
-void TransformFlags::ScaleChanged()
+void TransformFlags::ClearFlags(TransformFlag flags)
 {
-	Flags = static_cast<TransformFlag>(Flags & TransformFlag::SCALE_CHANGED);
-}
-
-bool TransformFlags::HasTransformChanged()
-{
-	return Flags & (TransformFlag::POSITION_CHANGED | TransformFlag::ROTATION_CHANGED | TransformFlag::SCALE_CHANGED);
-}
-
-bool TransformFlags::HasPositionChanged()
-{
-	return Flags & TransformFlag::POSITION_CHANGED;
-}
-
-bool TransformFlags::HasRotationChanged()
-{
-	return Flags & TransformFlag::ROTATION_CHANGED;
-}
-
-bool TransformFlags::HasScaleChanged()
-{
-	return Flags & TransformFlag::SCALE_CHANGED;
+	m_Flags = m_Flags & (~flags);
 }

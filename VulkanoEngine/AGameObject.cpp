@@ -4,14 +4,21 @@
 #include "Transform.h"
 #include <limits>
 
-//GameObject1 GameObject1::CreateNew()
-//{
-//	GameObject1 g;
-//	g.m_IndexToAccesData = GameObjectDataManager::CreateNew();
-//	assert(g.m_IndexToAccesData < std::numeric_limits<SceneGraphDataIndex>::max());
-//	g.AddComponent<Transform>();
-//	return g;
-//}
+GameObject1 GameObject1::CreateChild()
+{
+	return m_pWorld->CreateGameObject(GetTransform());
+}
+
+GameObject1 GameObject1::CreateRoot()
+{
+	return m_pWorld->CreateGameObject();
+}
+
+GameObject1 GameObject1::CreatePersistent()
+{
+	assert(false); // Not Implemented
+	return GameObject1();
+}
 
 bool GameObject1::operator==(const GameObject1 & b) const
 {
@@ -23,9 +30,7 @@ bool GameObject1::operator==(const GameObject1 & b) const
 // If i'm wrong, please contact me with a solution - Jonas De Maeseneer
 Transform GameObject1::GetTransform()
 {
-	Transform t;
-	t.InitializeHandle(*this, m_pWorld->FastTransformAccess(m_pData));
-	return t;
+	return m_pWorld->FastTransformAccess(m_pData);
 }
 
 void GameObject1::InitializeHandle(World * world, GameObjectData * pData)

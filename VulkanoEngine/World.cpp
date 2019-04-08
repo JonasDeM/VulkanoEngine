@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "World.h"
-#include "Transform.h"
 #include "ComponentTypeIndexGenerator.h"
+
+#include "Transform.h"
+#include "TransformData.h"
+#include "TransformSystem.h"
 
 World::World() :
 	m_ComponentDataManagers(ComponentTypeIndexGenerator().GetAmountComponentTypes())
@@ -17,21 +20,26 @@ void World::Update()
 
 GameObject1 World::CreateGameObject()
 {
-	GameObject1 g;
-	g.InitializeHandle(this, m_pGameObjectDataManager->CreateNew());
+	GameObject1 g = m_pGameObjectDataManager->CreateNew(this);
+	Transform t = g.AddComponent<Transform>();
 	return g;
 }
 
-TransformData * World::FastTransformAccess(GameObjectData* pGameObjectData)
+GameObject1 World::CreateGameObject(Transform parent)
 {
-	int64_t diff = pGameObjectData - m_pGameObjectDataManager->GetData(0);
-	return GetManager<Transform>()->GetData(diff);
+	GameObject1 g = m_pGameObjectDataManager->CreateNew(this);
+	Transform t = g.AddComponent<Transform>();
+	t.SetParent(parent);
+	return g;
+}
+
+Transform World::FastTransformAccess(GameObjectData* pGameObjectData)
+{
+	return GetManager<Transform>()->GetByIndex(pGameObjectData - m_pGameObjectDataManager->GetAddressOffFirst());
 }
 
 int main(int arc, char** argv)
 {
 	World* w = new World();
-	auto ptr = w->CreateDataFor<Transform>();
-	ptr->Update();
-	w->Update();
+	auto handle = w->CreateComponent<Transform>(w->CreateGameObject());
 }

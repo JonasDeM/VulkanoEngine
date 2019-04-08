@@ -1,16 +1,38 @@
-TODO 	CreateChild(), DestroyComponent+DestroyGameObject()
-	assert when calling destroy on Transform (use destroy on gameobject)
-	create other components
+TODO 	create other components
+	comment+markup
 	test Transform optimization
+	test components (especially setparent)
 	replace current scenegraph stuff
 	Do all events of components of same type simultaneous (write method to divide array of indices in chunks and call the chuncks their methods sequentially on each their own async thread)
 	optimize by binding pipeline only at begin of recording all the same components
+	make nice image
+	DestroyGameObject() (Sorted list with indices that are to be deleted)
+	assert when calling destroy on Transform (use destroy on gameobject)
 	if the user wants persistent gameobjects over worlds, that should be possible.
 	make uml
 	Components can change TypeIndex (Bad for serializing)
+	first awake of initial objects in world can be done async in bulk instead of in the create new
+	implement start stop and lateupdate
+	replace initializehandle with constructor MAYBE (default public constructor, private contructor with data*)
+	make it so GameObjectmanager can just call the event methods and it work COMPARE!!
 
 	inheritance is good, polymorphism is not always necessary(a lot of calls to virtual functions is undesired)
 	maybe work with enums for pipelines, have general methods as well to use in the template method pattern
+
+If the std::future obtained from std::async is not moved from or bound to a reference, the destructor of the std::future will block at the end of the full expression until the asynchronous operation completes,
+essentially making code such as the following synchronous:
+std::async(std::launch::async, []{ f(); }); // temporary's dtor waits for f()
+std::async(std::launch::async, []{ g(); }); // does not start until f() completes
+
+How to make a new Component: 	1. Make MyDataStruct with ComponentData as public base class.
+				2. Make MySystemClass with static methods Build, Start, Stop, Destroy with arguments a reference to MyDataStruct + optional extra agruments it requires from the world.
+				(OPTIONAL) 3. Add static methods Update or RecordVulkanDrawCommands with arguments a reference to MyDataStruct + optional extra agruments it requires from the world.
+				4. Make MyHandleClass with Component<MyDataStruct, MySystemClass> as public base class.
+				5. Put RegisterComponentType<MyHandleClass>(); in the constructor of your world
+				(OPTIONAL) 6. If you did step 3, Call GetManager<MyHandleClass>()->Update() or Call GetManager<MyHandleClass>()->RecordVulkanDrawCommands() in the Update() of your world.
+
+some guidelines: do most work in a components own system. e.g. if your component has a SetVariable, don't immediately do all the work necessary, do the work in your update
+			ofcourse if you have a SetPosition and a GetWorldPosition for example, you can't possibly can't delay the work untill Update, you might have to do some work in GetWorldPosition.
 
 Priorities:
 P0:
@@ -18,10 +40,13 @@ TodoList
 P1:
 [RequireComponent]
 Culling
-identify independent computations at the highest possible level => candidates for threading, 
+Multithreading: identify independent computations at the highest possible level => candidates for threading, memory aligned data to avoid false sharing and make use of true sharing
 static vs dynamic in components
 P2:
+investigate matrices
 Base layer for an Event based system
 P3:
 Editor like interface
 Animation System
+
+look for todo's? search for assert(false)

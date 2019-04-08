@@ -183,6 +183,7 @@
     <ClInclude Include="BoxDemoScene.h" />
     <ClInclude Include="BinaryReader.h" />
     <ClInclude Include="Colors.h" />
+    <ClInclude Include="ComponentData.h" />
     <ClInclude Include="ComponentTypeIndexGenerator.h" />
     <ClInclude Include="ContentLoader.h" />
     <ClInclude Include="GeometryObjectTex.h" />
@@ -202,6 +203,8 @@
     <ClInclude Include="InputTestScene.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="HoldingContentLoader.h" />
+    <ClInclude Include="TransformData.h" />
+    <ClInclude Include="TransformSystem.h" />
     <ClInclude Include="WorldDataManager.h" />
     <ClInclude Include="TexturedMeshScene.h" />
     <ClInclude Include="BaseCamera.h" />
@@ -249,6 +252,7 @@
     <ClInclude Include="VkTextureLoader.h" />
     <ClInclude Include="VulkanDebugRenderer.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="WorldDataManagerSpecialization.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AGameObject.cpp" />
@@ -283,6 +287,7 @@
     <ClCompile Include="PhysXMeshTestScene_2.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TransformFlags.cpp" />
+    <ClCompile Include="TransformSystem.cpp" />
     <ClCompile Include="VertexStructs.cpp" />
     <ClCompile Include="VkDebugPipeline_Ext.cpp" />
     <ClCompile Include="PipelineManager.cpp" />

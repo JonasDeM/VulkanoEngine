@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Transform.h"
+#include "TransformData.h"
+#include "TransformFlags.h"
 #include <algorithm>
 #include "glm/gtx/euler_angles.hpp"
 #include "glm/gtx/quaternion.hpp"
@@ -12,10 +14,34 @@ Transform Transform::GetParent()
 	return m_pData->m_Parent;
 }
 
-void Transform::SetParent(Transform parent)
+void Transform::SetParent(Transform newParent)
 {
-	GetParent().RemoveChild(*this);
-	parent.AddChild(*this);
+	Transform oldParent = GetParent();
+
+	if (oldParent.IsValid())
+	{
+		auto& oldParentChildren = oldParent.m_pData->m_Children;
+		oldParentChildren.erase(std::find(oldParentChildren.begin(), oldParentChildren.end(), *this));
+	}
+	if (newParent.IsValid())
+	{	
+		// updating local transform variables, no need to flag changes as nothing really has changed
+		// there might be a more optimized way of doing this with matrices + SIMD
+		m_pData->m_LocalPosition = GetWorldPosition() - newParent.GetWorldPosition();
+		m_pData->m_LocalRotation = GetWorldRotation() * inverse(newParent.GetWorldRotation());
+		m_pData->m_LocalScale = GetWorldScale() / newParent.GetWorldScale();
+
+		auto& newParentChildren = newParent.m_pData->m_Children;
+		newParentChildren.push_back(*this);
+	}
+	else
+	{
+		m_pData->m_LocalPosition = GetWorldPosition();
+		m_pData->m_LocalRotation = GetWorldRotation();
+		m_pData->m_LocalScale = GetWorldScale();
+	}
+
+	m_pData->m_Parent = newParent;
 }
 
 Transform Transform::GetRootParent()
@@ -44,103 +70,164 @@ size_t Transform::GetChildCount()
 
 void Transform::AddChild(Transform child)
 {
-	m_pData->m_Children.push_back(child);
+	child.SetParent(*this);
 }
 
 void Transform::RemoveChild(Transform child)
 {
-	auto& children = m_pData->m_Children;
-	children.erase(std::find(children.begin(), children.end(), child));
+	child.SetParent(Transform());
 }
 
-void Transform::SetPosition(const glm::vec3 & pos)
+void Transform::SetLocalPosition(const glm::vec3 & pos)
 {
-	m_pData->m_Position = pos;
-	m_pData->m_Flags.PositionChanged();
+	m_pData->m_LocalPosition = pos;
+	m_pData->m_Flags.SetFlags(TransformFlag::PHYSICS_POSITION_OUTOFDATE | TransformFlag::WORLD_POSITION_OUTOFDATE | TransformFlag::WORLD_MATRIX_OUTOFDATE);
+	SetFlagsOnChildren(TransformFlag::PHYSICS_POSITION_OUTOFDATE | TransformFlag::WORLD_POSITION_OUTOFDATE | TransformFlag::WORLD_MATRIX_OUTOFDATE);
 }
 
-vec3 Transform::GetPosition()
+vec3 Transform::GetLocalPosition()
 {
-	return m_pData->m_Position;
+	return m_pData->m_LocalPosition;
 }
 
-void Transform::SetRotation(const quat & rot)
+void Transform::SetLocalRotation(const quat & rot)
 {
-	m_pData->m_Rotation = rot;
-	m_pData->m_Flags.RotationChanged();
+	m_pData->m_LocalRotation = rot;
+	m_pData->m_Flags.SetFlags(TransformFlag::PHYSICS_ROTATION_OUTOFDATE | TransformFlag::WORLD_ROTATION_OUTOFDATE | TransformFlag::WORLD_MATRIX_OUTOFDATE);
+	SetFlagsOnChildren(TransformFlag::PHYSICS_ROTATION_OUTOFDATE | TransformFlag::WORLD_ROTATION_OUTOFDATE
+		| TransformFlag::WORLD_MATRIX_OUTOFDATE | TransformFlag::PHYSICS_POSITION_OUTOFDATE | TransformFlag::WORLD_POSITION_OUTOFDATE );
 }
 
-quat Transform::GetRotation()
+quat Transform::GetLocalRotation()
 {
-	return m_pData->m_Rotation;
+	return m_pData->m_LocalRotation;
 }
 
-void Transform::SetEulerRotation(const vec3 & rot)
+void Transform::SetLocalEulerRotation(const vec3 & rot)
 {
-	m_pData->m_Rotation = quat(glm::eulerAngleYXZ(rot.y, rot.x, rot.z));
-	m_pData->m_Flags.RotationChanged();
+	SetLocalRotation(quat(glm::eulerAngleYXZ(rot.y, rot.x, rot.z)));
 }
 
-vec3 Transform::GetEulerRotation()
+vec3 Transform::GetLocalEulerRotation()
 {
-	return eulerAngles(m_pData->m_Rotation);
+	return eulerAngles(GetLocalRotation());
 }
 
-void Transform::SetEulerRotationInDegrees(const vec3 & rot)
+void Transform::SetLocalEulerRotationInDegrees(const vec3 & rot)
 {
-	m_pData->m_Rotation = quat(glm::eulerAngleYXZ((rot.y / 180.0f)*glm::pi<float>(), (rot.x / 180.0f)*glm::pi<float>(), (rot.z / 180.0f)*glm::pi<float>()));
-	m_pData->m_Flags.RotationChanged();
+	SetLocalEulerRotation(rot * (glm::pi<float>() / 180.0f));
 }
 
-vec3 Transform::GetEulerRotationInDegrees()
+vec3 Transform::GetLocalEulerRotationInDegrees()
 {
-	return (eulerAngles(m_pData->m_Rotation) * 180.0f) / glm::pi<float>();
+	return GetLocalEulerRotation() * (180.0f / glm::pi<float>());
 }
 
-void Transform::SetScale(const vec3 & scale)
+void Transform::SetLocalScale(const vec3 & scale)
 {
-	m_pData->m_Scale = scale;
-	m_pData->m_Flags.ScaleChanged();
+	m_pData->m_LocalScale = scale;
+
+	m_pData->m_Flags.SetFlags(TransformFlag::PHYSICS_ROTATION_OUTOFDATE | TransformFlag::WORLD_ROTATION_OUTOFDATE | TransformFlag::WORLD_MATRIX_OUTOFDATE);
+	SetFlagsOnChildren(TransformFlag::PHYSICS_SCALE_OUTOFDATE | TransformFlag::WORLD_SCALE_OUTOFDATE 
+		| TransformFlag::WORLD_MATRIX_OUTOFDATE | TransformFlag::PHYSICS_POSITION_OUTOFDATE | TransformFlag::WORLD_POSITION_OUTOFDATE);
 }
 
-vec3 Transform::GetScale()
+vec3 Transform::GetLocalScale()
 {
-	return m_pData->m_Scale;
+	return m_pData->m_LocalScale;
+}
+
+void Transform::SetWorldPosition(const vec3 & pos)
+{
+	assert(false); // NotImplemented
+	//SetLocalPos(); set local pos so that the object ends up at the new worldposition
+	m_pData->m_WorldPosition = pos;
+	m_pData->m_Flags.ClearFlags(TransformFlag::WORLD_POSITION_OUTOFDATE);
+}
+
+vec3 Transform::GetWorldPosition()
+{
+	if (m_pData->m_Flags.HasFlags(TransformFlag::WORLD_POSITION_OUTOFDATE))
+	{
+		DecomposeWorldMatrix(); // maybe just multiply
+	}
+	return m_pData->m_WorldPosition;
+}
+
+void Transform::SetWorldRotation(const quat & rot)
+{
+	assert(false); // NotImplemented	
+	//SetLocalRot(); set local rot so that the object ends up at the new worldrotation
+	m_pData->m_WorldRotation = rot;
+	m_pData->m_Flags.ClearFlags(TransformFlag::WORLD_POSITION_OUTOFDATE);
+}
+
+quat Transform::GetWorldRotation()
+{
+	if (m_pData->m_Flags.HasFlags(TransformFlag::WORLD_ROTATION_OUTOFDATE))
+	{
+		DecomposeWorldMatrix();
+	}
+	return m_pData->m_WorldRotation;
+}
+
+void Transform::SetWorldEulerRotation(const vec3 & rot)
+{
+	SetWorldRotation(quat(glm::eulerAngleYXZ(rot.y, rot.x, rot.z)));
+}
+
+vec3 Transform::GetWorldEulerRotation()
+{
+	return eulerAngles(GetWorldRotation());
+}
+
+void Transform::SetWorldEulerRotationInDegrees(const vec3 & rot)
+{
+	SetWorldEulerRotation(rot * (glm::pi<float>() / 180.0f));
+}
+
+vec3 Transform::GetWorldEulerRotationInDegrees()
+{
+	return GetWorldEulerRotation() * (180.0f / glm::pi<float>());
+}
+
+vec3 Transform::GetWorldScale()
+{
+	if (m_pData->m_Flags.HasFlags(TransformFlag::WORLD_SCALE_OUTOFDATE))
+	{
+		DecomposeWorldMatrix();
+	}
+	return m_pData->m_WorldScale;
 }
 
 void Transform::Translate(const vec3 & delta)
 {
-	m_pData->m_Position += delta;
-	m_pData->m_Flags.PositionChanged();
+	SetLocalPosition(GetLocalPosition() + delta);
 }
 
 void Transform::Rotate(const quat& delta)
 {
-	m_pData->m_Rotation *= delta;
-	m_pData->m_Flags.RotationChanged();
+	SetLocalRotation(GetLocalRotation()*delta);
 }
 
 void Transform::RotateEuler(const vec3 & delta)
 {
-	m_pData->m_Rotation *= quat(glm::eulerAngleYXZ(delta.y, delta.x, delta.z));
-	m_pData->m_Flags.RotationChanged();
+	Rotate(glm::eulerAngleYXZ(delta.y, delta.x, delta.z));
 }
 
 void Transform::RotateEulerDegrees(const vec3 & delta)
 {
-	m_pData->m_Rotation *= quat(glm::eulerAngleYXZ((delta.y / 180.0f)*glm::pi<float>(), (delta.x / 180.0f)*glm::pi<float>(), (delta.z / 180.0f)*glm::pi<float>()));
-	m_pData->m_Flags.RotationChanged();
+	RotateEuler(delta * (glm::pi<float>() / 180.0f));
 }
 
-void Transform::Scale(const vec3 & delta)
+void Transform::Scale(const vec3 & multiplier)
 {
-	m_pData->m_Scale *= delta;
-	m_pData->m_Flags.ScaleChanged();
+	SetLocalScale(GetLocalScale()*multiplier);
 }
 
 mat4 Transform::GetWorldMatrix()
 {
-	if (m_pData->m_Flags.HasTransformChanged())
+	if (m_pData->m_Flags.HasFlags(TransformFlag::WORLD_MATRIX_OUTOFDATE))
 	{
 		CalculateWorldMatrix();
 	}
@@ -153,7 +240,33 @@ void Transform::CalculateWorldMatrix()
 	mat4& m_WorldMatrix = m_pData->m_WorldMatrix;
 	m_WorldMatrix = mat4(1.0f);
 	m_WorldMatrix *= GetParent().GetWorldMatrix();
-	m_WorldMatrix = glm::translate(m_WorldMatrix, GetPosition());
-	m_WorldMatrix *= glm::toMat4(GetRotation());
-	m_WorldMatrix = glm::scale(m_WorldMatrix, GetScale());
+	m_WorldMatrix = glm::translate(m_WorldMatrix, GetLocalPosition());
+	m_WorldMatrix *= glm::toMat4(GetLocalRotation());
+	m_WorldMatrix = glm::scale(m_WorldMatrix, GetLocalScale());
+
+	m_pData->m_Flags.ClearFlags(TransformFlag::WORLD_MATRIX_OUTOFDATE);
+}
+
+void Transform::DecomposeWorldMatrix()
+{
+	// TODO optimize, we only need 3/5 variables calculated
+	decompose(GetWorldMatrix()/*<- ensures we have the latest */, m_pData->m_WorldScale, m_pData->m_WorldRotation, m_pData->m_WorldPosition, vec3(), vec4());
+	m_pData->m_Flags.ClearFlags(TransformFlag::WORLD_POSITION_OUTOFDATE | TransformFlag::WORLD_ROTATION_OUTOFDATE | TransformFlag::WORLD_SCALE_OUTOFDATE);
+}
+
+void Transform::SetFlagsOnChildren(TransformFlag flags)
+{
+	//for (Transform& t : m_pData->m_Children)
+	//{
+	//	t.SetFlagsOnSelfAndChildren(flags);
+	//}
+}
+
+void Transform::SetFlagsOnSelfAndChildren(TransformFlag flags)
+{
+	//m_pData->m_Flags.SetFlags(flags);
+	//for (Transform& t : m_pData->m_Children)
+	//{
+	//	t.SetFlagsOnSelfAndChildren(flags);
+	//}
 }
