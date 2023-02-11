@@ -1,6 +1,6 @@
 
 # VulkanoEngine 1.0
-**[Showcase](https://jonasdem.github.io/VulkanoEngineShowcase)** and **[Source Code](https://github.com/JonasDeM/VulkanoEngine)**.
+
 ## Demo
 I included a demo executable for 64-bit Windows. You can find it [here](https://github.com/JonasDeM/VulkanoEngine/releases)
 ### Instructions
