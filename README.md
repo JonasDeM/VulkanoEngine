@@ -1,5 +1,6 @@
 
 # VulkanoEngine 1.0
+Small framework to learn more about the Vulkan graphics API.
 
 ## Demo
 I included a demo executable for 64-bit Windows. You can find it [here](https://github.com/JonasDeM/VulkanoEngine/releases)
